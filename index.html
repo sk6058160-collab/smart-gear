@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Gear – Driver ka Hisaab</title>
+<meta name="description" content="Smart Gear: NYC rideshare drivers ke liye earnings, expenses, trip profit calculator, shift tracker aur ride scanner.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark light">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Smart Gear">
+<meta name="application-name" content="Smart Gear">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#000;--card:#111113;--card2:#1b1b1f;--line:#2a2a30;--text:#fff;--muted:#9ca3af;
+  --accent:#22c55e;--accent-ink:#04120a;--warn:#f59e0b;--bad:#ef4444;--radius:16px;
+  --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);
+}
+html[data-theme="light"]{--bg:#f4f4f5;--card:#fff;--card2:#f1f1f3;--line:#e4e4e7;--text:#09090b;--muted:#6b7280;--accent:#16a34a;--accent-ink:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;font-size:16px;line-height:1.35}
+body{padding-top:var(--safe-t);padding-bottom:calc(76px + var(--safe-b));min-height:100vh;overscroll-behavior-y:contain}
+header.top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+header.top svg{width:32px;height:32px;flex:none}
+header.top h1{font-size:20px;margin:0;font-weight:800;letter-spacing:-.5px}
+header.top .sub{margin-left:auto;color:var(--muted);font-size:13px}
+main{padding:14px 14px 20px;max-width:640px;margin:0 auto}
+section.tab{display:none}section.tab.active{display:block}
+h2{font-size:22px;margin:4px 2px 12px;font-weight:800;letter-spacing:-.4px}
+h3{font-size:15px;margin:0 0 10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.hero{background:linear-gradient(160deg,#111 0%,#050505 100%);border-color:#222}
+html[data-theme="light"] .hero{background:#09090b;color:#fff}
+.hero .big{font-size:40px;font-weight:800;letter-spacing:-1px}
+.hero .lbl{color:#a1a1aa;font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.stat{background:var(--card2);border-radius:12px;padding:12px}
+.hero .stat{background:#1a1a1d}
+.stat .v{font-size:20px;font-weight:800}.stat .k{font-size:12px;color:var(--muted);margin-top:2px}
+.hero .stat .k{color:#a1a1aa}
+.pos{color:var(--accent)}.neg{color:var(--bad)}
+.bar{height:12px;background:#27272a;border-radius:99px;overflow:hidden;margin:8px 0 4px}
+.bar>i{display:block;height:100%;background:var(--accent);width:0;border-radius:99px;transition:width .4s}
+.row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}
+.muted{color:var(--muted)}.small{font-size:13px}
+button,.btn{font:inherit;border:0;border-radius:14px;min-height:50px;padding:0 18px;font-weight:700;cursor:pointer;background:var(--card2);color:var(--text);border:1px solid var(--line)}
+.btn-primary{background:var(--text);color:var(--bg);border-color:var(--text)}
+.btn-accent{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn-danger{background:transparent;color:var(--bad);border-color:var(--bad)}
+.btn-block{width:100%}
+button:active{transform:scale(.98)}
+.seg{display:flex;background:var(--card2);border-radius:14px;padding:4px;gap:4px;margin-bottom:12px;border:1px solid var(--line)}
+.seg button{flex:1;min-height:44px;border:0;background:transparent;border-radius:10px;color:var(--muted)}
+.seg button.on{background:var(--text);color:var(--bg)}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 2px 6px;font-weight:600}
+input,select,textarea{width:100%;font:inherit;font-size:17px;background:var(--card2);color:var(--text);border:1px solid var(--line);border-radius:12px;min-height:50px;padding:10px 14px;outline:none}
+input:focus,select:focus{border-color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:42px;padding:0 14px;border-radius:99px;font-weight:600;font-size:14px}
+.chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:0}
+.ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--card2);font-size:20px;flex:none}
+.list .t{flex:1;min-width:0}.list .t b{display:block;font-size:15px}.list .t span{font-size:12px;color:var(--muted)}
+.list .amt{font-weight:800;text-align:right}
+.list .act{display:flex;gap:4px}
+.list .act button{min-height:40px;width:40px;padding:0;border-radius:10px;font-size:16px}
+.dayhdr{font-size:13px;color:var(--muted);font-weight:700;margin:14px 4px 2px;display:flex;justify-content:space-between}
+.empty{text-align:center;color:var(--muted);padding:22px 8px}
+canvas{width:100%;height:180px;display:block}
+.verdict{border-radius:var(--radius);padding:18px;text-align:center;margin-top:12px;border:2px solid}
+.verdict .vt{font-size:34px;font-weight:900;letter-spacing:-.5px}
+.v-good{border-color:var(--accent);background:rgba(34,197,94,.12);color:var(--accent)}
+.v-ok{border-color:var(--warn);background:rgba(245,158,11,.12);color:var(--warn)}
+.v-bad{border-color:var(--bad);background:rgba(239,68,68,.12);color:var(--bad)}
+.timer{font-size:48px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:-1px;margin:6px 0}
+.live{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:6px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;background:var(--bg);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
+nav.tabs button{flex:1;min-width:0;min-height:64px;border:0;border-radius:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10.5px;font-weight:600;padding:0;white-space:nowrap}
+nav.tabs button .i{font-size:21px;line-height:1}
+nav.tabs button.on{color:var(--text)}
+nav.tabs button.on .i{filter:none}
+nav.tabs button.on::after{content:"";width:22px;height:3px;background:var(--accent);border-radius:3px;margin-top:2px}
+.fab-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:20;display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--card);border-radius:22px 22px 0 0;padding:14px 16px calc(18px + var(--safe-b));max-height:92vh;overflow:auto;transform:translateY(105%);visibility:hidden;transition:transform .25s,visibility .25s;max-width:640px;margin:0 auto;border-top:1px solid var(--line)}
+.sheet.open{transform:none;visibility:visible}.sheet-bg.open{display:block}
+.grab{width:44px;height:5px;background:var(--line);border-radius:9px;margin:0 auto 10px}
+.toast{position:fixed;left:50%;bottom:calc(84px + var(--safe-b));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:12px 18px;border-radius:12px;font-weight:700;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.kv{display:flex;justify-content:space-between;padding:10px 2px;border-bottom:1px dashed var(--line)}
+.kv:last-child{border-bottom:0}.kv b{font-weight:800}
+.rank{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;border-bottom:1px solid var(--line)}
+.rank:last-child{border-bottom:0}
+.rank .no{width:30px;height:30px;border-radius:9px;background:var(--card2);display:grid;place-items:center;font-weight:800;font-size:14px;flex:none}
+.rank:first-child .no{background:var(--accent);color:var(--accent-ink)}
+.rank .b{flex:1;min-width:0}.rank .b b{display:block;font-size:16px}
+.rank .why{font-size:12.5px;color:var(--muted);margin-top:3px}
+.rank .sc{font-weight:900;font-size:20px;text-align:right;min-width:44px}
+.sbar{height:6px;background:var(--card2);border-radius:9px;overflow:hidden;margin-top:7px}.sbar>i{display:block;height:100%;border-radius:9px}
+.maps{display:inline-flex;align-items:center;min-height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:700;margin-top:8px;background:var(--card2)}
+.seg.nowrap button{white-space:nowrap;font-size:14.5px;padding:0 6px}
+.note{border-color:var(--warn);background:rgba(245,158,11,.08)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--card2);border:1px solid var(--line);margin-left:4px;vertical-align:1px}
+.switch{display:flex;align-items:center;justify-content:space-between;min-height:50px}
+.switch input{width:52px;height:30px;min-height:0;accent-color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="top">
+  <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#000" stroke="#333" stroke-width="8"/><g fill="#fff"><rect x="238" y="70" width="36" height="52" rx="6"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(45 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(90 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(135 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(180 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(225 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(270 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(315 256 256)"/></g><circle cx="256" cy="256" r="150" fill="none" stroke="#fff" stroke-width="30"/><text x="256" y="300" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="130" letter-spacing="-6" fill="#fff">SG</text><circle cx="366" cy="146" r="26" fill="#22C55E" stroke="#000" stroke-width="10"/></svg>
+  <h1>Smart Gear</h1>
+  <span class="sub" id="hdrDate"></span>
+</header>
+
+<main>
+<!-- DASHBOARD -->
+<section class="tab active" id="tab-home">
+  <div class="card hero">
+    <div class="lbl">Aaj ka net profit</div>
+    <div class="big" id="dNet">$0</div>
+    <div class="bar"><i id="dGoalBar"></i></div>
+    <div class="row between small"><span class="lbl" id="dGoalTxt">Goal: $0</span><span class="lbl" id="dGoalPct">0%</span></div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="stat"><div class="v pos" id="dEarn">$0</div><div class="k">Kamai (earnings)</div></div>
+      <div class="stat"><div class="v neg" id="dExp">$0</div><div class="k">Kharcha (expenses)</div></div>
+      <div class="stat"><div class="v" id="dTrips">0</div><div class="k">Trips</div></div>
+      <div class="stat"><div class="v" id="dHours">0h 0m</div><div class="k">Online time</div></div>
+    </div>
+  </div>
+  <div class="fab-row">
+    <button class="btn-accent" data-add="earning">+ Kamai</button>
+    <button class="btn-primary" data-add="expense">+ Kharcha</button>
+  </div>
+  <div class="card" id="dShiftCard">
+    <div class="row between"><div><b id="dShiftState">Shift band hai</b><div class="small muted" id="dShiftSub">Online time track karne ke liye shift start karo</div></div>
+    <button class="btn-accent" id="dShiftBtn" style="min-width:110px">Start</button></div>
+  </div>
+  <div class="card">
+    <h3>Is hafte (last 7 din)</h3>
+    <div class="grid3">
+      <div class="stat"><div class="v pos" id="wEarn">$0</div><div class="k">Kamai</div></div>
+      <div class="stat"><div class="v neg" id="wExp">$0</div><div class="k">Kharcha</div></div>
+      <div class="stat"><div class="v" id="wNet">$0</div><div class="k">Net</div></div>
+    </div>
+    <div class="bar"><i id="wGoalBar"></i></div>
+    <div class="row between small muted"><span id="wGoalTxt">Weekly goal: $0</span><span id="wStats">0 trips · 0h</span></div>
+  </div>
+  <div class="card">
+    <h3>7 din ka chart</h3>
+    <canvas id="chartHome"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Kamai</span><span><i style="background:var(--bad)"></i>Kharcha</span></div>
+  </div>
+</section>
+
+<!-- TRACKER -->
+<section class="tab" id="tab-track">
+  <h2>Kamai aur Kharcha</h2>
+  <div class="fab-row">
+    <button class="btn-accent" data-add="earning">+ Kamai</button>
+    <button class="btn-primary" data-add="expense">+ Kharcha</button>
+  </div>
+  <div class="card">
+    <h3>Last 7 din</h3>
+    <canvas id="chartTrack"></canvas>
+    <div class="legend"><span><i style="background:var(--accent)"></i>Kamai</span><span><i style="background:var(--bad)"></i>Kharcha</span></div>
+  </div>
+  <div class="seg" id="filterSeg">
+    <button class="on" data-f="all">Sab</button><button data-f="earning">Kamai</button><button data-f="expense">Kharcha</button>
+  </div>
+  <div class="card" style="padding:6px 12px"><div id="entryList"></div></div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="tab" id="tab-calc">
+  <h2>Trip lena chahiye?</h2>
+  <div class="card">
+    <label for="cFare">Fare / driver pay offered ($)</label>
+    <input id="cFare" type="number" inputmode="decimal" placeholder="e.g. 24" min="0" step="any">
+    <div class="grid2">
+      <div><label for="cPickup">Deadhead / pickup (mi)</label><input id="cPickup" type="number" inputmode="decimal" placeholder="1.5" min="0" step="any"></div>
+      <div><label for="cTrip">Trip distance (mi)</label><input id="cTrip" type="number" inputmode="decimal" placeholder="8" min="0" step="any"></div>
+    </div>
+    <div class="grid2">
+      <div><label for="cMin">Total time (min)</label><input id="cMin" type="number" inputmode="numeric" placeholder="28" min="0"></div>
+      <div><label for="cTolls">Tolls / fees ($)</label><input id="cTolls" type="number" inputmode="decimal" placeholder="0" min="0" step="any"></div>
+    </div>
+    <div class="grid2">
+      <div><label for="cComm">Commission %</label><input id="cComm" type="number" inputmode="decimal" min="0" max="100"></div>
+      <div><label for="cMileage" id="cMileageLbl">MPG</label><input id="cMileage" type="number" inputmode="decimal" min="0" step="any"></div>
+      <div><label for="cFuel" id="cFuelLbl">Gas ($/gal)</label><input id="cFuel" type="number" inputmode="decimal" min="0" step="any"></div>
+    </div>
+    </div>
+    <p class="small muted" style="margin:10px 2px 0">MPG, gas price aur commission Settings se aate hain. NYC me app aksar driver pay (commission ke baad) dikhata hai – tab commission 0% rakho.</p>
+    <p class="small muted" style="margin:6px 2px 0">ℹ️ NYC TLC ka driver minimum pay rule hai (per-mile + per-minute, rates time-time pe update hote hain). Exact rates nyc.gov/tlc pe check karo.</p>
+  </div>
+  <div id="calcOut" class="card" style="display:none">
+    <div class="kv"><span>Total miles</span><b id="oKm">0 mi</b></div>
+    <div class="kv"><span>Deadhead</span><b id="oDead">0 mi</b></div>
+    <div class="kv"><span>Commission</span><b id="oComm">$0</b></div>
+    <div class="kv"><span>Gas / charging cost</span><b id="oFuel">$0</b></div>
+    <div class="kv"><span>Tolls / fees</span><b id="oTolls">$0</b></div>
+    <div class="kv"><span>Net earning</span><b id="oNet">$0</b></div>
+    <div class="kv"><span>Per mile (net)</span><b id="oPerKm">$0/mi</b></div>
+    <div class="kv"><span>Per hour (net)</span><b id="oPerHr">$0/hr</b></div>
+    <div class="verdict" id="oVerdict"><div class="vt" id="oVT">—</div><div class="small" id="oVS"></div></div>
+  </div>
+  <div class="grid2">
+    <button id="cClear">Clear</button>
+    <button class="btn-accent" id="cSave">Trip ko kamai me add karo</button>
+  </div>
+</section>
+
+<!-- RIDE SCANNER -->
+<section class="tab" id="tab-scan">
+  <h2>Ride Scanner</h2>
+  <div class="card note small"><b>⚠️ Andaza / estimate.</b> Ye real Uber/Lyft demand data nahi hai. Score aapki apni trip history aur time/din ke general pattern se banta hai.</div>
+  <div class="card">
+    <div class="row between"><span class="small muted">Kis time ke liye?</span><b class="small" id="scWhen"></b></div>
+    <div class="row" style="margin-top:8px"><button class="chip on" id="scNow" type="button">Abhi</button><input id="scTime" type="datetime-local" aria-label="Custom time" style="flex:1;min-width:0;font-size:15px;padding:10px"></div>
+  </div>
+  <div class="seg nowrap" id="scSeg"><button class="on" data-s="go">Kahan jao</button><button data-s="air">✈️ Airport</button><button data-s="areas">📍 Areas</button></div>
+  <div id="sc-go">
+    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Abhi yahan jao</h3><div id="goList"></div></div>
+  </div>
+  <div id="sc-air" style="display:none">
+    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Airport ride kahan milegi</h3><p class="small muted" style="margin:4px 2px 0">Wo areas jahan se JFK / LGA / EWR jaane wali ride milne ke chance zyada hain (airports khud list me nahi).</p><div id="airList"></div></div>
+  </div>
+  <div id="sc-areas" style="display:none">
+    <div class="card">
+      <h3>Naya hotspot area</h3>
+      <label for="hName">Naam</label><input id="hName" type="text" maxlength="60" placeholder="e.g. Hell's Kitchen">
+      <label for="hType">Type</label><select id="hType"></select>
+      <div class="row" style="margin-top:10px"><button type="button" id="hGps" style="flex:1">📍 Current GPS lo</button></div>
+      <div class="small muted" id="hGpsTxt" style="margin:6px 2px 0">Optional: location se Maps directions exact milega.</div>
+      <button type="button" class="btn-accent btn-block" id="hSave" style="margin-top:12px">Area save karo</button>
+      <button type="button" class="btn-block" id="hCancelEdit" style="margin-top:8px;display:none">Edit cancel</button>
+    </div>
+    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Saved areas</h3><div id="areaList"></div></div>
+    <button type="button" class="btn-block" id="hDefaults" style="margin-bottom:12px">🗽 NYC default areas wapas lao</button>
+  </div>
+</section>
+
+<!-- SHIFT & GOALS -->
+<section class="tab" id="tab-shift">
+  <h2>Shift aur Goals</h2>
+  <div class="card">
+    <div class="row between"><h3 style="margin:0">Shift timer</h3><span class="small muted" id="sState">Offline</span></div>
+    <div class="timer" id="sTimer">00:00:00</div>
+    <div class="small muted" style="text-align:center;margin-bottom:10px" id="sKm"></div>
+    <button class="btn-accent btn-block" id="sBtn">Shift start karo</button>
+    <div class="switch" style="margin-top:8px"><span class="small">GPS se miles track karo (optional)</span><input type="checkbox" id="sGps"></div>
+  </div>
+  <div class="card">
+    <h3>Goals</h3>
+    <div class="grid2">
+      <div><label for="gDaily">Daily goal ($)</label><input id="gDaily" type="number" inputmode="numeric" min="0"></div>
+      <div><label for="gWeekly">Weekly goal ($)</label><input id="gWeekly" type="number" inputmode="numeric" min="0"></div>
+    </div>
+    <div style="margin-top:14px">
+      <div class="row between small"><span>Aaj</span><span id="gDayTxt">$0 / $0</span></div>
+      <div class="bar"><i id="gDayBar"></i></div>
+      <div class="row between small" style="margin-top:8px"><span>Is hafte (Mon–Sun)</span><span id="gWeekTxt">$0 / $0</span></div>
+      <div class="bar"><i id="gWeekBar"></i></div>
+      <p class="small muted" id="gHint" style="margin:8px 2px 0"></p>
+    </div>
+  </div>
+  <div class="card" style="padding:6px 12px">
+    <h3 style="margin:10px 4px">Recent shifts</h3>
+    <div id="shiftList"></div>
+  </div>
+</section>
+
+<!-- SETTINGS -->
+<section class="tab" id="tab-settings">
+  <h2>Settings</h2>
+  <div class="card">
+    <h3>Gaadi</h3>
+    <label for="stVehicle">Vehicle type</label>
+    <select id="stVehicle"><option value="sedan">Sedan / Hybrid</option><option value="xl">SUV / XL</option><option value="black">Black / Luxury</option><option value="wav">Wheelchair accessible (WAV)</option><option value="ev">EV</option></select>
+    <label for="stFuelType">Fuel type</label>
+    <select id="stFuelType"><option value="gas">Gas</option><option value="hybrid">Hybrid (gas)</option><option value="ev">EV (mi/kWh, $/kWh)</option></select>
+    <div class="grid2">
+      <div><label for="stMileage" id="stMileageLbl">MPG</label><input id="stMileage" type="number" inputmode="decimal" min="0"></div>
+      <div><label for="stFuel" id="stFuelLbl">Gas ($/gal)</label><input id="stFuel" type="number" inputmode="decimal" min="0"></div>
+    </div>
+    <label for="stComm">Platform commission % (0 agar app driver pay dikhata hai)</label>
+    <input id="stComm" type="number" inputmode="decimal" min="0" max="100">
+  </div>
+  <div class="card">
+    <h3>Verdict thresholds (net)</h3>
+    <div class="grid2">
+      <div><label for="stGoodMi">Accha: $/mile ≥</label><input id="stGoodMi" type="number" inputmode="decimal" step="0.05"></div>
+      <div><label for="stOkMi">Theek: $/mile ≥</label><input id="stOkMi" type="number" inputmode="decimal" step="0.05"></div>
+      <div><label for="stGoodHr">Accha: $/hr ≥</label><input id="stGoodHr" type="number" inputmode="decimal"></div>
+      <div><label for="stOkHr">Theek: $/hr ≥</label><input id="stOkHr" type="number" inputmode="decimal"></div>
+    </div>
+    <p class="small muted" style="margin:10px 2px 0">Dono ($/mile aur $/hour) Accha level pe = <b class="pos">Accha</b>. Koi bhi Theek level se neeche = <b class="neg">Mat lo</b>. Baaki = Theek.</p>
+  </div>
+  <div class="card">
+    <h3>Scanner</h3>
+    <label for="stCity">City – Maps search ke liye</label>
+    <input id="stCity" type="text" maxlength="40" placeholder="New York, NY">
+  </div>
+  <div class="card">
+    <h3>Display</h3>
+    <label for="stTheme">Theme</label>
+    <select id="stTheme"><option value="dark">Dark (black)</option><option value="light">Light</option></select>
+  </div>
+  <div class="card">
+    <h3>Data</h3>
+    <button class="btn-block" id="stExport" style="margin-bottom:10px">⬇ Export CSV</button>
+    <button class="btn-block btn-danger" id="stClear">Saara data delete karo</button>
+    <p class="small muted" style="margin:10px 2px 0">Data sirf is phone pe save hota hai (offline). Koi account nahi, koi server nahi.</p>
+  </div>
+  <p class="small muted" style="text-align:center">Smart Gear v2.0 (NYC) · Not affiliated with Uber, Lyft, Revel or NYC TLC.</p>
+</section>
+</main>
+
+<nav class="tabs" id="tabs">
+  <button class="on" data-tab="home"><span class="i">🏠</span>Home</button>
+  <button data-tab="track"><span class="i">📒</span>Hisaab</button>
+  <button data-tab="calc"><span class="i">🧮</span>Calculator</button>
+  <button data-tab="scan"><span class="i">📡</span>Scanner</button>
+  <button data-tab="shift"><span class="i">⏱️</span>Shift</button>
+  <button data-tab="settings"><span class="i">⚙️</span>Settings</button>
+</nav>
+
+<div class="sheet-bg" id="sheetBg"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <h2 id="shTitle">Kamai add karo</h2>
+  <form id="shForm" autocomplete="off">
+    <label for="fAmount">Amount ($)</label>
+    <input id="fAmount" type="number" inputmode="decimal" min="0" step="0.01" required placeholder="0.00">
+    <label for="fDate">Date</label>
+    <input id="fDate" type="date" required>
+    <div id="fEarnFields">
+      <label>Platform</label>
+      <div class="chips" id="fPlatform"></div>
+      <label>Payment</label>
+      <div class="seg" id="fMode" style="margin:0"><button type="button" data-v="app" class="on">App</button><button type="button" data-v="cash">Cash</button></div>
+      <div class="grid2">
+        <div><label for="fTrips">Trips</label><input id="fTrips" type="number" inputmode="numeric" min="0" placeholder="1"></div>
+        <div><label for="fTips">Tips ($)</label><input id="fTips" type="number" inputmode="decimal" min="0" placeholder="0"></div>
+      </div>
+      <div class="grid2">
+        <div><label for="fTime">Time</label><input id="fTime" type="time"></div>
+        <div><label for="fArea">Pickup area</label><select id="fArea"></select></div>
+      </div>
+      <div class="switch"><label for="fAirport" style="margin:0;font-size:15px;color:var(--text)">✈️ Airport drop tha?</label><input type="checkbox" id="fAirport"></div>
+    </div>
+    <div id="fExpFields">
+      <label>Category</label>
+      <div class="chips" id="fCat"></div>
+    </div>
+    <label for="fNote">Note (optional)</label>
+    <input id="fNote" type="text" maxlength="80" placeholder="">
+    <div class="grid2" style="margin-top:16px">
+      <button type="button" id="shCancel">Cancel</button>
+      <button type="submit" class="btn-accent" id="shSave">Save</button>
+    </div>
+  </form>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='smartgear_v1';
+var PLATFORMS=['Uber','Lyft','Other'];
+var PLABEL={Uber:'Uber',Lyft:'Lyft',Other:'Revel/Other'};
+var CATS={gas:['⛽','Gas / Charging'],tolls:['🌉','Tolls (bridge/tunnel)'],congestion:['🚦','Congestion / MTA fee'],parking:['🅿️','Parking & tickets'],rental:['🚙','Rental / Lease (TLC)'],insurance:['🛡️','Insurance (TLC)'],tlc:['🪪','TLC license / inspection / drug test'],wash:['🧽','Car wash'],maintenance:['🔧','Maintenance'],food:['🍔','Food'],phone:['📱','Phone'],other:['📦','Other']};
+var CAT_HINT={tolls:'e.g. Verrazzano, RFK, Holland, Lincoln, GW',congestion:'e.g. congestion pricing / MTA surcharge',parking:'e.g. meter, garage, ticket',rental:'e.g. weekly TLC rental',insurance:'e.g. TLC commercial policy',tlc:'e.g. license renewal, inspection',gas:'e.g. Shell, Costco, charger'};
+var PICONS={Uber:'🚘',Lyft:'🚗',Other:'🛵'};
+var DEFAULTS={vehicle:'sedan',fuelType:'hybrid',mileage:45,fuelPrice:3.5,commission:0,goodMi:2,okMi:1.25,goodHr:40,okHr:25,dailyGoal:250,weeklyGoal:1500,theme:'dark',gps:false,city:'New York, NY'};
+var FUEL_DEFAULTS={gas:[28,3.5],hybrid:[45,3.5],ev:[3.5,0.45]};
+var NYC_SPOTS=[
+ ['nyc-midtown','Midtown Manhattan','office',40.7549,-73.9840],['nyc-timessq','Times Square','tourist',40.7580,-73.9855],
+ ['nyc-penn','Penn Station','railway',40.7506,-73.9935],['nyc-gct','Grand Central','railway',40.7527,-73.9772],
+ ['nyc-pa','Port Authority Bus Terminal','bus',40.7570,-73.9903],['nyc-fidi','Financial District / Wall St','office',40.7069,-74.0113],
+ ['nyc-hy','Hudson Yards','office',40.7538,-74.0021],['nyc-soho','SoHo','market',40.7233,-74.0030],
+ ['nyc-les','Lower East Side','nightlife',40.7150,-73.9843],['nyc-meat','Meatpacking District','nightlife',40.7410,-74.0080],
+ ['nyc-wburg','Williamsburg','nightlife',40.7081,-73.9571],['nyc-dtbk','Downtown Brooklyn','office',40.6928,-73.9903],
+ ['nyc-lic','Long Island City','residential',40.7447,-73.9485],['nyc-astoria','Astoria','residential',40.7644,-73.9235],
+ ['nyc-barclays','Barclays Center','arena',40.6826,-73.9754],['nyc-msg','Madison Square Garden','arena',40.7505,-73.9934],
+ ['nyc-ues','Upper East Side','upscale',40.7736,-73.9566],['nyc-uws','Upper West Side','upscale',40.7870,-73.9754],
+ ['nyc-bkh','Brooklyn Heights / Park Slope','upscale',40.6782,-73.9860],['nyc-hotels','Midtown hotels','hotel',40.7614,-73.9776],
+ ['nyc-jfk','JFK Airport','airport',40.6413,-73.7781],['nyc-lga','LaGuardia (LGA)','airport',40.7769,-73.8740],
+ ['nyc-ewr','Newark (EWR)','airport',40.6895,-74.1745]];
+function nycDefaults(){return NYC_SPOTS.map(function(a){return {id:a[0],name:a[1],type:a[2],lat:a[3],lon:a[4],preset:true}})}
+
+
+function $(id){return document.getElementById(id)}
+function num(v){var n=parseFloat(v);return isFinite(n)?n:0}
+function usd(n,dec){n=Number(n)||0;var neg=n<0;n=Math.abs(n);if(dec==null)dec=(n<1000&&Math.round(n*100)%100!==0)?2:0;var s=n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return (neg?'-':'')+'$'+s}
+function pad(n){return (n<10?'0':'')+n}
+function ymd(d){d=d||new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function parseYmd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmtDur(ms){var m=Math.floor(ms/60000);return Math.floor(m/60)+'h '+(m%60)+'m'}
+function dayLabel(s){var t=ymd(),y=ymd(addDays(new Date(),-1));if(s===t)return 'Aaj';if(s===y)return 'Kal';return parseYmd(s).toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'})}
+
+// ---------- storage ----------
+var state;
+function blank(){return {earnings:[],expenses:[],shifts:[],hotspots:nycDefaults(),settings:Object.assign({},DEFAULTS),active:null}}
+function load(){
+  try{var s=JSON.parse(localStorage.getItem(KEY));if(!s||typeof s!=='object')throw 0;
+    var b=blank();state={earnings:Array.isArray(s.earnings)?s.earnings:[],expenses:Array.isArray(s.expenses)?s.expenses:[],shifts:Array.isArray(s.shifts)?s.shifts:[],hotspots:Array.isArray(s.hotspots)?s.hotspots:[],settings:Object.assign(b.settings,s.settings||{}),active:s.active||null};
+  }catch(e){state=blank()}
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Save nahi hua: storage full?')}}
+var S=function(){return state.settings};
+
+// ---------- aggregates ----------
+function sumDay(d){
+  var e=0,x=0,trips=0,tips=0;
+  state.earnings.forEach(function(r){if(r.date===d){e+=num(r.amount)+num(r.tips);trips+=num(r.trips);tips+=num(r.tips)}});
+  state.expenses.forEach(function(r){if(r.date===d)x+=num(r.amount)});
+  return {earn:e,exp:x,net:e-x,trips:trips,tips:tips,online:onlineMs(d)};
+}
+function onlineMs(d){
+  var ms=0;state.shifts.forEach(function(s){if(s.date===d)ms+=Math.max(0,s.end-s.start)});
+  if(state.active&&ymd(new Date(state.active.start))===d)ms+=Date.now()-state.active.start;
+  return ms;
+}
+function sumRange(days){var o={earn:0,exp:0,net:0,trips:0,online:0};days.forEach(function(d){var s=sumDay(d);for(var k in o)o[k]+=s[k]});return o}
+function last7(){var a=[];for(var i=6;i>=0;i--)a.push(ymd(addDays(new Date(),-i)));return a}
+function thisWeek(){var t=new Date();var dow=(t.getDay()+6)%7;var a=[];for(var i=0;i<7;i++)a.push(ymd(addDays(t,i-dow)));return a}
+
+// ---------- UI helpers ----------
+var toastT;
+function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2000)}
+function setBar(el,pct){el.style.width=Math.max(0,Math.min(100,pct))+'%'}
+
+// ---------- tabs ----------
+var current='home';
+function showTab(name){
+  current=name;
+  document.querySelectorAll('section.tab').forEach(function(s){s.classList.toggle('active',s.id==='tab-'+name)});
+  document.querySelectorAll('#tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===name)});
+  window.scrollTo(0,0);
+  render();
+  try{history.replaceState(null,'','#'+name)}catch(e){}
+}
+$('tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)showTab(b.dataset.tab)});
+
+// ---------- chart ----------
+function drawChart(cv){
+  if(!cv||!cv.offsetParent)return;
+  var dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
+  cv.width=w*dpr;cv.height=h*dpr;var c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+  var cs=getComputedStyle(document.documentElement);
+  var cA=cs.getPropertyValue('--accent').trim(),cB=cs.getPropertyValue('--bad').trim(),cM=cs.getPropertyValue('--muted').trim(),cL=cs.getPropertyValue('--line').trim();
+  var days=last7(),data=days.map(sumDay),max=1;data.forEach(function(d){max=Math.max(max,d.earn,d.exp)});
+  var top=18,bot=22,ch=h-top-bot,slot=w/7,bw=Math.min(16,slot/3.2);
+  c.strokeStyle=cL;c.lineWidth=1;c.beginPath();c.moveTo(0,top+ch+.5);c.lineTo(w,top+ch+.5);c.stroke();
+  c.font='600 11px Inter,Arial,sans-serif';c.textAlign='center';
+  data.forEach(function(d,i){
+    var x=slot*i+slot/2,he=ch*d.earn/max,hx=ch*d.exp/max;
+    c.fillStyle=cA;rr(c,x-bw-1,top+ch-he,bw,he);c.fillStyle=cB;rr(c,x+1,top+ch-hx,bw,hx);
+    c.fillStyle=cM;var dd=parseYmd(days[i]);c.fillText(i===6?'Aaj':dd.toLocaleDateString('en-US',{weekday:'short'}),x,h-6);
+    if(d.earn>0){c.fillText(d.earn>=1000?(d.earn/1000).toFixed(1)+'k':Math.round(d.earn),x,top+ch-Math.max(he,hx)-5)}
+  });
+}
+function rr(c,x,y,w,h){if(h<=0)return;var r=Math.min(4,w/2,h);c.beginPath();c.moveTo(x,y+h);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h);c.closePath();c.fill()}
+
+// ---------- render ----------
+function render(){
+  var st=S();
+  document.documentElement.dataset.theme=st.theme;
+  $('hdrDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'});
+  if(current==='home')renderHome();
+  if(current==='track')renderTrack();
+  if(current==='shift')renderShift();
+  if(current==='settings')renderSettings();
+  if(current==='calc')initCalc();
+  if(current==='scan')renderScan();
+}
+function renderHome(){
+  var st=S(),t=sumDay(ymd());
+  $('dNet').textContent=usd(t.net);$('dNet').className='big'+(t.net<0?' neg':'');
+  $('dEarn').textContent=usd(t.earn);$('dExp').textContent=usd(t.exp);$('dTrips').textContent=t.trips;$('dHours').textContent=fmtDur(t.online);
+  var pct=st.dailyGoal>0?t.net/st.dailyGoal*100:0;setBar($('dGoalBar'),pct);
+  $('dGoalTxt').textContent='Goal: '+usd(st.dailyGoal)+(t.net<st.dailyGoal?' · '+usd(st.dailyGoal-t.net)+' baaki':' · Goal poora! 🎉');
+  $('dGoalPct').textContent=Math.max(0,Math.round(pct))+'%';
+  var w=sumRange(last7());
+  $('wEarn').textContent=usd(w.earn);$('wExp').textContent=usd(w.exp);$('wNet').textContent=usd(w.net);$('wNet').className='v '+(w.net<0?'neg':'');
+  var wk=sumRange(thisWeek());setBar($('wGoalBar'),st.weeklyGoal>0?wk.net/st.weeklyGoal*100:0);
+  $('wGoalTxt').textContent='Weekly goal: '+usd(wk.net)+' / '+usd(st.weeklyGoal);
+  $('wStats').textContent=w.trips+' trips · '+fmtDur(w.online);
+  var a=state.active;
+  $('dShiftState').innerHTML=a?'<span class="live"></span>Online – shift chalu':'Shift band hai';
+  $('dShiftSub').textContent=a?('Start: '+new Date(a.start).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · '+fmtDur(Date.now()-a.start)):'Online time track karne ke liye shift start karo';
+  $('dShiftBtn').textContent=a?'Stop':'Start';$('dShiftBtn').className=a?'btn-danger':'btn-accent';
+  drawChart($('chartHome'));
+}
+var filter='all';
+$('filterSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filter=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});renderTrack()});
+function renderTrack(){
+  drawChart($('chartTrack'));
+  var items=[];
+  if(filter!=='expense')state.earnings.forEach(function(r){items.push({k:'earning',r:r})});
+  if(filter!=='earning')state.expenses.forEach(function(r){items.push({k:'expense',r:r})});
+  items.sort(function(a,b){return a.r.date<b.r.date?1:a.r.date>b.r.date?-1:(b.r.ts||0)-(a.r.ts||0)});
+  if(!items.length){$('entryList').innerHTML='<div class="empty">Abhi koi entry nahi.<br>Upar se Kamai ya Kharcha add karo.</div>';return}
+  var html='',lastD=null;
+  items.slice(0,300).forEach(function(it){
+    var r=it.r;
+    if(r.date!==lastD){if(lastD!==null)html+='</ul>';var s=sumDay(r.date);html+='<div class="dayhdr"><span>'+esc(dayLabel(r.date))+'</span><span>Net '+usd(s.net)+'</span></div><ul class="list">';lastD=r.date}
+    if(it.k==='earning'){
+      var tot=num(r.amount)+num(r.tips);
+      html+='<li><div class="ico">'+(PICONS[r.platform]||'💼')+'</div><div class="t"><b>'+esc(PLABEL[r.platform]||r.platform)+' · '+(r.mode==='cash'?'Cash':'App')+'</b><span>'+num(r.trips)+' trip'+(num(r.trips)===1?'':'s')+(num(r.tips)?' · tips '+usd(r.tips):'')+(r.area&&hotspotById(r.area)?' · 📍'+esc(hotspotById(r.area).name):'')+(r.airport?' · ✈️ airport':'')+(r.note?' · '+esc(r.note):'')+'</span></div><div class="amt pos">+'+usd(tot)+'</div>';
+    }else{
+      var c=CATS[r.cat]||CATS.other;
+      html+='<li><div class="ico">'+c[0]+'</div><div class="t"><b>'+c[1]+'</b><span>'+(r.note?esc(r.note):'Kharcha')+'</span></div><div class="amt neg">-'+usd(r.amount)+'</div>';
+    }
+    html+='<div class="act"><button aria-label="Edit" data-edit="'+it.k+':'+r.id+'">✏️</button><button aria-label="Delete" data-del="'+it.k+':'+r.id+'">🗑️</button></div></li>';
+  });
+  html+='</ul>';$('entryList').innerHTML=html;
+}
+$('entryList').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.edit){var p=b.dataset.edit.split(':');openSheet(p[0],p[1])}
+  if(b.dataset.del){var q=b.dataset.del.split(':');if(confirm('Ye entry delete karein?')){var arr=q[0]==='earning'?state.earnings:state.expenses;var i=arr.findIndex(function(x){return x.id===q[1]});if(i>=0){arr.splice(i,1);save();render();toast('Delete ho gaya')}}}
+});
+
+// ---------- sheet (add/edit) ----------
+var sheetKind='earning',editId=null,selPlatform='Uber',selMode='app',selCat='gas';
+function chips(el,list,sel,labelFn){el.innerHTML=list.map(function(v){return '<button type="button" class="chip'+(v===sel?' on':'')+'" data-v="'+v+'">'+labelFn(v)+'</button>'}).join('')}
+function openSheet(kind,id){
+  sheetKind=kind;editId=id||null;
+  var r=null;if(id){r=(kind==='earning'?state.earnings:state.expenses).find(function(x){return x.id===id})}
+  $('shTitle').textContent=(id?'Edit ':'')+(kind==='earning'?'Kamai':'Kharcha')+(id?'':' add karo');
+  $('fEarnFields').style.display=kind==='earning'?'':'none';$('fExpFields').style.display=kind==='expense'?'':'none';
+  $('fAmount').value=r?r.amount:'';$('fDate').value=r?r.date:ymd();$('fNote').value=r&&r.note?r.note:'';
+  $('fNote').placeholder=kind==='earning'?'e.g. JFK run':(CAT_HINT[selCat]||'');
+  selPlatform=r&&r.platform||lastPlatform();selMode=r&&r.mode||'app';selCat=r&&r.cat||'gas';
+  $('fTrips').value=r?(r.trips||''):'1';
+  $('fTime').value=r&&r.time?r.time:(r?pad(new Date(r.ts||Date.now()).getHours())+':'+pad(new Date(r.ts||Date.now()).getMinutes()):pad(new Date().getHours())+':'+pad(new Date().getMinutes()));
+  $('fArea').innerHTML='<option value="">— koi nahi —</option>'+state.hotspots.map(function(h){return '<option value="'+h.id+'">'+esc((TYPES[h.type]||TYPES.market)[0]+' '+h.name)+'</option>'}).join('');
+  $('fArea').value=r&&r.area&&hotspotById(r.area)?r.area:'';$('fAirport').checked=!!(r&&r.airport);$('fTips').value=r&&r.tips?r.tips:'';
+  chips($('fPlatform'),PLATFORMS,selPlatform,function(v){return PICONS[v]+' '+PLABEL[v]});
+  if(kind==='expense')$('fNote').placeholder=CAT_HINT[selCat]||'';
+  chips($('fCat'),Object.keys(CATS),selCat,function(v){return CATS[v][0]+' '+CATS[v][1]});
+  $('fMode').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.v===selMode)});
+  $('sheet').classList.add('open');$('sheetBg').classList.add('open');
+  setTimeout(function(){$('fAmount').focus()},250);
+}
+function lastPlatform(){var e=state.earnings[state.earnings.length-1];return e&&PLABEL[e.platform]?e.platform:'Uber'}
+function closeSheet(){$('sheet').classList.remove('open');$('sheetBg').classList.remove('open');document.activeElement&&document.activeElement.blur()}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-add]');if(b)openSheet(b.dataset.add)});
+$('sheetBg').addEventListener('click',closeSheet);$('shCancel').addEventListener('click',closeSheet);
+$('fPlatform').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;selPlatform=b.dataset.v;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})});
+$('fCat').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;selCat=b.dataset.v;$('fNote').placeholder=CAT_HINT[selCat]||'';this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})});
+$('fMode').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;selMode=b.dataset.v;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})});
+$('shForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var amt=num($('fAmount').value);if(amt<=0){toast('Amount daalo');$('fAmount').focus();return}
+  var date=$('fDate').value||ymd();
+  var rec;
+  if(sheetKind==='earning')rec={amount:amt,date:date,platform:selPlatform,mode:selMode,trips:Math.max(0,Math.round(num($('fTrips').value))),tips:Math.max(0,num($('fTips').value)),note:$('fNote').value.trim(),time:$('fTime').value||'',area:$('fArea').value||'',airport:$('fAirport').checked};
+  else rec={amount:amt,date:date,cat:selCat,note:$('fNote').value.trim()};
+  var arr=sheetKind==='earning'?state.earnings:state.expenses;
+  if(editId){var o=arr.find(function(x){return x.id===editId});if(o)Object.assign(o,rec)}
+  else{rec.id=uid();rec.ts=Date.now();arr.push(rec)}
+  save();closeSheet();render();toast(editId?'Update ho gaya ✔':(sheetKind==='earning'?'Kamai save ✔':'Kharcha save ✔'));
+});
+
+// ---------- calculator ----------
+var calcInit=false;
+function unitLbl(){return S().fuelType==='ev'?['mi/kWh','$/kWh','Charging']:['MPG','$/gal','Gas']}
+function initCalc(){
+  var st=S(),u=unitLbl();
+  $('cMileageLbl').textContent=u[0];$('cFuelLbl').textContent=u[2]+' ('+u[1]+')';
+  if(!calcInit||!$('cMileage').dataset.touched)$('cMileage').value=st.mileage;
+  if(!calcInit||!$('cFuel').dataset.touched)$('cFuel').value=st.fuelPrice;
+  if(!calcInit||!$('cComm').dataset.touched)$('cComm').value=st.commission;
+  calcInit=true;calc();
+}
+['cMileage','cFuel','cComm'].forEach(function(id){$(id).addEventListener('input',function(){this.dataset.touched='1'})});
+['cFare','cPickup','cTrip','cMin','cTolls','cComm','cMileage','cFuel'].forEach(function(id){$(id).addEventListener('input',calc)});
+var lastCalc=null;
+function calc(){
+  var st=S(),fare=num($('cFare').value),pk=num($('cPickup').value),tr=num($('cTrip').value),min=num($('cMin').value),comm=num($('cComm').value),mil=num($('cMileage').value),fp=num($('cFuel').value),tolls=num($('cTolls').value);
+  if(fare<=0||(pk+tr)<=0){$('calcOut').style.display='none';lastCalc=null;return}
+  var km=pk+tr,commAmt=fare*comm/100,fuel=mil>0?km/mil*fp:0,net=fare-commAmt-fuel-tolls,perKm=net/km,perHr=min>0?net/(min/60):null;
+  $('calcOut').style.display='';
+  $('oKm').textContent=km.toFixed(1)+' mi';$('oDead').textContent=pk.toFixed(1)+' mi ('+Math.round(pk/km*100)+'%)';$('oComm').textContent=usd(commAmt,2);$('oFuel').textContent=usd(fuel,2);$('oTolls').textContent=usd(tolls,2);
+  $('oNet').textContent=usd(net,2);$('oNet').className=net<0?'neg':'pos';
+  $('oPerKm').textContent=usd(perKm,2)+'/mi';$('oPerHr').textContent=perHr==null?'— (time daalo)':usd(perHr,2)+'/hr';
+  var v,why=[];
+  var kmLvl=perKm>=st.goodMi?2:perKm>=st.okMi?1:0,hrLvl=perHr==null?kmLvl:(perHr>=st.goodHr?2:perHr>=st.okHr?1:0);
+  if(net<=0||kmLvl===0||hrLvl===0)v=0;else if(kmLvl===2&&hrLvl===2)v=2;else v=1;
+  if(net<=0)why.push('Is trip me loss hai');
+  else{why.push('$/mi '+(kmLvl===2?'badhiya':kmLvl===1?'theek':'kam')+' ('+perKm.toFixed(2)+')');if(perHr!=null)why.push('$/hr '+(hrLvl===2?'badhiya':hrLvl===1?'theek':'kam')+' ('+perHr.toFixed(0)+')')}
+  if(pk>tr&&tr>0)why.push('deadhead trip se lamba hai');else if(km>0&&pk/km>0.35)why.push('deadhead zyada ('+Math.round(pk/km*100)+'%)');
+  var el=$('oVerdict');el.className='verdict '+['v-bad','v-ok','v-good'][v];
+  $('oVT').textContent=['❌ Mat lo','🤔 Theek hai','✅ Accha hai'][v];$('oVS').textContent=why.join(' · ');
+  lastCalc={fare:fare,net:net,verdict:v};
+}
+$('cClear').addEventListener('click',function(){['cFare','cPickup','cTrip','cMin','cTolls'].forEach(function(id){$(id).value=''});['cMileage','cFuel','cComm'].forEach(function(id){delete $(id).dataset.touched});calcInit=false;initCalc()});
+$('cSave').addEventListener('click',function(){
+  var fare=num($('cFare').value);if(fare<=0){toast('Pehle fare daalo');return}
+  var comm=num($('cComm').value);
+  state.earnings.push({id:uid(),ts:Date.now(),date:ymd(),amount:Math.round((fare-fare*comm/100)*100)/100,platform:lastPlatform(),mode:'app',trips:1,tips:0,note:'Calculator se (fare '+usd(fare)+')',time:pad(new Date().getHours())+':'+pad(new Date().getMinutes())});
+  if(lastCalc){var tl=num($('cTolls').value),fuel=fare-fare*comm/100-lastCalc.net-tl;if(fuel>0)state.expenses.push({id:uid(),ts:Date.now(),date:ymd(),amount:Math.round(fuel*100)/100,cat:'gas',note:'Trip gas (estimate)'});if(tl>0)state.expenses.push({id:uid(),ts:Date.now(),date:ymd(),amount:tl,cat:'tolls',note:'Trip tolls'})}
+  save();toast('Earning (commission ke baad) + gas/tolls expense add ✔');
+});
+
+// ---------- shift ----------
+var geoWatch=null;
+function startShift(){state.active={start:Date.now(),km:0,last:null};save();if(S().gps)startGeo();render();toast('Shift start ✔ Online ho gaye')}
+function stopShift(){
+  var a=state.active;if(!a)return;stopGeo();
+  var start=a.start,end=Date.now();
+  // split across midnight so online hours land on the right day
+  while(ymd(new Date(start))!==ymd(new Date(end))){var mid=new Date(start);mid.setHours(24,0,0,0);state.shifts.push({id:uid(),date:ymd(new Date(start)),start:start,end:mid.getTime(),km:0});start=mid.getTime()}
+  state.shifts.push({id:uid(),date:ymd(new Date(start)),start:start,end:end,km:Math.round((a.km||0)*10)/10});
+  state.active=null;save();render();toast('Shift band. Online: '+fmtDur(end-a.start));
+}
+function toggleShift(){state.active?(confirm('Shift band karein?')&&stopShift()):startShift()}
+$('dShiftBtn').addEventListener('click',toggleShift);$('sBtn').addEventListener('click',toggleShift);
+function hav(a,b){var R=3958.8,r=Math.PI/180,dLa=(b.lat-a.lat)*r,dLo=(b.lon-a.lon)*r,x=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)*Math.sin(dLo/2);return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))}
+function startGeo(){
+  if(geoWatch!==null||!state.active)return;
+  if(!('geolocation' in navigator)){toast('GPS support nahi hai');return}
+  geoWatch=navigator.geolocation.watchPosition(function(p){
+    var a=state.active;if(!a)return;if(p.coords.accuracy>60)return;
+    var pt={lat:p.coords.latitude,lon:p.coords.longitude};
+    if(a.last){var d=hav(a.last,pt);if(d>0.0125&&d<1.25){a.km=(a.km||0)+d;a.last=pt;save()}else if(d>=1.25){a.last=pt}}else{a.last=pt;save()}
+  },function(err){toast(err.code===1?'Location permission nahi mili':'GPS signal nahi mil raha');stopGeo()},{enableHighAccuracy:true,maximumAge:5000,timeout:30000});
+}
+function stopGeo(){if(geoWatch!==null){navigator.geolocation.clearWatch(geoWatch);geoWatch=null}}
+$('sGps').addEventListener('change',function(){S().gps=this.checked;save();if(this.checked&&state.active)startGeo();if(!this.checked)stopGeo()});
+function renderShift(){
+  var st=S(),a=state.active;
+  $('sGps').checked=!!st.gps;
+  $('sBtn').textContent=a?'Shift stop karo':'Shift start karo';$('sBtn').className='btn-block '+(a?'btn-danger':'btn-accent');
+  $('sState').innerHTML=a?'<span class="live"></span>Online':'Offline';
+  tick();
+  if(document.activeElement!==$('gDaily'))$('gDaily').value=st.dailyGoal;
+  if(document.activeElement!==$('gWeekly'))$('gWeekly').value=st.weeklyGoal;
+  var t=sumDay(ymd()),w=sumRange(thisWeek());
+  $('gDayTxt').textContent=usd(t.net)+' / '+usd(st.dailyGoal);setBar($('gDayBar'),st.dailyGoal?t.net/st.dailyGoal*100:0);
+  $('gWeekTxt').textContent=usd(w.net)+' / '+usd(st.weeklyGoal);setBar($('gWeekBar'),st.weeklyGoal?w.net/st.weeklyGoal*100:0);
+  var left=st.dailyGoal-t.net,hint='';
+  if(left<=0)hint='Aaj ka goal poora ho gaya 🎉';
+  else{var hrs=t.online/3600000;if(hrs>0.25&&t.net>0){var rate=t.net/hrs;hint='Aapki speed '+usd(rate)+'/hr hai. Goal ke liye lagbhag '+(left/rate).toFixed(1)+' ghante aur.'}else hint='Goal ke liye '+usd(left)+' aur chahiye.'}
+  $('gHint').textContent=hint;
+  var list=state.shifts.slice().sort(function(a,b){return b.start-a.start}).slice(0,15);
+  $('shiftList').innerHTML=list.length?'<ul class="list">'+list.map(function(s){var f=function(x){return new Date(x).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})};return '<li><div class="ico">⏱️</div><div class="t"><b>'+fmtDur(s.end-s.start)+'</b><span>'+esc(dayLabel(s.date))+' · '+f(s.start)+' – '+f(s.end)+(s.km?' · '+s.km+' mi':'')+'</span></div><div class="act"><button aria-label="Delete" data-sdel="'+s.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">Abhi koi shift nahi.</div>';
+}
+$('shiftList').addEventListener('click',function(e){var b=e.target.closest('[data-sdel]');if(!b)return;if(confirm('Ye shift delete karein?')){state.shifts=state.shifts.filter(function(s){return s.id!==b.dataset.sdel});save();render()}});
+function tick(){
+  var a=state.active,ms=a?Date.now()-a.start:0,s=Math.floor(ms/1000);
+  $('sTimer').textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60);
+  $('sKm').textContent=a&&S().gps?('GPS distance: '+(a.km||0).toFixed(1)+' mi'):(a?'':'Shift start karke online time record karo');
+}
+setInterval(function(){if(!state.active)return;if(current==='shift')tick();else if(current==='home'){$('dShiftSub').textContent='Start: '+new Date(state.active.start).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · '+fmtDur(Date.now()-state.active.start);$("dHours").textContent=fmtDur(onlineMs(ymd()))}},250);
+function goalInput(id,key){$(id).addEventListener('change',function(){S()[key]=Math.max(0,num(this.value));save();render()})}
+goalInput('gDaily','dailyGoal');goalInput('gWeekly','weeklyGoal');
+
+// ---------- settings ----------
+var SMAP={stVehicle:'vehicle',stFuelType:'fuelType',stMileage:'mileage',stFuel:'fuelPrice',stComm:'commission',stGoodMi:'goodMi',stOkMi:'okMi',stGoodHr:'goodHr',stOkHr:'okHr',stTheme:'theme',stCity:'city'};
+function renderSettings(){var st=S(),u=unitLbl();for(var id in SMAP){if(document.activeElement!==$(id))$(id).value=st[SMAP[id]]}$('stMileageLbl').textContent=u[0];$('stFuelLbl').textContent=u[2]+' ('+u[1]+')'}
+Object.keys(SMAP).forEach(function(id){$(id).addEventListener('change',function(){
+  var k=SMAP[id],el=this;
+  if(el.tagName==='SELECT'||el.type==='text')S()[k]=el.value.trim()||(k==='city'?DEFAULTS.city:'');else S()[k]=Math.max(0,num(el.value));
+  if(k==='fuelType'){var d=FUEL_DEFAULTS[el.value];if(d&&confirm('Default '+(el.value==='ev'?d[0]+' mi/kWh aur $'+d[1]+'/kWh':d[0]+' MPG aur $'+d[1]+'/gal')+' set karein?')){S().mileage=d[0];S().fuelPrice=d[1]}}
+  if(k==='commission')S()[k]=Math.min(100,S()[k]);
+  save();calcInit=false;render();toast('Settings save ✔');
+})});
+function csvCell(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function buildCsv(){
+  var rows=[['type','date','amount_usd','platform_or_category','payment_mode','trips','tips_inr','note','time','area','airport_drop']];
+  state.earnings.forEach(function(r){var ha=hotspotById(r.area);rows.push(['earning',r.date,r.amount,PLABEL[r.platform]||r.platform,r.mode,r.trips,r.tips,r.note,r.time||'',ha?ha.name:'',r.airport?'yes':''])});
+  state.expenses.forEach(function(r){rows.push(['expense',r.date,r.amount,r.cat,'','','',r.note])});
+  state.hotspots.forEach(function(h){rows.push(['hotspot','','',h.type,'','','',h.name+(h.lat!=null?' ('+h.lat.toFixed(5)+','+h.lon.toFixed(5)+')':''),'','',''])});
+  state.shifts.forEach(function(s){rows.push(['shift',s.date,'','','','','','online '+fmtDur(s.end-s.start)+(s.km?' / '+s.km+' mi':'')+' ('+new Date(s.start).toLocaleTimeString('en-US')+' - '+new Date(s.end).toLocaleTimeString('en-US')+')'])});
+  var hdr=rows.shift();rows.sort(function(a,b){return a[1]<b[1]?-1:a[1]>b[1]?1:0});rows.unshift(hdr);
+  return '\ufeff'+rows.map(function(r){return r.map(csvCell).join(',')}).join('\r\n');
+}
+$('stExport').addEventListener('click',function(){
+  var csv=buildCsv(),name='smart-gear-'+ymd()+'.csv';
+  if(window.SmartGearAndroid&&SmartGearAndroid.saveCsv){try{toast(SmartGearAndroid.saveCsv(name,csv))}catch(e){toast('Export fail')}return}
+  try{var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+    if(navigator.canShare&&/iPhone|iPad|iPod/.test(navigator.userAgent)){var file=new File([blob],name,{type:'text/csv'});if(navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).catch(function(){});return}}
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);toast('CSV download ✔');
+  }catch(e){toast('Export fail')}
+});
+$('stClear').addEventListener('click',function(){
+  if(!confirm('Saara data (kamai, kharcha, shifts, settings) delete ho jayega. Pakka?'))return;
+  if(!confirm('Last baar puch rahe hain – undo nahi hoga. Delete karein?'))return;
+  stopGeo();localStorage.removeItem(KEY);load();calcInit=false;render();toast('Saara data delete ho gaya');
+});
+
+// ---------- ride scanner (andaza / estimate) ----------
+var TYPES={airport:['✈️','Airport'],railway:['🚉','Train station / hub'],bus:['🚌','Bus terminal'],office:['🏢','Office / business district'],tourist:['🗽','Tourist spot'],nightlife:['🌃','Nightlife'],arena:['🏟️','Arena / events'],hotel:['🏨','Hotels'],upscale:['🏡','Upscale residential'],residential:['🏘️','Residential'],market:['🛍️','Shopping'],mall:['🏬','Mall'],college:['🎓','College'],hospital:['🏥','Hospital']};
+var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function hotspotById(id){if(!id)return null;for(var i=0;i<state.hotspots.length;i++)if(state.hotspots[i].id===id)return state.hotspots[i];return null}
+function inR(h,a,b){return a<=b?(h>=a&&h<b):(h>=a||h<b)}
+function hDiff(a,b){var d=Math.abs(a-b);return Math.min(d,24-d)}
+function isWe(d){return d===0||d===6}
+function entryHour(r){if(r.time&&/^\d{1,2}:/.test(r.time))return parseInt(r.time,10);return new Date(r.ts||Date.now()).getHours()}
+function entryDow(r){return parseYmd(r.date).getDay()}
+function nightOut(h,d){ // Thu-Sat 10pm-3am (after midnight counts for Fri/Sat/Sun early)
+  if(h>=22)return d===4||d===5||d===6; if(h<3)return d===5||d===6||d===0; return false;
+}
+// General NYC demand pattern per area type -> [score 0-100, reason]
+function heur(t,h,d){
+  var we=isWe(d),wd=!we;
+  switch(t){
+  case 'airport':if(inR(h,5,9))return [85,'Subah flights wave'];if(inR(h,14,20))return [88,'Evening arrivals wave'];if(inR(h,20,24))return [72,'Late arrivals'];if(inR(h,0,5))return [25,'Raat me flights kam'];return [55,'Midday flights'];
+  case 'railway':if(wd&&inR(h,7,10))return [85,'Morning commuter trains'];if(wd&&inR(h,16,20))return [85,'Evening commute'];if(inR(h,22,24)||inR(h,0,1))return [55,'Late trains'];if(we&&inR(h,10,22))return [62,'Weekend travellers'];return [40,'Normal traffic'];
+  case 'bus':if(inR(h,6,10))return [70,'Morning buses aati hain'];if(inR(h,16,21))return [70,'Evening buses'];return [35,'Normal traffic'];
+  case 'office':if(wd&&inR(h,7,10))return [85,'Weekday morning rush'];if(wd&&inR(h,16,20))return [92,'Evening rush – office chhutti'];if(wd&&inR(h,10,16))return [50,'Midday meetings / lunch'];if(we&&inR(h,10,18))return [30,'Weekend – office kam'];return [20,'Office time nahi'];
+  case 'tourist':if(inR(h,22,24))return [86,'Broadway shows khatam (~10–11pm)'];if(inR(h,11,22))return we?[85,'Weekend tourists']:[72,'Tourists all day'];if(inR(h,0,2))return [50,'Late night crowd'];return [25,'Subah shaant'];
+  case 'nightlife':if(nightOut(h,d))return [95,'Thu–Sat raat ka nightlife'];if(inR(h,22,24)||inR(h,0,2))return [60,'Weeknight bars'];if(inR(h,19,22))return [55,'Dinner crowd'];if(we&&inR(h,11,15))return [55,'Weekend brunch'];return [15,'Nightlife band'];
+  case 'arena':if(inR(h,21,24))return [85,'Event khatam hone ka time (schedule check karo)'];if(inR(h,17,20))return [60,'Event se pehle arrivals'];if(we&&inR(h,15,18))return [55,'Weekend day game/show'];return [20,'Koi event time nahi'];
+  case 'hotel':if(inR(h,5,10))return [82,'Checkout / airport runs'];if(inR(h,17,22))return [65,'Dinner / show outings'];return [40,'Normal'];
+  case 'upscale':if(wd&&inR(h,7,10))return [82,'Morning outbound – office/school'];if(inR(h,18,23))return [60,'Dinner outings'];if(we&&inR(h,10,14))return [55,'Weekend brunch / outing'];return [30,'Kam movement'];
+  case 'residential':if(wd&&inR(h,6,9))return [80,'Subah Manhattan jaane wale'];if(we&&(inR(h,21,24)||inR(h,0,3)))return [55,'Weekend night out'];if(inR(h,18,23))return [48,'Shaam outings'];return [30,'Kam movement'];
+  case 'market':if(we&&inR(h,11,19))return [85,'Weekend shopping'];if(inR(h,12,19))return [65,'Shopping hours'];if(inR(h,19,23))return [50,'Dinner crowd'];return [20,'Stores band'];
+  case 'mall':if(inR(h,17,22))return we?[85,'Weekend shaam']:[70,'Shaam shopping'];if(we&&inR(h,12,17))return [70,'Weekend dopahar'];return [25,'Shaant'];
+  case 'college':if(wd&&inR(h,8,10))return [70,'Classes shuru'];if(wd&&inR(h,13,18))return [72,'Classes khatam'];if(we)return [20,'Weekend'];return [25,'Class time nahi'];
+  case 'hospital':if(inR(h,8,13))return [62,'Appointments time'];if(inR(h,17,20))return [55,'Shift change / visitors'];return [40,'24x7 thoda demand'];
+  }
+  return [30,'Normal'];
+}
+// Chance of a ride TO JFK / LGA / EWR from this area type -> [score, reason]
+function airH(t,h,d){
+  var wd=!isWe(d);
+  switch(t){
+  case 'hotel':if(inR(h,4,9))return [92,'Subah flights – hotel checkout'];if(inR(h,10,13))return [72,'Checkout time'];if(inR(h,14,18))return [62,'Evening flights ke liye'];if(inR(h,20,23))return [45,'Red-eye flights'];return [30,'Kabhi kabhi'];
+  case 'upscale':if(d===1&&inR(h,4,9))return [90,'Monday morning business travel'];if(inR(h,4,9))return [82,'Subah flights'];if(d===5&&inR(h,12,19))return [80,'Friday getaway flights'];if(d===0&&inR(h,15,21))return [74,'Sunday travel'];if(inR(h,14,18))return [55,'Evening flights'];return [25,'Normal'];
+  case 'office':if(d===5&&inR(h,12,20))return [85,'Friday afternoon flights'];if(wd&&inR(h,15,20))return [72,'Weekday evening business flights'];if(wd&&inR(h,5,8))return [48,'Early business flights'];return [15,'Office time nahi'];
+  case 'railway':if(inR(h,6,10))return [55,'Train se aake airport connect'];if(inR(h,15,20))return [55,'Evening connections'];return [30,'Normal'];
+  case 'bus':return inR(h,5,10)?[40,'Subah connections']:[25,'Kam chance'];
+  case 'tourist':if(inR(h,8,13))return [55,'Tourists checkout karke'];if(isWe(d)&&inR(h,14,19))return [55,'Weekend trip khatam'];return [25,'Normal'];
+  case 'residential':if(d===0&&inR(h,15,21))return [62,'Sunday shaam travel'];if(d===1&&inR(h,4,9))return [66,'Monday morning flights'];if(inR(h,4,8))return [46,'Subah flights'];return [20,'Kam chance'];
+  case 'arena':case 'nightlife':case 'market':case 'mall':case 'college':case 'hospital':return [10,'Airport ride kam milti hai'];
+  }
+  return [15,'Kam chance'];
+}
+// Driver's own history for area near hour h, same weekday/weekend type
+function histFor(id,h,d,airportOnly,win){
+  var we=isWe(d),days={},n=0,earn=0,trips=0;win=win==null?1:win;
+  state.earnings.forEach(function(r){
+    if(r.area!==id)return;if(airportOnly&&!r.airport)return;
+    if(hDiff(entryHour(r),h)>win)return;if(!airportOnly&&isWe(entryDow(r))!==we)return;
+    n++;earn+=num(r.amount)+num(r.tips);trips+=Math.max(1,num(r.trips));days[r.date]=1;
+  });
+  var dn=Object.keys(days).length;return {n:n,earn:earn,trips:trips,days:dn,perHr:dn?earn/(dn*(win*2+1)):0};
+}
+function bestSlot(id){
+  var b={};state.earnings.forEach(function(r){if(r.area!==id)return;var h=entryHour(r),blk=Math.floor(h/3)*3,dw=entryDow(r),k=DAYS[dw]+' '+blk;b[k]=b[k]||{earn:0,days:{},trips:0,dw:dw,blk:blk};b[k].earn+=num(r.amount)+num(r.tips);b[k].trips+=Math.max(1,num(r.trips));b[k].days[r.date]=1});
+  var best=null;Object.keys(b).forEach(function(k){var x=b[k],ph=x.earn/(Object.keys(x.days).length*3);if(!best||ph>best.ph)best={k:k,ph:ph,x:x}});
+  if(!best)return null;var h2=function(h){var hh=h%24;return (hh%12||12)+(hh<12?'am':'pm')};return DAYS[best.x.dw]+' '+h2(best.x.blk)+'–'+h2(best.x.blk+3)+' (~'+usd(best.ph)+'/hr)';
+}
+var scanAt=null,scanSub='go';
+function scanDate(){return scanAt?new Date(scanAt):new Date()}
+function mapsLink(h){var c=S().city||DEFAULTS.city;if(h&&h.lat!=null&&h.lon!=null)return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination='+h.lat.toFixed(6)+','+h.lon.toFixed(6);return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination='+encodeURIComponent(h.name+(c?', '+c:''))}
+function searchLink(label){var c=S().city||DEFAULTS.city;return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(label+' in '+c)}
+function scoreColor(sc){return sc>=70?'var(--accent)':sc>=45?'var(--warn)':'var(--muted)'}
+function rankGo(dt){
+  var h=dt.getHours(),d=dt.getDay(),gh=S().goodHr||300;
+  return state.hotspots.map(function(p){
+    var b=heur(p.type,h,d),sc=b[0],why=[b[1]],m=histFor(p.id,h,d,false,1);
+    if(m.n>0){var conf=Math.min(1,m.n/5),hs=Math.min(100,m.perHr/gh*75);sc=sc*(1-0.6*conf)+hs*0.6*conf;why.push('Aapki history: '+m.trips+' trip'+(m.trips>1?'s':'')+' is time pe, ~'+usd(m.perHr)+'/hr')}
+    return {p:p,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
+  }).sort(function(a,b){return b.score-a.score});
+}
+function rankAir(dt){
+  var h=dt.getHours(),d=dt.getDay();
+  return state.hotspots.filter(function(p){return p.type!=='airport'}).map(function(p){
+    var b=airH(p.type,h,d),sc=b[0],why=[b[1]],near=histFor(p.id,h,d,true,2),all=histFor(p.id,h,d,true,12);
+    if(all.n>0){sc+=Math.min(30,near.n*10)+Math.min(10,all.n*3);why.push('Aapke '+all.n+' airport drop'+(all.n>1?'s':'')+' yahan se'+(near.n?' ('+near.n+' is time ke aas-paas)':''))}
+    return {p:p,raw:sc,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
+  }).sort(function(a,b){return b.raw-a.raw});
+}
+function rankHtml(list){
+  return list.map(function(x,i){var t=TYPES[x.p.type]||TYPES.market;
+    return '<div class="rank"><div class="no">'+(i+1)+'</div><div class="b"><b>'+t[0]+' '+esc(x.p.name)+'</b><div class="why">'+esc(t[1])+' · '+esc(x.why)+'</div><div class="sbar"><i style="width:'+x.score+'%;background:'+scoreColor(x.score)+'"></i></div>'+
+    '<a class="maps" target="_blank" rel="noopener" href="'+esc(x.link||mapsLink(x.p))+'">🧭 '+(x.generic?'Maps pe dhundo':'Directions')+'</a></div><div class="sc" style="color:'+scoreColor(x.score)+'">'+x.score+'</div></div>'}).join('');
+}
+function genericList(fn,exclude){
+  var dt=scanDate(),h=dt.getHours(),d=dt.getDay();
+  return Object.keys(TYPES).filter(function(k){return k!==exclude}).map(function(k){var b=fn(k,h,d);return {p:{name:TYPES[k][1],type:k},score:b[0],why:b[1],link:searchLink(TYPES[k][1]),generic:true}}).sort(function(a,b){return b.score-a.score}).slice(0,6);
+}
+var EMPTY='<div class="empty" style="padding:14px 4px 6px">Abhi koi hotspot saved nahi hai.<br><b>📍 Areas</b> me area add karo ya <b>NYC default areas</b> wapas lao. Tab ye list aapki history se seekhegi.<br><br><span class="small">Tab tak, is time ke liye general suggestions:</span></div>';
+function renderScan(){
+  var dt=scanDate();
+  $('scWhen').textContent=dt.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'})+', '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  $('scNow').classList.toggle('on',!scanAt);
+  ['go','air','areas'].forEach(function(k){$('sc-'+k).style.display=k===scanSub?'':'none'});
+  $('scSeg').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.s===scanSub)});
+  if(scanSub==='go')$('goList').innerHTML=state.hotspots.length?rankHtml(rankGo(dt)):EMPTY+rankHtml(genericList(heur));
+  if(scanSub==='air'){var ra=rankAir(dt);$('airList').innerHTML=ra.length?rankHtml(ra):(state.hotspots.length?'<div class="empty">Sirf airport saved hai. Hotel, IT park, upscale residential jaise areas add karo.</div>':EMPTY)+rankHtml(genericList(airH,'airport'))}
+  if(scanSub==='areas'){
+    if(!$('hType').options.length)$('hType').innerHTML=Object.keys(TYPES).map(function(k){return '<option value="'+k+'">'+TYPES[k][0]+' '+TYPES[k][1]+'</option>'}).join('');
+    $('areaList').innerHTML=state.hotspots.length?'<ul class="list">'+state.hotspots.map(function(p){var t=TYPES[p.type]||TYPES.market,cnt=0,air=0;state.earnings.forEach(function(r){if(r.area===p.id){cnt+=Math.max(1,num(r.trips));if(r.airport)air++}});var bs=bestSlot(p.id);
+      return '<li><div class="ico">'+t[0]+'</div><div class="t"><b>'+esc(p.name)+(p.lat!=null?'<span class="tag">📍 GPS</span>':'')+'</b><span>'+esc(t[1])+' · '+cnt+' trips'+(air?' · ✈️ '+air:'')+(bs?' · best: '+esc(bs):'')+'</span></div><div class="act"><button aria-label="Edit" data-hedit="'+p.id+'">✏️</button><button aria-label="Delete" data-hdel="'+p.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">Koi area nahi. Upar se add karo.</div>';
+  }
+}
+$('scSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;scanSub=b.dataset.s;renderScan()});
+$('scNow').addEventListener('click',function(){scanAt=null;$('scTime').value='';renderScan()});
+$('scTime').addEventListener('change',function(){var v=this.value;if(v){var p=v.split(/[-T:]/);scanAt=new Date(+p[0],+p[1]-1,+p[2],+p[3],+p[4]).getTime()}else scanAt=null;renderScan()});
+var pendingGps=null;
+$('hGps').addEventListener('click',function(){
+  if(!('geolocation' in navigator)){toast('GPS support nahi hai');return}
+  $('hGpsTxt').textContent='Location dhundh rahe hain…';
+  navigator.geolocation.getCurrentPosition(function(p){pendingGps={lat:p.coords.latitude,lon:p.coords.longitude};$('hGpsTxt').textContent='📍 Location mil gayi (±'+Math.round(p.coords.accuracy)+' m)'},
+    function(err){pendingGps=null;$('hGpsTxt').textContent=err.code===1?'Location permission nahi mili – bina GPS ke bhi save kar sakte ho':'GPS nahi mila – bina GPS ke save kar sakte ho'},{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+});
+var editHot=null;
+function resetHotForm(){editHot=null;$('hName').value='';pendingGps=null;$('hGpsTxt').textContent='Optional: location se Maps directions exact milega.';$('hSave').textContent='Area save karo';$('hCancelEdit').style.display='none'}
+$('hSave').addEventListener('click',function(){
+  var n=$('hName').value.trim();if(!n){toast('Area ka naam daalo');$('hName').focus();return}
+  var ex=editHot&&hotspotById(editHot);
+  if(ex){ex.name=n;ex.type=$('hType').value;if(pendingGps){ex.lat=pendingGps.lat;ex.lon=pendingGps.lon}}
+  else{var h={id:uid(),name:n,type:$('hType').value};if(pendingGps){h.lat=pendingGps.lat;h.lon=pendingGps.lon}state.hotspots.push(h)}
+  save();resetHotForm();renderScan();toast(ex?'Area update ✔':'Area save ✔');
+});
+$('hCancelEdit').addEventListener('click',function(){resetHotForm()});
+$('hDefaults').addEventListener('click',function(){var have={};state.hotspots.forEach(function(h){have[h.id]=1});var add=nycDefaults().filter(function(h){return !have[h.id]});state.hotspots=state.hotspots.concat(add);save();renderScan();toast(add.length?add.length+' NYC areas add ✔':'Saare NYC areas pehle se hain')});
+$('areaList').addEventListener('click',function(e){var eb=e.target.closest('[data-hedit]');if(eb){var h=hotspotById(eb.dataset.hedit);if(!h)return;editHot=h.id;$('hName').value=h.name;$('hType').value=h.type;$('hGpsTxt').textContent=h.lat!=null?'📍 Saved GPS: '+h.lat.toFixed(4)+', '+h.lon.toFixed(4)+' (naya GPS lene ke liye button dabao)':'GPS saved nahi';$('hSave').textContent='Update karo';$('hCancelEdit').style.display='';window.scrollTo(0,0);$('hName').focus();return}
+  var b=e.target.closest('[data-hdel]');if(!b)return;if(confirm('Ye area delete karein? (Purani trips rahengi)')){state.hotspots=state.hotspots.filter(function(h){return h.id!==b.dataset.hdel});save();renderScan()}});
+
+// ---------- boot ----------
+load();
+window.addEventListener('resize',function(){if(current==='home')drawChart($('chartHome'));if(current==='track')drawChart($('chartTrack'))});
+document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
+var h=(location.hash||'').slice(1);showTab(['home','track','calc','scan','shift','settings'].indexOf(h)>=0?h:'home');
+if(state.active&&S().gps)startGeo();
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+window.SmartGear={state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
+})();
+</script>
+</body>
+</html>
