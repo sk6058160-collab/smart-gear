@@ -171,7 +171,7 @@ body.on-home header.top{display:none}
 /* ---- in-app navigation ---- */
 .nav-view{position:fixed;inset:0;z-index:3000;background:#f2f2f2;display:none;overflow:hidden}
 .nav-view.open{display:block}
-.nav-map{position:absolute;inset:0;transition:transform .35s ease}
+.nav-map{position:absolute;inset:0;will-change:transform}
 .nav-view.head-up .nav-map{inset:-25%}
 .nav-banner{position:absolute;left:10px;right:10px;top:calc(10px + var(--safe-t));z-index:1200;display:flex;align-items:center;gap:12px;background:#fff;color:#09090b;border:1px solid #e4e4e7;border-radius:18px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .nav-banner.arrived{background:#dcfce7;border-color:#86efac}
@@ -212,7 +212,16 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
 .t5 .d{width:12px;height:12px;border-radius:50%;flex:none}.t5 .d.b-lo{box-shadow:0 0 0 1.5px #52525b}.t5 .d.b-mid{box-shadow:0 0 0 1.5px #b45309}.t5 .d.b-hi{box-shadow:0 0 0 1.5px #b91c1c}
 .t5 .tx{flex:1;min-width:0}.t5 .tx b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.t5 .tx span{display:block;font-size:12px;color:var(--muted)}
 .t5 .navgo{margin-top:0;padding:0 10px;min-height:36px}
-.me-dot{background:none;border:0}
+.me-dot,.me-mk{background:none;border:0}
+.me-arr{position:absolute;left:-20px;top:-20px;width:40px;height:40px;will-change:transform;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+.me-arr svg{display:block;width:40px;height:40px}
+.me-arr::before{content:"";position:absolute;inset:-6px;border-radius:50%;background:rgba(26,115,232,.16)}
+.nav-lanes{position:absolute;left:10px;top:calc(96px + var(--safe-t));z-index:1199;display:flex;gap:2px;background:#000;border-radius:0 0 12px 12px;padding:5px 10px;margin-left:8px}
+.nav-lanes i{display:block;width:26px;height:26px;opacity:.35}.nav-lanes i.on{opacity:1}.nav-lanes svg{width:26px;height:26px;display:block}
+.nav-lanes+.nav-then{top:calc(134px + var(--safe-t))}
+@keyframes navSwap{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:none}}
+.nav-banner.swap .nav-arrow svg,.nav-banner.swap .nav-txt{animation:navSwap .32s ease-out}
+@media (prefers-reduced-motion:reduce){.nav-banner.swap .nav-arrow svg,.nav-banner.swap .nav-txt{animation:none}}
 .me-dot i{display:block;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#3b82f6;border:3px solid #fff;box-shadow:0 0 0 8px rgba(59,130,246,.25)}
 .map-wrap{position:relative;height:430px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);margin-bottom:10px;background-color:#0e0f12;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:40px 40px}
 .map-wrap .sg-map{position:absolute;inset:0}
@@ -422,6 +431,7 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
 <div class="nav-view" id="navView" aria-hidden="true">
   <div id="navMap" class="sg-map nav-map" aria-label="Navigation map"></div>
   <div class="nav-banner" id="navBanner"><div class="nav-arrow" id="navArrow"></div><div class="nav-txt"><b id="navDist">—</b><span id="navStreet">Finding route…</span></div></div>
+  <div class="nav-lanes" id="navLanes" style="display:none" aria-label="Lanes"></div>
   <div class="nav-then" id="navThen" style="display:none"></div>
   <button class="fab-round nav-recenter" id="navRecenter" aria-label="Re-center" style="display:none"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.5 3.5 3.8 10.6c-.8.3-.7 1.5.1 1.7l6.6 1.2 1.2 6.6c.2.8 1.4.9 1.7.1z"/></svg></button>
   <div class="nav-bottom" id="navBottom">
@@ -535,7 +545,7 @@ $('tabs').addEventListener('click',function(e){var b=e.target.closest('button');
 
 // ---------- render ----------
 function render(){
-  document.documentElement.dataset.theme='light';
+  document.documentElement.dataset.theme='light';meSync();
   $('hdrDate').textContent=usDate(new Date(),true);
   if(current==='home')renderHome();
   if(current==='settings')renderSettings();
@@ -826,7 +836,7 @@ function busyLine(sc){return sc>=70?'#b91c1c':sc>=45?'#b45309':'#52525b'}
 function busyCls(sc){return sc>=70?'b-hi':sc>=45?'b-mid':'b-lo'}
 function busyWord(sc){return sc>=70?'Very busy':sc>=45?'Busy':'Slow'}
 // ---------- geolocation (shared: shift miles, map dot, nearest area) ----------
-var geo={watch:null,fix:null,denied:false,toasted:false,follow:false,waiters:[]};
+var geo={watch:null,fix:null,denied:false,toasted:false,follow:false,waiters:[],heading:null,gpsHeading:false,speed:null,lastPos:null};
 function geoWanted(){return !!((state.active&&S().gps)||geo.follow||(window.__nav&&__nav.active))}
 function ensureGeo(){if(geoWanted())startWatch();else stopWatch()}
 function startWatch(){if(geo.watch!==null)return;if(!('geolocation' in navigator)){geoFail({code:2});return}
@@ -836,9 +846,19 @@ function onFix(p){
   var pt={lat:p.coords.latitude,lon:p.coords.longitude,acc:p.coords.accuracy||0,ts:Date.now()};geo.fix=pt;geo.denied=false;
   var a=state.active;
   if(a&&S().gps&&pt.acc<=60){var q={lat:pt.lat,lon:pt.lon};if(a.last){var d=hav(a.last,q);if(d>0.0125&&d<1.25){a.km=(a.km||0)+d;a.last=q;save()}else if(d>=1.25){a.last=q}}else{a.last=q;save()}}
+  geoMotion(pt,p.coords);
   updateMe();updateNearUI();if(current==='settings')tick();
   geo.waiters.slice().forEach(function(f){f(pt)});
-  if(nav.active)navOnFix(pt,p.coords.heading);
+  if(nav.active)navOnFix(pt);else meSetTarget(pt,geo.heading);
+}
+// Heading: GPS heading when moving, else bearing from the last position >= 3 m away (smaller moves are jitter)
+function geoMotion(pt,c){
+  var gh=c&&c.heading!=null&&!isNaN(c.heading)&&(c.speed==null||c.speed>0.8)?c.heading:null,gs=c&&c.speed!=null&&!isNaN(c.speed)?c.speed:null;
+  geo.gpsHeading=gh!=null;if(gh!=null)geo.heading=gh;
+  if(!geo.lastPos){geo.lastPos=pt;if(gs!=null)geo.speed=gs;return}
+  var dm=mTo(geo.lastPos,pt),dt=Math.max(0.5,(pt.ts-geo.lastPos.ts)/1000);
+  if(dm>=3){if(gh==null)geo.heading=bearing(geo.lastPos,pt);var sp=gs!=null?gs:dm/dt;geo.speed=geo.speed==null?sp:geo.speed*0.5+sp*0.5;geo.lastPos=pt}
+  else if(gs!=null)geo.speed=gs;else if(dt>8)geo.speed=0;
 }
 function geoFail(err){
   if(err&&err.code===1){geo.denied=true;geo.follow=false;if(!geo.toasted){toast('Location permission denied – allow it in your phone Settings');geo.toasted=true}}
@@ -935,13 +955,45 @@ function drawEtas(o){
 }
 function boroVis(o){var show=o.map.getZoom()<12;if(show&&!o.map.hasLayer(o.boros))o.boros.addTo(o.map);if(!show&&o.map.hasLayer(o.boros))o.map.removeLayer(o.boros)}
 function inBoroF(p,b){return b==='all'||boroOf(p)===b}
+function meMode(){return (nav.active||state.active)?'arrow':'dot'}
+var ME_ARROW='<div class="me-arr"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4.5 32.5 34 20 27.2 7.5 34Z" fill="#1A73E8" stroke="#fff" stroke-width="3.2" stroke-linejoin="round"/></svg></div>';
+function meIcon(mode){return mode==='arrow'?L.divIcon({className:'me-mk me-arrow',html:ME_ARROW,iconSize:[0,0]}):L.divIcon({className:'me-dot',html:'<i></i>',iconSize:[0,0]})}
+function meSync(){var mode=meMode();Object.keys(maps).forEach(function(id){var o=maps[id];if(o.me&&o.meMode!==mode){o.me.setIcon(meIcon(mode));o.meMode=mode;meRotate(o)}})}
 function updateMe(){
+  var mode=meMode();
   Object.keys(maps).forEach(function(id){var o=maps[id];if(!geo.fix){if(o.me){o.me.remove();o.me=null}return}
-    var ll=[geo.fix.lat,geo.fix.lon];
+    var at=meAnim.pos||geo.fix,ll=[at.lat,at.lon];
     drawEtas(o);
-    if(!o.me)o.me=L.marker(ll,{interactive:false,keyboard:false,zIndexOffset:1000,icon:L.divIcon({className:'me-dot',html:'<i></i>',iconSize:[0,0]})}).addTo(o.map);else o.me.setLatLng(ll);
-    if(geo.follow&&geo.followMap!==false&&((id==='homeMap'&&current==='home')||(id==='busyMap'&&current==='map')))o.map.setView(ll,Math.max(o.map.getZoom(),14),{animate:true});
+    if(!o.me){o.me=L.marker(ll,{interactive:false,keyboard:false,zIndexOffset:1000,icon:meIcon(mode)}).addTo(o.map);o.meMode=mode}
+    else if(o.meMode!==mode){o.me.setIcon(meIcon(mode));o.meMode=mode}
+    meRotate(o);
+    if(geo.follow&&geo.followMap!==false&&((id==='homeMap'&&current==='home')||(id==='busyMap'&&current==='map'))){var fz=Math.max(o.map.getZoom(),14);
+      if(fz!==o.map.getZoom())o.map.setView([geo.fix.lat,geo.fix.lon],fz,{animate:true});else o.map.panTo([geo.fix.lat,geo.fix.lon],{animate:true,duration:meAnim.dur/1000,easeLinearity:1,noMoveStart:true})}
   });
+}
+// ---------- smooth marker animation (requestAnimationFrame, ~1 s between GPS fixes) ----------
+var meAnim={raf:0,from:null,to:null,pos:null,t0:0,dur:1000,h0:0,h1:0,h:null,a0:null,a1:null,last:0,frames:0};
+var REDUCED=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+function angDelta(a,b){return ((b-a)%360+540)%360-180}   // shortest signed turn from a to b (degrees)
+function meSetTarget(pt,heading,along){
+  var now=performance.now(),gap=meAnim.last?now-meAnim.last:1000;meAnim.last=now;
+  meAnim.dur=REDUCED||document.hidden?0:Math.max(350,Math.min(1200,gap));
+  meAnim.from=meAnim.pos||{lat:pt.lat,lon:pt.lon};meAnim.to={lat:pt.lat,lon:pt.lon};meAnim.t0=now;
+  if(heading!=null&&!isNaN(heading)){if(meAnim.h==null)meAnim.h=heading;meAnim.h0=meAnim.h;meAnim.h1=meAnim.h+angDelta(meAnim.h,heading)}else{meAnim.h0=meAnim.h1=meAnim.h}
+  meAnim.a0=along==null?null:(meAnim.a1!=null?meAnim.a1Cur():along);meAnim.a1=along;
+  if(!meAnim.pos||!meAnim.dur){meAnim.pos=meAnim.to;meFrame();return}
+  if(!meAnim.raf)meAnim.raf=requestAnimationFrame(meFrame);
+}
+meAnim.a1Cur=function(){var k=meAnim.k==null?1:meAnim.k;return meAnim.a0==null?meAnim.a1:meAnim.a0+(meAnim.a1-meAnim.a0)*k};
+function meRotate(o){if(!o.me||o.meMode!=='arrow')return;var el=o.me.getElement(),a=el&&el.firstChild;if(a)a.style.transform='rotate('+(meAnim.h==null?0:meAnim.h)+'deg)'}
+function meFrame(){
+  meAnim.raf=0;var k=meAnim.dur?Math.min(1,(performance.now()-meAnim.t0)/meAnim.dur):1;meAnim.k=k;meAnim.frames++;
+  var f=meAnim.from||meAnim.to,t=meAnim.to;if(!t)return;
+  var p={lat:f.lat+(t.lat-f.lat)*k,lon:f.lon+(t.lon-f.lon)*k};meAnim.pos=p;       // linear: steady driving motion
+  if(meAnim.h1!=null){var e=1-Math.pow(1-Math.min(1,k*1.25),3);meAnim.h=meAnim.h0+(meAnim.h1-meAnim.h0)*e}  // ease-out rotation, shortest direction
+  Object.keys(maps).forEach(function(id){var o=maps[id];if(o.me){o.me.setLatLng([p.lat,p.lon]);meRotate(o)}});
+  if(nav.active)navFrame(p,k);
+  if(k<1)meAnim.raf=requestAnimationFrame(meFrame);
 }
 function locateMe(){
   geo.follow=true;geo.followMap=true;geo.toasted=false;geo.denied=false;
@@ -1066,13 +1118,37 @@ window.__nav=nav;
 function mTo(a,b){var R=6371000,r=Math.PI/180,x=(b.lon-a.lon)*r*Math.cos((a.lat+b.lat)/2*r),y=(b.lat-a.lat)*r;return Math.sqrt(x*x+y*y)*R}
 function fmtDistUS(m){var mi=m/1609.344;if(mi<0.1){var ft=m*3.28084;return (ft<100?Math.max(10,Math.round(ft/10)*10):Math.round(ft/50)*50)+' ft'}return (mi<10?mi.toFixed(1):Math.round(mi))+' mi'}
 function sayDistUS(m){var mi=m/1609.344;if(mi<0.1){var ft=m*3.28084;return (ft<100?Math.round(ft/10)*10:Math.round(ft/50)*50)+' feet'}if(mi<0.3)return 'a quarter mile';if(mi<0.6)return 'half a mile';return mi.toFixed(1)+' miles'}
-var ARROW_ROT={straight:0,'slight right':40,right:90,'sharp right':135,'slight left':-40,left:-90,'sharp left':-135};
-function arrowSvg(st){
-  if(!st)return '';var t=st.type,m=st.modifier||'straight';
-  if(t==='arrive')return '<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
-  if(m==='uturn')return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21V9a4 4 0 0 1 8 0v7"/><path d="M12 12l4 4 4-4"/></svg>';
-  if(t==='roundabout'||t==='rotary')return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="4"/><path d="M12 22v-7M16 11h5M18 8l3 3-3 3"/></svg>';
-  return '<svg viewBox="0 0 24 24" style="transform:rotate('+(ARROW_ROT[m]||0)+'deg)" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V4"/><path d="M5 10l7-7 7 7"/></svg>';
+// Lane-style maneuver glyphs (white strokes on the black banner tile); left variants are mirrored
+var GLYPH={
+  straight:'<path d="M12 21V5"/><path d="M6.5 10.5 12 5l5.5 5.5"/>',
+  'slight right':'<path d="M9 21v-6.5a3 3 0 0 1 .9-2.1L16.5 6"/><path d="M10.5 6h6v6"/>',
+  right:'<path d="M7 21v-8a4 4 0 0 1 4-4h8.5"/><path d="M15 4.5 19.5 9 15 13.5"/>',
+  'sharp right':'<path d="M8 21V8.5a3.5 3.5 0 0 1 6-2.5l4.5 5"/><path d="M19 5.5V11.5H13"/>',
+  uturn:'<path d="M16 21V9a4 4 0 0 0-8 0v8"/><path d="M4 13.5 8 17.5l4-4"/>',
+  merge:'<path d="M8 21v-5l8-7V4"/><path d="M11.5 7 16 3l4.5 4"/><path d="M16 21v-5l-2-1.8" opacity=".55"/>',
+  roundabout:'<circle cx="12" cy="10" r="4"/><path d="M12 21v-7"/><path d="M15 7l4-3.5"/><path d="M15 3.5h4.2v4.2"/>',
+  arrive:'<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>'
+};
+function glyphFor(kind){
+  var k=String(kind||'straight').toLowerCase(),left=/left/.test(k),base=k.replace('left','right');
+  if(k==='uturn')return {g:GLYPH.uturn,flip:false};if(k==='none'||!k)base='straight';
+  if(!GLYPH[base])base='straight';return {g:GLYPH[base],flip:left};
+}
+function glyphSvg(kind,w){var x=glyphFor(kind);return '<svg viewBox="0 0 24 24" width="'+(w||40)+'" height="'+(w||40)+'" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" data-glyph="'+esc(String(kind||'straight'))+'">'+(x.flip?'<g transform="translate(24 0) scale(-1 1)">'+x.g+'</g>':x.g)+'</svg>'}
+function maneuverKind(st){
+  if(!st)return 'straight';var t=st.type,m=st.modifier||'straight';
+  if(t==='arrive')return 'arrive';if(t==='roundabout'||t==='rotary'||t==='roundabout turn')return 'roundabout';
+  if(m==='uturn')return 'uturn';if(t==='merge')return m.indexOf('left')>=0?'merge left':'merge';
+  if(t==='depart')return 'straight';
+  if((t==='off ramp'||t==='on ramp'||t==='fork')&&m.indexOf('slight')<0&&m!=='straight')return 'slight '+m.replace('sharp ','');
+  return m;
+}
+function arrowSvg(st){if(!st)return '';var k=maneuverKind(st);if(k==='merge left')return glyphSvg('merge left').replace('<svg','<svg style="transform:scaleX(-1)"');return glyphSvg(k)}
+function lanesHtml(st){
+  if(!st||!st.lanes||!st.lanes.length)return '';
+  return st.lanes.map(function(l){var ind=(l.indications||['straight']).filter(function(x){return x!=='none'});if(!ind.length)ind=['straight'];
+    var want=maneuverKind(st),use=ind.indexOf(want)>=0?want:ind[0];
+    return '<i class="'+(l.valid?'on':'')+'">'+glyphSvg(use,26)+'</i>'}).join('');
 }
 function instr(st,destName){
   var n=st.name?st.name:'',on=n?' onto '+n:'',m=st.modifier||'',t=st.type;
@@ -1091,12 +1167,12 @@ function speak(txt){try{if(!S().navVoice||!window.speechSynthesis||!window.Speec
 function navShowErr(title,msg){var p=nav.dest;$('navErrTitle').textContent=title;$('navErrMsg').textContent=msg;$('navGmaps').href=p?mapsLink(p):'#';$('navErr').style.display='';$('navStreet').textContent=title}
 function startNav(id){
   var p=hotspotById(id);if(!p)return;
-  nav.active=true;nav.dest=p;nav.route=null;nav.step=0;nav.spoken={};nav.arrived=false;nav.follow=true;nav.prev=null;nav.lastFetch=0;
+  nav.active=true;nav.dest=p;nav.route=null;nav.step=0;nav.spoken={};nav.arrived=false;nav.follow=true;nav.prev=null;nav.lastFetch=0;nav.shownStep=-1;nav.along=null;nav.snapped=false;meAnim.a1=null;meAnim.a0=null;$('navLanes').style.display='none';
   $('navView').classList.add('open');$('navView').setAttribute('aria-hidden','false');$('navErr').style.display='none';$('navThen').style.display='none';
   $('navBanner').classList.remove('arrived');$('navArrow').innerHTML='';$('navDist').textContent='—';$('navStreet').textContent='Finding route…';
   ['navEta','navMin','navMi'].forEach(function(k){$(k).textContent='—'});$('navDestName').textContent='To '+p.name;
   navSyncToggles();
-  var o=makeMap('navMap',{zoom:false,attrPos:'bottomleft'});
+  var o=makeMap('navMap',{zoom:false,attrPos:'bottomleft'});if(geo.fix)updateMe();meSync();
   if(o){o.map.invalidateSize();if(!o.navInit){o.map.on('dragstart',function(){nav.follow=false;$('navRecenter').style.display=''});o.navInit=true}
     o.route&&o.route.remove();o.route=null;o.dest&&o.dest.remove();
     if(p.lat!=null)o.dest=L.marker([p.lat,p.lon],{interactive:false,icon:L.divIcon({className:'nav-dest-pin',html:'<i></i>',iconSize:[0,0]})}).addTo(o.map);}
@@ -1119,34 +1195,63 @@ function fetchRoute(from){
 function setRoute(rt){
   var pts=(rt.geometry&&rt.geometry.coordinates||[]).map(function(c){return {lat:c[1],lon:c[0]}});if(pts.length<2){navShowErr('Route not available','The routing server returned an empty route.');return}
   var cum=[0];for(var i=1;i<pts.length;i++)cum.push(cum[i-1]+mTo(pts[i-1],pts[i]));
-  var steps=[];(rt.legs||[]).forEach(function(l){(l.steps||[]).forEach(function(s){var mv=s.maneuver||{},loc={lat:mv.location[1],lon:mv.location[0]},bi=0,bd=1e12;for(var k=0;k<pts.length;k++){var d=mTo(pts[k],loc);if(d<bd){bd=d;bi=k}}steps.push({type:mv.type,modifier:mv.modifier,exit:mv.exit,name:s.name||'',idx:bi,at:cum[bi]})})});
+  var steps=[];(rt.legs||[]).forEach(function(l){(l.steps||[]).forEach(function(s){var mv=s.maneuver||{},loc={lat:mv.location[1],lon:mv.location[0]},bi=0,bd=1e12;for(var k=0;k<pts.length;k++){var d=mTo(pts[k],loc);if(d<bd){bd=d;bi=k}}var it=(s.intersections&&s.intersections[0])||{};steps.push({type:mv.type,modifier:mv.modifier,exit:mv.exit,name:s.name||'',idx:bi,at:cum[bi],lanes:it.lanes||null})})});
   steps.sort(function(a,b){return a.at-b.at});
   nav.route={pts:pts,cum:cum,len:cum[cum.length-1],dist:rt.distance||cum[cum.length-1],dur:rt.duration||0,steps:steps};nav.step=0;nav.spoken={};
   var o=maps.navMap;if(o){o.route&&o.route.remove();var ll=pts.map(function(q){return [q.lat,q.lon]});
-    o.route=L.layerGroup([L.polyline(ll,{color:'#0b2a5b',weight:11,opacity:.9,interactive:false,className:'sg-route-casing'}),L.polyline(ll,{color:'#3b82f6',weight:7,opacity:1,interactive:false,className:'sg-route'})]).addTo(o.map);
-    if(nav.follow&&geo.fix)o.map.setView([geo.fix.lat,geo.fix.lon],16,{animate:false});else o.map.fitBounds(L.latLngBounds(ll),{padding:[40,40]})}
-  if(geo.fix)navOnFix(geo.fix,null,true);else navUpdateUI(0,nav.route.len);
+    o.rDone=L.polyline([],{color:'#9ca3af',weight:7,opacity:.95,interactive:false,className:'sg-route-done'});
+    o.rCase=L.polyline(ll,{color:'#0b3d91',weight:11,opacity:.9,interactive:false,className:'sg-route-casing'});
+    o.rAhead=L.polyline(ll,{color:'#1A73E8',weight:7,opacity:1,interactive:false,className:'sg-route'});
+    o.route=L.layerGroup([o.rDone,o.rCase,o.rAhead]).addTo(o.map);nav.trimAt=-1;
+    if(nav.follow&&geo.fix)o.map.setView([geo.fix.lat,geo.fix.lon],navZoom(),{animate:false});else o.map.fitBounds(L.latLngBounds(ll),{padding:[40,40]})}
+  nav.shownStep=-1;if(geo.fix)navOnFix(geo.fix,true);else navUpdateUI(0,nav.route.len);
 }
 function nearestOnRoute(pos){var r=nav.route,best={d:1e12,along:0,seg:0};for(var i=0;i<r.pts.length-1;i++){var a=r.pts[i],b=r.pts[i+1],L2=mTo(a,b);var t=0;if(L2>0){var ax=(pos.lon-a.lon)*Math.cos(a.lat*Math.PI/180),ay=pos.lat-a.lat,bx=(b.lon-a.lon)*Math.cos(a.lat*Math.PI/180),by=b.lat-a.lat;t=Math.max(0,Math.min(1,(ax*bx+ay*by)/(bx*bx+by*by)))}var q={lat:a.lat+(b.lat-a.lat)*t,lon:a.lon+(b.lon-a.lon)*t},d=mTo(pos,q);if(d<best.d)best={d:d,along:r.cum[i]+L2*t,seg:i,q:q}}return best}
 function bearing(a,b){var r=Math.PI/180,y=Math.sin((b.lon-a.lon)*r)*Math.cos(b.lat*r),x=Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos((b.lon-a.lon)*r);return (Math.atan2(y,x)/r+360)%360}
-function navOnFix(pt,heading,first){
-  if(!nav.active)return;var o=maps.navMap;
-  if(heading!=null&&!isNaN(heading))nav.heading=heading;else if(nav.prev&&mTo(nav.prev,pt)>8)nav.heading=bearing(nav.prev,pt);
-  if(!nav.prev||mTo(nav.prev,pt)>8)nav.prev={lat:pt.lat,lon:pt.lon};
-  if(o&&nav.follow)o.map.setView([pt.lat,pt.lon],Math.max(o.map.getZoom(),16),{animate:!first});
-  navApplyHeading();
+// Auto-zoom by speed: closer when slow (city streets), wider on fast roads
+function zoomForSpeed(mps){var mph=(mps||0)*2.23694;return mph<8?17:mph<25?16:mph<45?15:14}
+function navZoom(){return zoomForSpeed(geo.speed)}
+// Camera target: in heading-up mode look ~110 px ahead so the arrow sits lower and more road ahead is visible
+function navCam(tgt,z,h){var o=maps.navMap;if(!o)return [tgt.lat,tgt.lon];h=h==null?nav.heading:h;if(!S().navHeadUp||h==null)return [tgt.lat,tgt.lon];
+  var r=h*Math.PI/180,p=o.map.project([tgt.lat,tgt.lon],z);p.x+=Math.sin(r)*110;p.y-=Math.cos(r)*110;var ll=o.map.unproject(p,z);return [ll.lat,ll.lng]}
+function navOnFix(pt,first){
+  if(!nav.active)return;var o=maps.navMap,tgt={lat:pt.lat,lon:pt.lon},hd=geo.heading,n=nav.route?nearestOnRoute(pt):null;
+  nav.snapped=!!(n&&n.d<=25);
+  if(nav.snapped){tgt=n.q;var r=nav.route,sb=bearing(r.pts[n.seg],r.pts[Math.min(n.seg+1,r.pts.length-1)]);if(!geo.gpsHeading||hd==null)hd=sb}
+  nav.heading=hd;
+  meSetTarget(tgt,hd,nav.snapped?n.along:null);
+  if(o&&nav.follow){var z=navZoom(),now=Date.now();
+    if(first||(z!==o.map.getZoom()&&now-(nav.zoomAt||0)>4000)){nav.zoomAt=now;var zz=first?Math.max(z,o.map.getZoom()):z;o.map.setView(navCam(tgt,zz,hd),zz,{animate:!first})}
+    else o.map.panTo(navCam(tgt,o.map.getZoom(),hd),{animate:true,duration:(meAnim.dur||1)/1000,easeLinearity:1,noMoveStart:true})}
   if(!nav.route)return;
-  var n=nearestOnRoute(pt);
   if(n.d>60){if(Date.now()-nav.lastFetch>=30000&&navigator.onLine){$('navStreet').textContent='Rerouting…';toast('Off route – rerouting');fetchRoute(pt)}else{$('navThen').style.display='';$('navThen').textContent='Off route – will reroute shortly'}return}
   $('navThen').style.display='none';
-  navUpdateUI(n.along,nav.route.len-n.along);
+  nav.along=n.along;navUpdateUI(n.along,nav.route.len-n.along);
 }
+// Called every animation frame while the arrow glides: heading-up rotation, route trim, live distance
+function navFrame(p,k){
+  var up=S().navHeadUp&&meAnim.h!=null,el=$('navMap');el.style.transform=up?'rotate('+(-meAnim.h)+'deg)':'';
+  var r=nav.route,o=maps.navMap;if(!r||!o||!o.rAhead)return;
+  var along=meAnim.a1==null?nav.along:meAnim.a1Cur(),now=performance.now();if(along==null)return;
+  if(now-(nav.trimT||0)>90||k>=1){nav.trimT=now;navTrim(along)}
+  if(now-(nav.distT||0)>250||k>=1){nav.distT=now;var st=r.steps[nav.step];if(st&&!nav.arrived){var tx=fmtDistUS(Math.max(0,st.at-along));if($('navDist').textContent!==tx)$('navDist').textContent=tx}}
+}
+function routePointAt(along){var r=nav.route,c=r.cum,lo=0,hi=c.length-1;if(along<=0)return {i:0,q:r.pts[0]};if(along>=r.len)return {i:c.length-2,q:r.pts[c.length-1]};
+  while(hi-lo>1){var mid=(lo+hi)>>1;if(c[mid]<=along)lo=mid;else hi=mid}var a=r.pts[lo],b=r.pts[lo+1],t=(along-c[lo])/Math.max(1e-6,c[lo+1]-c[lo]);return {i:lo,q:{lat:a.lat+(b.lat-a.lat)*t,lon:a.lon+(b.lon-a.lon)*t}}}
+function navTrim(along){var r=nav.route,o=maps.navMap;if(!r||!o||!o.rAhead)return;if(Math.abs(along-(nav.trimAt||-1))<0.5)return;nav.trimAt=along;
+  var pa=routePointAt(along),q=[pa.q.lat,pa.q.lon],done=[],ahead=[q];
+  for(var i=0;i<=pa.i;i++)done.push([r.pts[i].lat,r.pts[i].lon]);done.push(q);
+  for(var j=pa.i+1;j<r.pts.length;j++)ahead.push([r.pts[j].lat,r.pts[j].lon]);
+  o.rDone.setLatLngs(done);o.rCase.setLatLngs(ahead);o.rAhead.setLatLngs(ahead);nav.traveled=along}
 function navUpdateUI(along,remain){
   var r=nav.route,steps=r.steps,i=0;while(i<steps.length&&steps[i].at<=along+15)i++;
-  if(i>=steps.length||remain<30){if(!nav.arrived){nav.arrived=true;$('navBanner').classList.add('arrived');$('navArrow').innerHTML=arrowSvg({type:'arrive'});$('navDist').textContent='Arrived';$('navStreet').textContent=nav.dest.name;speak('You have arrived at '+nav.dest.name)}
+  if(i>=steps.length||remain<30){if(!nav.arrived){nav.arrived=true;nav.shownStep=-2;$('navLanes').style.display='none';$('navBanner').classList.add('arrived');$('navArrow').innerHTML=arrowSvg({type:'arrive'});$('navDist').textContent='Arrived';$('navStreet').textContent=nav.dest.name;speak('You have arrived at '+nav.dest.name)}
     $('navMin').textContent='0';$('navMi').textContent='0.0';$('navEta').textContent=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});return}
-  var st=steps[i],toNext=Math.max(0,st.at-along);nav.step=i;
-  $('navArrow').innerHTML=arrowSvg(st);$('navDist').textContent=fmtDistUS(toNext);$('navStreet').textContent=instr(st,nav.dest.name);
+  var st=steps[i],toNext=Math.max(0,st.at-along),changed=nav.shownStep!==i;nav.step=i;
+  if(changed){nav.shownStep=i;$('navArrow').innerHTML=arrowSvg(st);$('navStreet').textContent=instr(st,nav.dest.name);
+    var lh=lanesHtml(st);$('navLanes').innerHTML=lh;$('navLanes').style.display=lh?'':'none';
+    var bn=$('navBanner');bn.classList.remove('swap');void bn.offsetWidth;bn.classList.add('swap')}
+  if(changed||meAnim.a1==null||!meAnim.raf)$('navDist').textContent=fmtDistUS(toNext);
   var nx=steps[i+1];if(nx&&nx.at-st.at<150&&nx.type!=='arrive'){$('navThen').style.display='';$('navThen').textContent='Then: '+instr(nx,nav.dest.name)}
   var secs=r.dur*(remain/Math.max(1,r.len));if(!r.dur)secs=remain/1609.344/mphAt(new Date())*3600;
   $('navMin').textContent=Math.max(1,Math.round(secs/60));$('navMi').textContent=(remain/1609.344).toFixed(1);
@@ -1155,14 +1260,14 @@ function navUpdateUI(along,remain){
   if(toNext<=60&&!sp.near){sp.near=sp.far=true;speak(instr(st,nav.dest.name))}
   else if(toNext<=400&&toNext>60&&!sp.far){sp.far=true;speak('In '+sayDistUS(toNext)+', '+instr(st,nav.dest.name).replace(/^T/,'t').replace(/^C/,'c').replace(/^M/,'m').replace(/^K/,'k').replace(/^A/,'a'))}
 }
-function navApplyHeading(){var up=S().navHeadUp&&nav.heading!=null;$('navView').classList.toggle('head-up',!!S().navHeadUp);$('navMap').style.transform=up?'rotate('+(-nav.heading)+'deg)':''}
+function navApplyHeading(){var up=S().navHeadUp&&meAnim.h!=null;$('navView').classList.toggle('head-up',!!S().navHeadUp);$('navMap').style.transform=up?'rotate('+(-meAnim.h)+'deg)':'';var o=maps.navMap;if(o)setTimeout(function(){o.map.invalidateSize({pan:false});var at=meAnim.pos||geo.fix;if(nav.follow&&at)o.map.setView(navCam(at,o.map.getZoom()),o.map.getZoom(),{animate:false})},0)}
 function navSyncToggles(){var hasVoice=!!(window.speechSynthesis&&window.SpeechSynthesisUtterance);$('navVoice').style.display=hasVoice?'':'none';$('navVoice').setAttribute('aria-pressed',S().navVoice?'true':'false');$('navVoice').textContent=S().navVoice?'🔊 Voice':'🔇 Voice';$('navHead').setAttribute('aria-pressed',S().navHeadUp?'true':'false');$('navHead').textContent=S().navHeadUp?'🧭 Heading up':'⬆️ North up'}
-function endNav(){nav.active=false;nav.route=null;nav.dest=null;try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}var o=maps.navMap;if(o){o.route&&o.route.remove();o.route=null;o.dest&&o.dest.remove();o.dest=null}$('navMap').style.transform='';$('navView').classList.remove('open','head-up');$('navView').setAttribute('aria-hidden','true');$('navRecenter').style.display='none';ensureGeo();render()}
+function endNav(){nav.active=false;nav.route=null;nav.dest=null;try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}var o=maps.navMap;if(o){o.route&&o.route.remove();o.route=null;o.rDone=o.rCase=o.rAhead=null;o.dest&&o.dest.remove();o.dest=null}$('navMap').style.transform='';$('navLanes').style.display='none';$('navView').classList.remove('open','head-up');$('navView').setAttribute('aria-hidden','true');$('navRecenter').style.display='none';ensureGeo();render()}
 $('navEnd').addEventListener('click',endNav);
 $('navErrClose').addEventListener('click',endNav);
 $('navVoice').addEventListener('click',function(){S().navVoice=!S().navVoice;save();navSyncToggles();if(!S().navVoice)try{speechSynthesis.cancel()}catch(e){}});
 $('navHead').addEventListener('click',function(){S().navHeadUp=!S().navHeadUp;save();navSyncToggles();navApplyHeading()});
-$('navRecenter').addEventListener('click',function(){nav.follow=true;this.style.display='none';if(geo.fix&&maps.navMap)maps.navMap.map.setView([geo.fix.lat,geo.fix.lon],16)});
+$('navRecenter').addEventListener('click',function(){nav.follow=true;this.style.display='none';var at=meAnim.pos||geo.fix;if(at&&maps.navMap){nav.zoomAt=Date.now();maps.navMap.map.setView(navCam(at,navZoom()),navZoom(),{animate:true})}});
 document.addEventListener('click',function(e){var b=e.target.closest('[data-nav]');if(!b||!b.dataset.nav)return;e.preventDefault();try{Object.keys(maps).forEach(function(k){maps[k].map.closePopup()})}catch(_){}startNav(b.dataset.nav)});
 
 // ---------- boot ----------
@@ -1174,7 +1279,7 @@ try{if(navigator.permissions&&navigator.permissions.query)navigator.permissions.
 if(btBridge())SmartGearBT.poll();
 document.addEventListener('visibilitychange',function(){if(!document.hidden&&btBridge())SmartGearBT.poll()});
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
-window.SmartGear={demand:demand,nav:nav,startNav:function(id){startNav(id)},endNav:function(){endNav()},est:{wait:waitEst,mph:mphAt,drive:driveEst,best:bestSpot,cap:etaCap,color:busyHex,word:busyWord},geo:geo,maps:maps,layoutHome:layoutHome,state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
+window.SmartGear={navx:{anim:meAnim,delta:angDelta,zoomForSpeed:zoomForSpeed,glyph:maneuverKind},demand:demand,nav:nav,startNav:function(id){startNav(id)},endNav:function(){endNav()},est:{wait:waitEst,mph:mphAt,drive:driveEst,best:bestSpot,cap:etaCap,color:busyHex,word:busyWord},geo:geo,maps:maps,layoutHome:layoutHome,state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
 })();
 </script>
 </body>
