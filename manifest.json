@@ -1,7 +1,7 @@
 {
-  "name": "Smart Gear – NYC Driver Hisaab",
+  "name": "Smart Gear – Driver's Smart Earnings",
   "short_name": "Smart Gear",
-  "description": "NYC rideshare drivers ke liye earnings, expenses, trip profit calculator, shift tracker aur ride scanner (estimates). Offline.",
+  "description": "Earnings, expenses, trip profit calculator, shift tracker and ride scanner (estimates) for NYC rideshare drivers. Works offline.",
   "id": "./",
   "start_url": "./",
   "scope": "./",

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Smart Gear – Driver ka Hisaab</title>
-<meta name="description" content="Smart Gear: NYC rideshare drivers ke liye earnings, expenses, trip profit calculator, shift tracker aur ride scanner.">
+<title>Smart Gear – Drive smarter in NYC</title>
+<meta name="description" content="Smart Gear: Uber-style shift companion for NYC rideshare drivers – busy map across all five boroughs, ride scanner (where to go, airport, long rides), GPS miles and Bluetooth auto-shift.">
 <meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark light">
 <meta name="mobile-web-app-capable" content="yes">
@@ -35,19 +35,9 @@ section.tab{display:none}section.tab.active{display:block}
 h2{font-size:22px;margin:4px 2px 12px;font-weight:800;letter-spacing:-.4px}
 h3{font-size:15px;margin:0 0 10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.hero{background:linear-gradient(160deg,#111 0%,#050505 100%);border-color:#222}
-html[data-theme="light"] .hero{background:#09090b;color:#fff}
-.hero .big{font-size:40px;font-weight:800;letter-spacing:-1px}
-.hero .lbl{color:#a1a1aa;font-size:14px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .stat{background:var(--card2);border-radius:12px;padding:12px}
-.hero .stat{background:#1a1a1d}
 .stat .v{font-size:20px;font-weight:800}.stat .k{font-size:12px;color:var(--muted);margin-top:2px}
-.hero .stat .k{color:#a1a1aa}
-.pos{color:var(--accent)}.neg{color:var(--bad)}
-.bar{height:12px;background:#27272a;border-radius:99px;overflow:hidden;margin:8px 0 4px}
-.bar>i{display:block;height:100%;background:var(--accent);width:0;border-radius:99px;transition:width .4s}
 .row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}
 .muted{color:var(--muted)}.small{font-size:13px}
 button,.btn{font:inherit;border:0;border-radius:14px;min-height:50px;padding:0 18px;font-weight:700;cursor:pointer;background:var(--card2);color:var(--text);border:1px solid var(--line)}
@@ -70,23 +60,13 @@ input:focus,select:focus{border-color:var(--accent)}
 .list li:last-child{border-bottom:0}
 .ico{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:var(--card2);font-size:20px;flex:none}
 .list .t{flex:1;min-width:0}.list .t b{display:block;font-size:15px}.list .t span{font-size:12px;color:var(--muted)}
-.list .amt{font-weight:800;text-align:right}
 .list .act{display:flex;gap:4px}
 .list .act button{min-height:40px;width:40px;padding:0;border-radius:10px;font-size:16px}
-.dayhdr{font-size:13px;color:var(--muted);font-weight:700;margin:14px 4px 2px;display:flex;justify-content:space-between}
 .empty{text-align:center;color:var(--muted);padding:22px 8px}
 canvas{width:100%;height:180px;display:block}
-.verdict{border-radius:var(--radius);padding:18px;text-align:center;margin-top:12px;border:2px solid}
-.verdict .vt{font-size:34px;font-weight:900;letter-spacing:-.5px}
-.v-good{border-color:var(--accent);background:rgba(34,197,94,.12);color:var(--accent)}
-.v-ok{border-color:var(--warn);background:rgba(245,158,11,.12);color:var(--warn)}
-.v-bad{border-color:var(--bad);background:rgba(239,68,68,.12);color:var(--bad)}
-.timer{font-size:48px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:-1px;margin:6px 0}
-.live{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent);margin-right:6px;animation:pulse 1.2s infinite}
-@keyframes pulse{50%{opacity:.25}}
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;background:var(--bg);border-top:1px solid var(--line);padding-bottom:var(--safe-b)}
 nav.tabs button{flex:1;min-width:0;min-height:64px;border:0;border-radius:0;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10.5px;font-weight:600;padding:0;white-space:nowrap}
-nav.tabs button .i{font-size:21px;line-height:1}
+nav.tabs button .i{font-size:21px;line-height:1;display:flex;height:24px}nav.tabs button .i svg{display:block}
 nav.tabs button.on{color:var(--text)}
 nav.tabs button.on .i{filter:none}
 nav.tabs button.on::after{content:"";width:22px;height:3px;background:var(--accent);border-radius:3px;margin-top:2px}
@@ -99,8 +79,6 @@ nav.tabs button.on::after{content:"";width:22px;height:3px;background:var(--acce
 .toast.show{opacity:1}
 .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:6px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
-.kv{display:flex;justify-content:space-between;padding:10px 2px;border-bottom:1px dashed var(--line)}
-.kv:last-child{border-bottom:0}.kv b{font-weight:800}
 .rank{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;border-bottom:1px solid var(--line)}
 .rank:last-child{border-bottom:0}
 .rank .no{width:30px;height:30px;border-radius:9px;background:var(--card2);display:grid;place-items:center;font-weight:800;font-size:14px;flex:none}
@@ -110,208 +88,224 @@ nav.tabs button.on::after{content:"";width:22px;height:3px;background:var(--acce
 .rank .sc{font-weight:900;font-size:20px;text-align:right;min-width:44px}
 .sbar{height:6px;background:var(--card2);border-radius:9px;overflow:hidden;margin-top:7px}.sbar>i{display:block;height:100%;border-radius:9px}
 .maps{display:inline-flex;align-items:center;min-height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--line);color:var(--text);text-decoration:none;font-size:13px;font-weight:700;margin-top:8px;background:var(--card2)}
-.seg.nowrap button{white-space:nowrap;font-size:14.5px;padding:0 6px}
+.seg.nowrap button{white-space:nowrap;font-size:13.5px;padding:0 4px}
 .note{border-color:var(--warn);background:rgba(245,158,11,.08)}
 .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--card2);border:1px solid var(--line);margin-left:4px;vertical-align:1px}
 .switch{display:flex;align-items:center;justify-content:space-between;min-height:50px}
 .switch input{width:52px;height:30px;min-height:0;accent-color:var(--accent)}
+/* ---- network badge ---- */
+.net{font-size:12px;font-weight:700;padding:4px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.net::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;background:var(--muted);vertical-align:1px}
+.net.on::before{background:var(--accent)}.net.off{color:var(--warn);border-color:var(--warn)}.net.off::before{background:var(--warn)}
+header.top .sub{margin-left:8px}
+/* ---- Uber-style home ---- */
+body.on-home header.top{display:none}
+#tab-home.active{position:fixed;left:0;right:0;top:0;bottom:calc(64px + var(--safe-b));z-index:1;overflow:hidden;background:#0b0b0d;display:block}
+.home-map{position:absolute;inset:0;z-index:0;background-color:#0e0f12;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:40px 40px}
+.home-top{position:absolute;left:0;right:0;top:calc(12px + var(--safe-t));display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:1100;pointer-events:none}
+.home-top>*{pointer-events:auto}
+.fab-round{width:48px;height:48px;min-height:0;padding:0;border-radius:50%;background:#fff;color:#000;border:0;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .12s ease,box-shadow .12s ease}
+.fab-round:active{transform:scale(.92);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.status-pill{min-height:0;height:48px;padding:0 20px;border-radius:99px;background:#000;color:#fff;border:1px solid #2a2a30;box-shadow:0 4px 14px rgba(0,0,0,.4);display:flex;align-items:center;gap:8px;font-size:20px;letter-spacing:-.3px;font-variant-numeric:tabular-nums;transition:transform .12s}
+.status-pill:active{transform:scale(.96)}
+.status-pill b{font-weight:800}
+.pill-dot{width:9px;height:9px;border-radius:50%;background:#71717a}.pill-dot.on{background:var(--accent);box-shadow:0 0 0 4px rgba(34,197,94,.25)}.pill-dot.paused{background:var(--warn)}.status-pill.online b{font-variant-numeric:tabular-nums}
+.home-net{position:absolute;top:calc(70px + var(--safe-t));left:50%;transform:translateX(-50%);z-index:1100;background:rgba(245,158,11,.95);color:#1a1200;font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:99px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.home-locate{position:absolute;right:14px;z-index:1100;bottom:260px;transition:bottom .25s ease,opacity .2s,transform .12s}
+.go-btn{position:absolute;left:50%;bottom:260px;width:84px;height:84px;min-height:0;padding:0;margin-left:-42px;border-radius:50%;z-index:1150;border:4px solid #fff;background:var(--accent);color:#04120a;font-size:26px;font-weight:900;letter-spacing:.5px;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.45);transition:bottom .25s ease,transform .15s ease,background .2s,opacity .2s}
+.go-btn:active{transform:scale(.93)}
+.go-btn .stop-ico{display:none}
+.go-btn.online{background:#18181b;color:#ef4444;border-color:#3f3f46;width:64px;height:64px;margin-left:-32px}
+.go-btn.online .go-txt{display:none}.go-btn.online .stop-ico{display:block}
+.go-btn.pulse::before{content:"";position:absolute;inset:-4px;border-radius:50%;border:3px solid var(--accent);animation:ring 2s ease-out infinite;pointer-events:none}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.55);opacity:0}}
+#tab-home.sheet-open .go-btn,#tab-home.sheet-open .home-locate{opacity:0;pointer-events:none;transform:scale(.8)}
+.hsheet{position:absolute;left:0;right:0;bottom:0;top:calc(74px + var(--safe-t));z-index:1200;background:var(--card);border-radius:22px 22px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.45);transform:translate3d(0,100%,0);transition:transform .32s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;max-width:640px;margin:0 auto;will-change:transform;border-top:1px solid var(--line)}
+.hsheet.dragging{transition:none}
+.hs-peek{padding:6px 16px 12px;touch-action:none;flex:none;position:relative}
+.hsheet.online .hs-peek::before{content:"";position:absolute;left:18px;right:18px;top:0;height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);background-size:50% 100%;background-repeat:no-repeat;animation:scan 1.6s linear infinite}
+@keyframes scan{0%{background-position:-50% 0}100%{background-position:150% 0}}
+.hs-peek .grab{margin:4px auto 10px;width:40px;height:5px;background:#3f3f46;cursor:grab}
+.hs-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 2px 12px}
+.hs-title{font-size:22px;font-weight:800;letter-spacing:-.4px}
+.hs-sub{font-size:13.5px;color:var(--muted);margin-top:2px}
+.hs-time{text-align:right}.hs-time b{display:block;font-size:18px;font-variant-numeric:tabular-nums}.hs-time span{font-size:12px;color:var(--muted)}
+.hs-near{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:var(--card2);border:1px solid var(--line);color:var(--text);text-decoration:none;margin-bottom:12px;min-height:56px;transition:transform .12s}
+.hs-near:active{transform:scale(.98)}
+.hs-near .nd{width:14px;height:14px;border-radius:50%;background:#71717a;flex:none;box-shadow:0 0 0 5px rgba(113,113,122,.2)}
+.hs-near .nt{flex:1;min-width:0}.hs-near .nt b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hs-near .nt span{font-size:12.5px;color:var(--muted)}
+.hs-near .ng{width:34px;height:34px;border-radius:50%;background:#1f2937;color:#60a5fa;display:flex;align-items:center;justify-content:center;flex:none}
+.hs-actions{margin-bottom:0}.hs-actions button{display:flex;align-items:center;justify-content:center;gap:6px}
+.hs-more{flex:1;overflow-y:auto;padding:4px 14px 20px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+/* ---- maps ---- */
+.sg-map{z-index:0}
+html:not([data-theme="light"]) .sg-map .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.92) contrast(.9) saturate(.35)}
+.sg-map .leaflet-container{background:transparent}
+.leaflet-container{font-family:inherit}
+#homeMap .leaflet-top{top:calc(66px + var(--safe-t))}
+.leaflet-control-attribution{font-size:10px!important;background:rgba(0,0,0,.55)!important;color:#d4d4d8!important}
+.leaflet-control-attribution a{color:#e4e4e7!important}
+.sg-map .leaflet-popup-content-wrapper,.sg-map .leaflet-popup-tip{background:#111113;color:#fff;border:1px solid #2a2a30;box-shadow:0 8px 24px rgba(0,0,0,.5)}.sg-map .leaflet-popup-close-button{color:#a1a1aa}
+.sg-map .leaflet-popup-content{margin:12px 14px;font-size:13.5px;line-height:1.4}
+.sg-map .leaflet-popup-content b{font-size:15px}
+.sg-map .leaflet-popup-content a.maps{color:#fff;background:#1b1b1f;border-color:#2a2a30;margin-top:8px}
+.boro-lbl{background:none;border:0}
+.boro-lbl span{display:inline-block;transform:translate(-50%,-50%);white-space:nowrap;font-size:11.5px;font-weight:800;color:#fff;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:99px;border:1px solid rgba(255,255,255,.18)}
+.me-dot{background:none;border:0}
+.me-dot i{display:block;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#3b82f6;border:3px solid #fff;box-shadow:0 0 0 8px rgba(59,130,246,.25)}
+.map-wrap{position:relative;height:430px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);margin-bottom:10px;background-color:#0e0f12;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:40px 40px}
+.map-wrap .sg-map{position:absolute;inset:0}
+.map-locate{position:absolute;right:10px;bottom:28px;z-index:1000;width:44px;height:44px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mcell{border-radius:12px;padding:10px;border:1px solid var(--line);background:var(--card2);color:var(--text);text-decoration:none;display:block}
+.mcell b{display:block;font-size:14px}.mcell span{font-size:12px;color:var(--muted)}
+.mcell .sc{float:right;font-weight:900}
+.seg.scroll{overflow-x:auto;scrollbar-width:none}.seg.scroll::-webkit-scrollbar{display:none}
+.seg.scroll button{flex:none;padding:0 13px}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;padding-bottom:2px}.chips.scroll::-webkit-scrollbar{display:none}
+.chips.scroll .chip{flex:none}
 </style>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/nyc-boroughs.js"></script>
 </head>
 <body>
 <header class="top">
   <svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#000" stroke="#333" stroke-width="8"/><g fill="#fff"><rect x="238" y="70" width="36" height="52" rx="6"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(45 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(90 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(135 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(180 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(225 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(270 256 256)"/><rect x="238" y="70" width="36" height="52" rx="6" transform="rotate(315 256 256)"/></g><circle cx="256" cy="256" r="150" fill="none" stroke="#fff" stroke-width="30"/><text x="256" y="300" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="130" letter-spacing="-6" fill="#fff">SG</text><circle cx="366" cy="146" r="26" fill="#22C55E" stroke="#000" stroke-width="10"/></svg>
   <h1>Smart Gear</h1>
+  <span class="net on" id="netBadge" style="margin-left:auto">Online</span>
   <span class="sub" id="hdrDate"></span>
 </header>
 
 <main>
-<!-- DASHBOARD -->
+<!-- HOME (Uber-style: full-bleed map + GO + bottom sheet) -->
 <section class="tab active" id="tab-home">
-  <div class="card hero">
-    <div class="lbl">Aaj ka net profit</div>
-    <div class="big" id="dNet">$0</div>
-    <div class="bar"><i id="dGoalBar"></i></div>
-    <div class="row between small"><span class="lbl" id="dGoalTxt">Goal: $0</span><span class="lbl" id="dGoalPct">0%</span></div>
-    <div class="grid2" style="margin-top:14px">
-      <div class="stat"><div class="v pos" id="dEarn">$0</div><div class="k">Kamai (earnings)</div></div>
-      <div class="stat"><div class="v neg" id="dExp">$0</div><div class="k">Kharcha (expenses)</div></div>
-      <div class="stat"><div class="v" id="dTrips">0</div><div class="k">Trips</div></div>
-      <div class="stat"><div class="v" id="dHours">0h 0m</div><div class="k">Online time</div></div>
+  <div id="homeMap" class="sg-map home-map" aria-label="Busy map"></div>
+  <div class="home-top">
+    <button class="fab-round" id="hProfile" aria-label="Settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
+    <button class="status-pill" id="hPill" aria-label="Shift status"><span class="pill-dot" id="pillDot"></span><b id="pillTxt">Offline</b></button>
+    <button class="fab-round" id="hSearch" aria-label="Ride Scanner"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+  </div>
+  <div class="home-net" id="homeNet" style="display:none"></div>
+  <button class="fab-round home-locate" id="hLocate" aria-label="My location"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+  <button id="dShiftBtn" class="go-btn" aria-label="Start shift (GO)"><span class="go-txt">GO</span><svg class="stop-ico" viewBox="0 0 24 24" width="26" height="26"><rect x="6" y="6" width="12" height="12" rx="2.5" fill="currentColor"/></svg></button>
+  <div class="hsheet" id="hSheet">
+    <div class="hs-peek" id="hPeek">
+      <div class="grab" id="hGrab"></div>
+      <div class="hs-row" id="hHead">
+        <div class="hs-status"><div class="hs-title" id="dShiftState">You're offline</div><div class="hs-sub" id="dShiftSub">Tap GO to start your shift</div></div>
+        <div class="hs-time"><b id="dHours">0h 0m</b><span>online today</span></div>
+      </div>
+      <a class="hs-near" id="hNear" target="_blank" rel="noopener" href="#"><span class="nd" id="hNearDot"></span><span class="nt"><b id="hNearName">Finding busy areas…</b><span id="hNearSub">Estimate</span></span><span class="ng"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5 3.8 10.6c-.8.3-.7 1.5.1 1.7l6.6 1.2 1.2 6.6c.2.8 1.4.9 1.7.1z"/></svg></span></a>
+      <div class="fab-row hs-actions">
+        <button class="btn-accent" id="hLog"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><path d="M12 7v5M9.5 9.5h5"/></svg> Log pickup</button>
+        <button class="btn-primary" id="hWhere"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 5 6.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.5 2 1.5 3 3 3-1-3 0-6.5 0-8.5z"/></svg> Where to go</button>
+      </div>
     </div>
-  </div>
-  <div class="fab-row">
-    <button class="btn-accent" data-add="earning">+ Kamai</button>
-    <button class="btn-primary" data-add="expense">+ Kharcha</button>
-  </div>
-  <div class="card" id="dShiftCard">
-    <div class="row between"><div><b id="dShiftState">Shift band hai</b><div class="small muted" id="dShiftSub">Online time track karne ke liye shift start karo</div></div>
-    <button class="btn-accent" id="dShiftBtn" style="min-width:110px">Start</button></div>
-  </div>
-  <div class="card">
-    <h3>Is hafte (last 7 din)</h3>
-    <div class="grid3">
-      <div class="stat"><div class="v pos" id="wEarn">$0</div><div class="k">Kamai</div></div>
-      <div class="stat"><div class="v neg" id="wExp">$0</div><div class="k">Kharcha</div></div>
-      <div class="stat"><div class="v" id="wNet">$0</div><div class="k">Net</div></div>
+    <div class="hs-more" id="hMore">
+      <div class="card">
+        <h3>Today</h3>
+        <div class="grid2">
+          <div class="stat"><div class="v" id="tOnline">0h 0m</div><div class="k">Online time</div></div>
+          <div class="stat"><div class="v" id="tShifts">0</div><div class="k">Shifts</div></div>
+          <div class="stat"><div class="v" id="tMiles">0.0 mi</div><div class="k">GPS miles</div></div>
+          <div class="stat"><div class="v" id="tPickups">0</div><div class="k">Pickups logged</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>This week (Mon–Sun)</h3>
+        <div class="grid2">
+          <div class="stat"><div class="v" id="wOnline">0h 0m</div><div class="k">Online time</div></div>
+          <div class="stat"><div class="v" id="wPickups">0</div><div class="k">Pickups logged</div></div>
+        </div>
+      </div>
+      <div class="card" style="padding:6px 12px">
+        <h3 style="margin:10px 4px">Recent pickups</h3>
+        <div id="pickupList"></div>
+      </div>
+      <div class="card" style="padding:6px 12px">
+        <h3 style="margin:10px 4px">Recent shifts</h3>
+        <div id="shiftList"></div>
+      </div>
     </div>
-    <div class="bar"><i id="wGoalBar"></i></div>
-    <div class="row between small muted"><span id="wGoalTxt">Weekly goal: $0</span><span id="wStats">0 trips · 0h</span></div>
-  </div>
-  <div class="card">
-    <h3>7 din ka chart</h3>
-    <canvas id="chartHome"></canvas>
-    <div class="legend"><span><i style="background:var(--accent)"></i>Kamai</span><span><i style="background:var(--bad)"></i>Kharcha</span></div>
-  </div>
-</section>
-
-<!-- TRACKER -->
-<section class="tab" id="tab-track">
-  <h2>Kamai aur Kharcha</h2>
-  <div class="fab-row">
-    <button class="btn-accent" data-add="earning">+ Kamai</button>
-    <button class="btn-primary" data-add="expense">+ Kharcha</button>
-  </div>
-  <div class="card">
-    <h3>Last 7 din</h3>
-    <canvas id="chartTrack"></canvas>
-    <div class="legend"><span><i style="background:var(--accent)"></i>Kamai</span><span><i style="background:var(--bad)"></i>Kharcha</span></div>
-  </div>
-  <div class="seg" id="filterSeg">
-    <button class="on" data-f="all">Sab</button><button data-f="earning">Kamai</button><button data-f="expense">Kharcha</button>
-  </div>
-  <div class="card" style="padding:6px 12px"><div id="entryList"></div></div>
-</section>
-
-<!-- CALCULATOR -->
-<section class="tab" id="tab-calc">
-  <h2>Trip lena chahiye?</h2>
-  <div class="card">
-    <label for="cFare">Fare / driver pay offered ($)</label>
-    <input id="cFare" type="number" inputmode="decimal" placeholder="e.g. 24" min="0" step="any">
-    <div class="grid2">
-      <div><label for="cPickup">Deadhead / pickup (mi)</label><input id="cPickup" type="number" inputmode="decimal" placeholder="1.5" min="0" step="any"></div>
-      <div><label for="cTrip">Trip distance (mi)</label><input id="cTrip" type="number" inputmode="decimal" placeholder="8" min="0" step="any"></div>
-    </div>
-    <div class="grid2">
-      <div><label for="cMin">Total time (min)</label><input id="cMin" type="number" inputmode="numeric" placeholder="28" min="0"></div>
-      <div><label for="cTolls">Tolls / fees ($)</label><input id="cTolls" type="number" inputmode="decimal" placeholder="0" min="0" step="any"></div>
-    </div>
-    <div class="grid2">
-      <div><label for="cComm">Commission %</label><input id="cComm" type="number" inputmode="decimal" min="0" max="100"></div>
-      <div><label for="cMileage" id="cMileageLbl">MPG</label><input id="cMileage" type="number" inputmode="decimal" min="0" step="any"></div>
-      <div><label for="cFuel" id="cFuelLbl">Gas ($/gal)</label><input id="cFuel" type="number" inputmode="decimal" min="0" step="any"></div>
-    </div>
-    </div>
-    <p class="small muted" style="margin:10px 2px 0">MPG, gas price aur commission Settings se aate hain. NYC me app aksar driver pay (commission ke baad) dikhata hai – tab commission 0% rakho.</p>
-    <p class="small muted" style="margin:6px 2px 0">ℹ️ NYC TLC ka driver minimum pay rule hai (per-mile + per-minute, rates time-time pe update hote hain). Exact rates nyc.gov/tlc pe check karo.</p>
-  </div>
-  <div id="calcOut" class="card" style="display:none">
-    <div class="kv"><span>Total miles</span><b id="oKm">0 mi</b></div>
-    <div class="kv"><span>Deadhead</span><b id="oDead">0 mi</b></div>
-    <div class="kv"><span>Commission</span><b id="oComm">$0</b></div>
-    <div class="kv"><span>Gas / charging cost</span><b id="oFuel">$0</b></div>
-    <div class="kv"><span>Tolls / fees</span><b id="oTolls">$0</b></div>
-    <div class="kv"><span>Net earning</span><b id="oNet">$0</b></div>
-    <div class="kv"><span>Per mile (net)</span><b id="oPerKm">$0/mi</b></div>
-    <div class="kv"><span>Per hour (net)</span><b id="oPerHr">$0/hr</b></div>
-    <div class="verdict" id="oVerdict"><div class="vt" id="oVT">—</div><div class="small" id="oVS"></div></div>
-  </div>
-  <div class="grid2">
-    <button id="cClear">Clear</button>
-    <button class="btn-accent" id="cSave">Trip ko kamai me add karo</button>
   </div>
 </section>
 
 <!-- RIDE SCANNER -->
 <section class="tab" id="tab-scan">
   <h2>Ride Scanner</h2>
-  <div class="card note small"><b>⚠️ Andaza / estimate.</b> Ye real Uber/Lyft demand data nahi hai. Score aapki apni trip history aur time/din ke general pattern se banta hai.</div>
+  <div class="card note small"><b>⚠️ Estimate.</b> This is not real Uber/Lyft demand data. Scores are based on general time-of-day / day-of-week patterns and the pickups you log.</div>
   <div class="card">
-    <div class="row between"><span class="small muted">Kis time ke liye?</span><b class="small" id="scWhen"></b></div>
-    <div class="row" style="margin-top:8px"><button class="chip on" id="scNow" type="button">Abhi</button><input id="scTime" type="datetime-local" aria-label="Custom time" style="flex:1;min-width:0;font-size:15px;padding:10px"></div>
+    <div class="row between"><span class="small muted">For what time?</span><b class="small" id="scWhen"></b></div>
+    <div class="row" style="margin-top:8px"><button class="chip on" id="scNow" type="button">Now</button><input id="scTime" type="datetime-local" aria-label="Custom time" style="flex:1;min-width:0;font-size:15px;padding:10px"></div>
   </div>
-  <div class="seg nowrap" id="scSeg"><button class="on" data-s="go">Kahan jao</button><button data-s="air">✈️ Airport</button><button data-s="areas">📍 Areas</button></div>
+  <div class="chips scroll boro-chips" id="scBoro"></div>
+  <div class="seg scroll" id="scSeg"><button class="on" data-s="go">🔥 Where to go</button><button data-s="air">✈️ Airport</button><button data-s="long">🛣️ Long rides</button><button data-s="areas">📍 My areas</button></div>
   <div id="sc-go">
-    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Abhi yahan jao</h3><div id="goList"></div></div>
+    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Go here now</h3><div id="goList"></div></div>
+  </div>
+  <div id="sc-long" style="display:none">
+    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">🛣️ Long ride hotspots</h3><p class="small muted" style="margin:4px 2px 0"><b>Estimate.</b> Long ride = <span id="longDef">15+ mi or 40+ min</span>. Chances of trips to the suburbs, NJ, Long Island, Westchester and other boroughs.</p><div id="longList"></div></div>
   </div>
   <div id="sc-air" style="display:none">
-    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Airport ride kahan milegi</h3><p class="small muted" style="margin:4px 2px 0">Wo areas jahan se JFK / LGA / EWR jaane wali ride milne ke chance zyada hain (airports khud list me nahi).</p><div id="airList"></div></div>
+    <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Airport ride hotspots</h3><p class="small muted" style="margin:4px 2px 0">Areas with the best chance of a ride to JFK / LGA / EWR (the airports themselves are not listed).</p><div id="airList"></div></div>
   </div>
   <div id="sc-areas" style="display:none">
     <div class="card">
-      <h3>Naya hotspot area</h3>
-      <label for="hName">Naam</label><input id="hName" type="text" maxlength="60" placeholder="e.g. Hell's Kitchen">
+      <h3>New hotspot area</h3>
+      <label for="hName">Name</label><input id="hName" type="text" maxlength="60" placeholder="e.g. Hell's Kitchen">
       <label for="hType">Type</label><select id="hType"></select>
-      <div class="row" style="margin-top:10px"><button type="button" id="hGps" style="flex:1">📍 Current GPS lo</button></div>
-      <div class="small muted" id="hGpsTxt" style="margin:6px 2px 0">Optional: location se Maps directions exact milega.</div>
-      <button type="button" class="btn-accent btn-block" id="hSave" style="margin-top:12px">Area save karo</button>
-      <button type="button" class="btn-block" id="hCancelEdit" style="margin-top:8px;display:none">Edit cancel</button>
+      <label for="hBoro">Borough</label><select id="hBoro"><option value="">Auto (from GPS)</option><option value="manhattan">Manhattan</option><option value="brooklyn">Brooklyn</option><option value="queens">Queens</option><option value="bronx">The Bronx</option><option value="staten">Staten Island</option><option value="nj">New Jersey / other</option></select>
+      <div class="row" style="margin-top:10px"><button type="button" id="hGps" style="flex:1">📍 Use current GPS</button></div>
+      <div class="small muted" id="hGpsTxt" style="margin:6px 2px 0">Optional: a saved location gives exact Maps directions.</div>
+      <button type="button" class="btn-accent btn-block" id="hSave" style="margin-top:12px">Save area</button>
+      <button type="button" class="btn-block" id="hCancelEdit" style="margin-top:8px;display:none">Cancel edit</button>
     </div>
     <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Saved areas</h3><div id="areaList"></div></div>
-    <button type="button" class="btn-block" id="hDefaults" style="margin-bottom:12px">🗽 NYC default areas wapas lao</button>
+    <button type="button" class="btn-block" id="hDefaults" style="margin-bottom:12px">🗽 Restore NYC default areas</button>
   </div>
 </section>
 
-<!-- SHIFT & GOALS -->
-<section class="tab" id="tab-shift">
-  <h2>Shift aur Goals</h2>
-  <div class="card">
-    <div class="row between"><h3 style="margin:0">Shift timer</h3><span class="small muted" id="sState">Offline</span></div>
-    <div class="timer" id="sTimer">00:00:00</div>
-    <div class="small muted" style="text-align:center;margin-bottom:10px" id="sKm"></div>
-    <button class="btn-accent btn-block" id="sBtn">Shift start karo</button>
-    <div class="switch" style="margin-top:8px"><span class="small">GPS se miles track karo (optional)</span><input type="checkbox" id="sGps"></div>
-  </div>
-  <div class="card">
-    <h3>Goals</h3>
-    <div class="grid2">
-      <div><label for="gDaily">Daily goal ($)</label><input id="gDaily" type="number" inputmode="numeric" min="0"></div>
-      <div><label for="gWeekly">Weekly goal ($)</label><input id="gWeekly" type="number" inputmode="numeric" min="0"></div>
-    </div>
-    <div style="margin-top:14px">
-      <div class="row between small"><span>Aaj</span><span id="gDayTxt">$0 / $0</span></div>
-      <div class="bar"><i id="gDayBar"></i></div>
-      <div class="row between small" style="margin-top:8px"><span>Is hafte (Mon–Sun)</span><span id="gWeekTxt">$0 / $0</span></div>
-      <div class="bar"><i id="gWeekBar"></i></div>
-      <p class="small muted" id="gHint" style="margin:8px 2px 0"></p>
-    </div>
-  </div>
-  <div class="card" style="padding:6px 12px">
-    <h3 style="margin:10px 4px">Recent shifts</h3>
-    <div id="shiftList"></div>
-  </div>
+<!-- BUSY MAP -->
+<section class="tab" id="tab-map">
+  <h2>Busy Map</h2>
+  <div class="chips scroll boro-chips" id="mapBoro"></div>
+  <div class="chips scroll" id="mapType"></div>
+  <div class="seg nowrap" id="mapLayer"><button class="on" data-l="go">🔥 Where to go</button><button data-l="air">✈️ Airport</button><button data-l="long">🛣️ Long rides</button></div>
+  <div class="map-wrap"><div id="busyMap" class="sg-map" aria-label="NYC busy map"></div><button class="fab-round map-locate" id="mapLocate" aria-label="My location"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button></div>
+  <div class="legend" style="margin:0 2px 6px;flex-wrap:wrap"><span><i style="background:#22c55e"></i>Busy (70+)</span><span><i style="background:#f59e0b"></i>Medium (45–69)</span><span><i style="background:#71717a"></i>Quiet</span><span><b style="color:var(--warn)">Estimate</b></span></div>
+  <p class="small muted" id="mapNote" style="margin:0 2px 10px"></p>
+  <div class="card" id="mapFallback" style="display:none;padding:12px"><h3>Areas (offline list)</h3><div class="mgrid" id="mapGrid"></div></div>
 </section>
 
 <!-- SETTINGS -->
 <section class="tab" id="tab-settings">
   <h2>Settings</h2>
   <div class="card">
-    <h3>Gaadi</h3>
-    <label for="stVehicle">Vehicle type</label>
-    <select id="stVehicle"><option value="sedan">Sedan / Hybrid</option><option value="xl">SUV / XL</option><option value="black">Black / Luxury</option><option value="wav">Wheelchair accessible (WAV)</option><option value="ev">EV</option></select>
-    <label for="stFuelType">Fuel type</label>
-    <select id="stFuelType"><option value="gas">Gas</option><option value="hybrid">Hybrid (gas)</option><option value="ev">EV (mi/kWh, $/kWh)</option></select>
-    <div class="grid2">
-      <div><label for="stMileage" id="stMileageLbl">MPG</label><input id="stMileage" type="number" inputmode="decimal" min="0"></div>
-      <div><label for="stFuel" id="stFuelLbl">Gas ($/gal)</label><input id="stFuel" type="number" inputmode="decimal" min="0"></div>
-    </div>
-    <label for="stComm">Platform commission % (0 agar app driver pay dikhata hai)</label>
-    <input id="stComm" type="number" inputmode="decimal" min="0" max="100">
-  </div>
-  <div class="card">
-    <h3>Verdict thresholds (net)</h3>
-    <div class="grid2">
-      <div><label for="stGoodMi">Accha: $/mile ≥</label><input id="stGoodMi" type="number" inputmode="decimal" step="0.05"></div>
-      <div><label for="stOkMi">Theek: $/mile ≥</label><input id="stOkMi" type="number" inputmode="decimal" step="0.05"></div>
-      <div><label for="stGoodHr">Accha: $/hr ≥</label><input id="stGoodHr" type="number" inputmode="decimal"></div>
-      <div><label for="stOkHr">Theek: $/hr ≥</label><input id="stOkHr" type="number" inputmode="decimal"></div>
-    </div>
-    <p class="small muted" style="margin:10px 2px 0">Dono ($/mile aur $/hour) Accha level pe = <b class="pos">Accha</b>. Koi bhi Theek level se neeche = <b class="neg">Mat lo</b>. Baaki = Theek.</p>
-  </div>
-  <div class="card">
     <h3>Scanner</h3>
-    <label for="stCity">City – Maps search ke liye</label>
+    <label for="stCity">City – for Maps search</label>
     <input id="stCity" type="text" maxlength="40" placeholder="New York, NY">
+    <div class="grid2">
+      <div><label for="stLongMi">Long ride: miles ≥</label><input id="stLongMi" type="number" inputmode="decimal" min="1" step="any"></div>
+      <div><label for="stLongMin">Long ride: minutes ≥</label><input id="stLongMin" type="number" inputmode="numeric" min="1"></div>
+    </div>
+    <button type="button" class="btn-block" id="stAreas" style="margin-top:12px">📍 Manage my areas</button>
+  </div>
+  <div class="card">
+    <h3>Location</h3>
+    <div class="switch"><label for="sGps" style="margin:0;font-size:15px;color:var(--text)">📍 Auto-track miles with GPS during shifts</label><input type="checkbox" id="sGps"></div>
+    <p class="small muted" id="sKm" style="margin:4px 2px 0"></p>
+  </div>
+  <div class="card">
+    <h3>🚗 Car Bluetooth auto-shift</h3>
+    <div id="btAndroid" style="display:none">
+      <p class="small muted" style="margin:0 2px 8px">When your phone connects to the car's Bluetooth, your shift starts automatically; when it disconnects, the shift pauses (with a notification).</p>
+      <div class="row between"><span class="small">Car device: <b id="btCarTxt">No device selected</b></span></div>
+      <button type="button" class="btn-block" id="btPick" style="margin-top:10px">🔷 Choose your car from paired devices</button>
+      <div class="chips" id="btList" style="margin-top:10px"></div>
+      <div class="switch"><label for="btAuto" style="margin:0;font-size:15px;color:var(--text)">Auto start / pause shift</label><input type="checkbox" id="btAuto"></div>
+    </div>
+    <p class="small muted" id="btNoApp" style="margin:0 2px">This feature is only available in the Android app (APK). iPhone and browsers don't let web apps see car Bluetooth connections.</p>
   </div>
   <div class="card">
     <h3>Display</h3>
@@ -320,54 +314,33 @@ nav.tabs button.on::after{content:"";width:22px;height:3px;background:var(--acce
   </div>
   <div class="card">
     <h3>Data</h3>
-    <button class="btn-block" id="stExport" style="margin-bottom:10px">⬇ Export CSV</button>
-    <button class="btn-block btn-danger" id="stClear">Saara data delete karo</button>
-    <p class="small muted" style="margin:10px 2px 0">Data sirf is phone pe save hota hai (offline). Koi account nahi, koi server nahi.</p>
+    <button class="btn-block btn-danger" id="stClear">Delete all data</button>
+    <p class="small muted" style="margin:10px 2px 0">Data is saved only on this phone (offline). No account, no server.</p>
   </div>
-  <p class="small muted" style="text-align:center">Smart Gear v2.0 (NYC) · Not affiliated with Uber, Lyft, Revel or NYC TLC.</p>
+  <p class="small muted" style="text-align:center">Smart Gear v3.1 (NYC) · Not affiliated with Uber, Lyft, Revel or NYC TLC.</p>
 </section>
 </main>
 
 <nav class="tabs" id="tabs">
-  <button class="on" data-tab="home"><span class="i">🏠</span>Home</button>
-  <button data-tab="track"><span class="i">📒</span>Hisaab</button>
-  <button data-tab="calc"><span class="i">🧮</span>Calculator</button>
-  <button data-tab="scan"><span class="i">📡</span>Scanner</button>
-  <button data-tab="shift"><span class="i">⏱️</span>Shift</button>
-  <button data-tab="settings"><span class="i">⚙️</span>Settings</button>
+  <button class="on" data-tab="home"><span class="i"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></span>Home</button>
+  <button data-tab="scan"><span class="i"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19 5a10 10 0 0 1 0 14M5 19A10 10 0 0 1 5 5"/></svg></span>Scanner</button>
+  <button data-tab="map"><span class="i"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></span>Map</button>
+  <button data-tab="settings"><span class="i"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>Settings</button>
 </nav>
 
 <div class="sheet-bg" id="sheetBg"></div>
-<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
   <div class="grab"></div>
-  <h2 id="shTitle">Kamai add karo</h2>
+  <h2 id="shTitle">Log pickup</h2>
   <form id="shForm" autocomplete="off">
-    <label for="fAmount">Amount ($)</label>
-    <input id="fAmount" type="number" inputmode="decimal" min="0" step="0.01" required placeholder="0.00">
-    <label for="fDate">Date</label>
-    <input id="fDate" type="date" required>
-    <div id="fEarnFields">
-      <label>Platform</label>
-      <div class="chips" id="fPlatform"></div>
-      <label>Payment</label>
-      <div class="seg" id="fMode" style="margin:0"><button type="button" data-v="app" class="on">App</button><button type="button" data-v="cash">Cash</button></div>
-      <div class="grid2">
-        <div><label for="fTrips">Trips</label><input id="fTrips" type="number" inputmode="numeric" min="0" placeholder="1"></div>
-        <div><label for="fTips">Tips ($)</label><input id="fTips" type="number" inputmode="decimal" min="0" placeholder="0"></div>
-      </div>
-      <div class="grid2">
-        <div><label for="fTime">Time</label><input id="fTime" type="time"></div>
-        <div><label for="fArea">Pickup area</label><select id="fArea"></select></div>
-      </div>
-      <div class="switch"><label for="fAirport" style="margin:0;font-size:15px;color:var(--text)">✈️ Airport drop tha?</label><input type="checkbox" id="fAirport"></div>
+    <div class="grid2">
+      <div><label for="fArea">Pickup area</label><select id="fArea"></select></div>
+      <div><label for="fTime">Time</label><input id="fTime" type="time"></div>
     </div>
-    <div id="fExpFields">
-      <label>Category</label>
-      <div class="chips" id="fCat"></div>
-    </div>
-    <label for="fNote">Note (optional)</label>
-    <input id="fNote" type="text" maxlength="80" placeholder="">
-    <div class="grid2" style="margin-top:16px">
+    <div class="small muted" id="fAreaHint" style="margin:6px 2px 0;min-height:16px"></div>
+    <div class="switch"><label for="fAirport" style="margin:0;font-size:15px;color:var(--text)">✈️ Airport drop-off</label><input type="checkbox" id="fAirport"></div>
+    <div class="switch"><label for="fLong" style="margin:0;font-size:15px;color:var(--text)" id="fLongLbl">🛣️ Long ride</label><input type="checkbox" id="fLong"></div>
+    <div class="grid2" style="margin-top:12px">
       <button type="button" id="shCancel">Cancel</button>
       <button type="submit" class="btn-accent" id="shSave">Save</button>
     </div>
@@ -379,32 +352,40 @@ nav.tabs button.on::after{content:"";width:22px;height:3px;background:var(--acce
 (function(){
 'use strict';
 var KEY='smartgear_v1';
-var PLATFORMS=['Uber','Lyft','Other'];
-var PLABEL={Uber:'Uber',Lyft:'Lyft',Other:'Revel/Other'};
-var CATS={gas:['⛽','Gas / Charging'],tolls:['🌉','Tolls (bridge/tunnel)'],congestion:['🚦','Congestion / MTA fee'],parking:['🅿️','Parking & tickets'],rental:['🚙','Rental / Lease (TLC)'],insurance:['🛡️','Insurance (TLC)'],tlc:['🪪','TLC license / inspection / drug test'],wash:['🧽','Car wash'],maintenance:['🔧','Maintenance'],food:['🍔','Food'],phone:['📱','Phone'],other:['📦','Other']};
-var CAT_HINT={tolls:'e.g. Verrazzano, RFK, Holland, Lincoln, GW',congestion:'e.g. congestion pricing / MTA surcharge',parking:'e.g. meter, garage, ticket',rental:'e.g. weekly TLC rental',insurance:'e.g. TLC commercial policy',tlc:'e.g. license renewal, inspection',gas:'e.g. Shell, Costco, charger'};
-var PICONS={Uber:'🚘',Lyft:'🚗',Other:'🛵'};
-var DEFAULTS={vehicle:'sedan',fuelType:'hybrid',mileage:45,fuelPrice:3.5,commission:0,goodMi:2,okMi:1.25,goodHr:40,okHr:25,dailyGoal:250,weeklyGoal:1500,theme:'dark',gps:false,city:'New York, NY'};
-var FUEL_DEFAULTS={gas:[28,3.5],hybrid:[45,3.5],ev:[3.5,0.45]};
+var DEFAULTS={longMi:15,longMin:40,theme:'dark',gps:true,city:'New York, NY',btAuto:false,btCar:null};
 var NYC_SPOTS=[
- ['nyc-midtown','Midtown Manhattan','office',40.7549,-73.9840],['nyc-timessq','Times Square','tourist',40.7580,-73.9855],
- ['nyc-penn','Penn Station','railway',40.7506,-73.9935],['nyc-gct','Grand Central','railway',40.7527,-73.9772],
- ['nyc-pa','Port Authority Bus Terminal','bus',40.7570,-73.9903],['nyc-fidi','Financial District / Wall St','office',40.7069,-74.0113],
- ['nyc-hy','Hudson Yards','office',40.7538,-74.0021],['nyc-soho','SoHo','market',40.7233,-74.0030],
- ['nyc-les','Lower East Side','nightlife',40.7150,-73.9843],['nyc-meat','Meatpacking District','nightlife',40.7410,-74.0080],
- ['nyc-wburg','Williamsburg','nightlife',40.7081,-73.9571],['nyc-dtbk','Downtown Brooklyn','office',40.6928,-73.9903],
- ['nyc-lic','Long Island City','residential',40.7447,-73.9485],['nyc-astoria','Astoria','residential',40.7644,-73.9235],
- ['nyc-barclays','Barclays Center','arena',40.6826,-73.9754],['nyc-msg','Madison Square Garden','arena',40.7505,-73.9934],
- ['nyc-ues','Upper East Side','upscale',40.7736,-73.9566],['nyc-uws','Upper West Side','upscale',40.7870,-73.9754],
- ['nyc-bkh','Brooklyn Heights / Park Slope','upscale',40.6782,-73.9860],['nyc-hotels','Midtown hotels','hotel',40.7614,-73.9776],
- ['nyc-jfk','JFK Airport','airport',40.6413,-73.7781],['nyc-lga','LaGuardia (LGA)','airport',40.7769,-73.8740],
- ['nyc-ewr','Newark (EWR)','airport',40.6895,-74.1745]];
-function nycDefaults(){return NYC_SPOTS.map(function(a){return {id:a[0],name:a[1],type:a[2],lat:a[3],lon:a[4],preset:true}})}
-
+ ['nyc-midtown','Midtown Manhattan','office',40.7549,-73.9840,'manhattan'],['nyc-timessq','Times Square','tourist',40.7580,-73.9855,'manhattan'],
+ ['nyc-penn','Penn Station','railway',40.7506,-73.9935,'manhattan'],['nyc-gct','Grand Central','railway',40.7527,-73.9772,'manhattan'],
+ ['nyc-pa','Port Authority Bus Terminal','bus',40.7570,-73.9903,'manhattan'],['nyc-fidi','Financial District / Wall St','office',40.7069,-74.0113,'manhattan'],
+ ['nyc-hy','Hudson Yards','office',40.7538,-74.0021,'manhattan'],['nyc-soho','SoHo','market',40.7233,-74.0030,'manhattan'],
+ ['nyc-les','Lower East Side','nightlife',40.7150,-73.9843,'manhattan'],['nyc-meat','Meatpacking District','club',40.7410,-74.0080,'manhattan'],
+ ['nyc-msg','Madison Square Garden','arena',40.7505,-73.9934,'manhattan'],['nyc-ues','Upper East Side','upscale',40.7736,-73.9566,'manhattan'],
+ ['nyc-uws','Upper West Side','upscale',40.7870,-73.9754,'manhattan'],['nyc-hotels','Midtown hotels','hotel',40.7614,-73.9776,'manhattan'],
+ ['nyc-ktown','Koreatown','restaurant',40.7479,-73.9867,'manhattan'],['nyc-littleitaly','Little Italy / Chinatown','restaurant',40.7178,-73.9980,'manhattan'],
+ ['nyc-wvillage','West Village','restaurant',40.7358,-74.0036,'manhattan'],['nyc-hk','Hell\'s Kitchen','club',40.7638,-73.9918,'manhattan'],
+ ['nyc-evillage','East Village','club',40.7265,-73.9815,'manhattan'],
+ ['nyc-wburg','Williamsburg','club',40.7081,-73.9571,'brooklyn'],['nyc-dtbk','Downtown Brooklyn','office',40.6928,-73.9903,'brooklyn'],
+ ['nyc-barclays','Barclays Center','arena',40.6826,-73.9754,'brooklyn'],['nyc-bkh','Brooklyn Heights / Park Slope','upscale',40.6782,-73.9860,'brooklyn'],
+ ['nyc-dumbo','DUMBO','tourist',40.7033,-73.9881,'brooklyn'],['nyc-coney','Coney Island','tourist',40.5755,-73.9707,'brooklyn'],
+ ['nyc-navy','Brooklyn Navy Yard','office',40.7003,-73.9712,'brooklyn'],['nyc-bayridge','Bay Ridge','residential',40.6264,-74.0299,'brooklyn'],
+ ['nyc-crown','Crown Heights','residential',40.6694,-73.9422,'brooklyn'],['nyc-smith','Smith St (Cobble Hill / Carroll Gardens)','restaurant',40.6840,-73.9925,'brooklyn'],
+ ['nyc-bushwick','Bushwick','club',40.7050,-73.9220,'brooklyn'],
+ ['nyc-lic','Long Island City','residential',40.7447,-73.9485,'queens'],['nyc-astoria','Astoria','residential',40.7644,-73.9235,'queens'],
+ ['nyc-citi','Citi Field','arena',40.7571,-73.8458,'queens'],['nyc-flushing','Flushing Main St (food)','restaurant',40.7590,-73.8303,'queens'],
+ ['nyc-jamaica','Jamaica Center / AirTrain','railway',40.7003,-73.8079,'queens'],['nyc-jh','Jackson Heights','residential',40.7557,-73.8831,'queens'],
+ ['nyc-fh','Forest Hills','upscale',40.7185,-73.8448,'queens'],['nyc-rwc','Resorts World Casino NYC','casino',40.6726,-73.8338,'queens'],
+ ['nyc-jfk','JFK Airport','airport',40.6413,-73.7781,'queens'],['nyc-lga','LaGuardia (LGA)','airport',40.7769,-73.8740,'queens'],
+ ['nyc-yankee','Yankee Stadium','arena',40.8296,-73.9262,'bronx'],['nyc-fordham','Fordham Rd','market',40.8615,-73.8905,'bronx'],
+ ['nyc-hub','The Hub / 149th St','market',40.8163,-73.9170,'bronx'],['nyc-zoo','Bronx Zoo / Botanical Garden','tourist',40.8506,-73.8770,'bronx'],
+ ['nyc-coop','Co-op City','residential',40.8740,-73.8290,'bronx'],['nyc-arthur','Arthur Ave (Bronx Little Italy)','restaurant',40.8551,-73.8882,'bronx'],
+ ['nyc-empire','Empire City Casino by MGM (Yonkers)','casino',40.8817,-73.8819,'wch'],
+ ['nyc-stgeorge','St. George Ferry Terminal','railway',40.6437,-74.0736,'staten'],['nyc-simall','Staten Island Mall','mall',40.5822,-74.1665,'staten'],
+ ['nyc-siuh','SI University Hospital','hospital',40.5847,-74.0864,'staten'],
+ ['nyc-ewr','Newark (EWR)','airport',40.6895,-74.1745,'nj']];
+function nycDefaults(){return NYC_SPOTS.map(function(a){return {id:a[0],name:a[1],type:a[2],lat:a[3],lon:a[4],boro:a[5],preset:true}})}
 
 function $(id){return document.getElementById(id)}
 function num(v){var n=parseFloat(v);return isFinite(n)?n:0}
-function usd(n,dec){n=Number(n)||0;var neg=n<0;n=Math.abs(n);if(dec==null)dec=(n<1000&&Math.round(n*100)%100!==0)?2:0;var s=n.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});return (neg?'-':'')+'$'+s}
 function pad(n){return (n<10?'0':'')+n}
 function ymd(d){d=d||new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
 function parseYmd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
@@ -412,44 +393,47 @@ function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function fmtDur(ms){var m=Math.floor(ms/60000);return Math.floor(m/60)+'h '+(m%60)+'m'}
-function dayLabel(s){var t=ymd(),y=ymd(addDays(new Date(),-1));if(s===t)return 'Aaj';if(s===y)return 'Kal';return parseYmd(s).toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'})}
+function dayLabel(s){var t=ymd(),y=ymd(addDays(new Date(),-1));if(s===t)return 'Today';if(s===y)return 'Yesterday';return usDate(parseYmd(s),true)}
+function usDate(d,wd){return (wd?d.toLocaleDateString('en-US',{weekday:'short'})+' ':'')+pad(d.getMonth()+1)+'/'+pad(d.getDate())+'/'+d.getFullYear()}
+function usTime(hm){if(!hm||!/^\d{1,2}:\d{2}/.test(hm))return hm||'';var h=parseInt(hm,10),m=hm.split(':')[1].slice(0,2);return (h%12||12)+':'+m+' '+(h<12?'AM':'PM')}
+function hm(d){return pad(d.getHours())+':'+pad(d.getMinutes())}
 
 // ---------- storage ----------
 var state;
-function blank(){return {earnings:[],expenses:[],shifts:[],hotspots:nycDefaults(),settings:Object.assign({},DEFAULTS),active:null}}
+function blank(){return {pickups:[],shifts:[],hotspots:nycDefaults(),settings:Object.assign({},DEFAULTS),active:null}}
+function cleanSettings(o){var r=Object.assign({},DEFAULTS);Object.keys(DEFAULTS).forEach(function(k){if(o&&o[k]!==undefined)r[k]=o[k]});return r}
 function load(){
   try{var s=JSON.parse(localStorage.getItem(KEY));if(!s||typeof s!=='object')throw 0;
-    var b=blank();state={earnings:Array.isArray(s.earnings)?s.earnings:[],expenses:Array.isArray(s.expenses)?s.expenses:[],shifts:Array.isArray(s.shifts)?s.shifts:[],hotspots:Array.isArray(s.hotspots)?s.hotspots:[],settings:Object.assign(b.settings,s.settings||{}),active:s.active||null};
+    var pk=Array.isArray(s.pickups)?s.pickups:[];
+    // one-time migration from the old earnings log: keep only what the Scanner learns from (area, time, airport, long)
+    if(!Array.isArray(s.pickups)&&Array.isArray(s.earnings)){var ls=cleanSettings(s.settings);s.earnings.forEach(function(r){if(!r||!r.area)return;var t=Math.max(1,num(r.trips)),mi=num(r.miles)/t,mn=num(r.mins)/t;pk.push({id:r.id||uid(),ts:r.ts||Date.now(),date:r.date,time:r.time||'',area:r.area,airport:!!r.airport,long:(mi>0&&mi>=ls.longMi)||(mn>0&&mn>=ls.longMin)})})}
+    state={pickups:pk,shifts:Array.isArray(s.shifts)?s.shifts:[],hotspots:Array.isArray(s.hotspots)?s.hotspots:[],settings:cleanSettings(s.settings),active:s.active||null,paused:s.paused||null};
   }catch(e){state=blank()}
 }
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Save nahi hua: storage full?')}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Could not save: storage full?')}}
 var S=function(){return state.settings};
 
 // ---------- aggregates ----------
-function sumDay(d){
-  var e=0,x=0,trips=0,tips=0;
-  state.earnings.forEach(function(r){if(r.date===d){e+=num(r.amount)+num(r.tips);trips+=num(r.trips);tips+=num(r.tips)}});
-  state.expenses.forEach(function(r){if(r.date===d)x+=num(r.amount)});
-  return {earn:e,exp:x,net:e-x,trips:trips,tips:tips,online:onlineMs(d)};
-}
 function onlineMs(d){
   var ms=0;state.shifts.forEach(function(s){if(s.date===d)ms+=Math.max(0,s.end-s.start)});
   if(state.active&&ymd(new Date(state.active.start))===d)ms+=Date.now()-state.active.start;
   return ms;
 }
-function sumRange(days){var o={earn:0,exp:0,net:0,trips:0,online:0};days.forEach(function(d){var s=sumDay(d);for(var k in o)o[k]+=s[k]});return o}
-function last7(){var a=[];for(var i=6;i>=0;i--)a.push(ymd(addDays(new Date(),-i)));return a}
 function thisWeek(){var t=new Date();var dow=(t.getDay()+6)%7;var a=[];for(var i=0;i<7;i++)a.push(ymd(addDays(t,i-dow)));return a}
+function dayMiles(d){var m=0;state.shifts.forEach(function(s){if(s.date===d)m+=num(s.km)});if(state.active&&ymd(new Date(state.active.start))===d)m+=num(state.active.km);return m}
+function pickupsOn(days){var set={};days.forEach(function(d){set[d]=1});return state.pickups.filter(function(r){return set[r.date]}).length}
 
 // ---------- UI helpers ----------
 var toastT;
 function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2000)}
-function setBar(el,pct){el.style.width=Math.max(0,Math.min(100,pct))+'%'}
 
 // ---------- tabs ----------
+var TABS=['home','scan','map','settings'];
 var current='home';
 function showTab(name){
+  if(TABS.indexOf(name)<0)name='home';
   current=name;
+  document.body.classList.toggle('on-home',name==='home');
   document.querySelectorAll('section.tab').forEach(function(s){s.classList.toggle('active',s.id==='tab-'+name)});
   document.querySelectorAll('#tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.tab===name)});
   window.scrollTo(0,0);
@@ -458,258 +442,109 @@ function showTab(name){
 }
 $('tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(b)showTab(b.dataset.tab)});
 
-// ---------- chart ----------
-function drawChart(cv){
-  if(!cv||!cv.offsetParent)return;
-  var dpr=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;
-  cv.width=w*dpr;cv.height=h*dpr;var c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
-  var cs=getComputedStyle(document.documentElement);
-  var cA=cs.getPropertyValue('--accent').trim(),cB=cs.getPropertyValue('--bad').trim(),cM=cs.getPropertyValue('--muted').trim(),cL=cs.getPropertyValue('--line').trim();
-  var days=last7(),data=days.map(sumDay),max=1;data.forEach(function(d){max=Math.max(max,d.earn,d.exp)});
-  var top=18,bot=22,ch=h-top-bot,slot=w/7,bw=Math.min(16,slot/3.2);
-  c.strokeStyle=cL;c.lineWidth=1;c.beginPath();c.moveTo(0,top+ch+.5);c.lineTo(w,top+ch+.5);c.stroke();
-  c.font='600 11px Inter,Arial,sans-serif';c.textAlign='center';
-  data.forEach(function(d,i){
-    var x=slot*i+slot/2,he=ch*d.earn/max,hx=ch*d.exp/max;
-    c.fillStyle=cA;rr(c,x-bw-1,top+ch-he,bw,he);c.fillStyle=cB;rr(c,x+1,top+ch-hx,bw,hx);
-    c.fillStyle=cM;var dd=parseYmd(days[i]);c.fillText(i===6?'Aaj':dd.toLocaleDateString('en-US',{weekday:'short'}),x,h-6);
-    if(d.earn>0){c.fillText(d.earn>=1000?(d.earn/1000).toFixed(1)+'k':Math.round(d.earn),x,top+ch-Math.max(he,hx)-5)}
-  });
-}
-function rr(c,x,y,w,h){if(h<=0)return;var r=Math.min(4,w/2,h);c.beginPath();c.moveTo(x,y+h);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h);c.closePath();c.fill()}
-
 // ---------- render ----------
 function render(){
-  var st=S();
-  document.documentElement.dataset.theme=st.theme;
-  $('hdrDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'});
+  document.documentElement.dataset.theme=S().theme;
+  $('hdrDate').textContent=usDate(new Date(),true);
   if(current==='home')renderHome();
-  if(current==='track')renderTrack();
-  if(current==='shift')renderShift();
   if(current==='settings')renderSettings();
-  if(current==='calc')initCalc();
   if(current==='scan')renderScan();
+  if(current==='map')renderBusyMap(scanDate());
 }
+function pillText(){var a=state.active;return a?'Online '+fmtDur(Date.now()-a.start):(state.paused?'Paused':'Offline')}
 function renderHome(){
-  var st=S(),t=sumDay(ymd());
-  $('dNet').textContent=usd(t.net);$('dNet').className='big'+(t.net<0?' neg':'');
-  $('dEarn').textContent=usd(t.earn);$('dExp').textContent=usd(t.exp);$('dTrips').textContent=t.trips;$('dHours').textContent=fmtDur(t.online);
-  var pct=st.dailyGoal>0?t.net/st.dailyGoal*100:0;setBar($('dGoalBar'),pct);
-  $('dGoalTxt').textContent='Goal: '+usd(st.dailyGoal)+(t.net<st.dailyGoal?' · '+usd(st.dailyGoal-t.net)+' baaki':' · Goal poora! 🎉');
-  $('dGoalPct').textContent=Math.max(0,Math.round(pct))+'%';
-  var w=sumRange(last7());
-  $('wEarn').textContent=usd(w.earn);$('wExp').textContent=usd(w.exp);$('wNet').textContent=usd(w.net);$('wNet').className='v '+(w.net<0?'neg':'');
-  var wk=sumRange(thisWeek());setBar($('wGoalBar'),st.weeklyGoal>0?wk.net/st.weeklyGoal*100:0);
-  $('wGoalTxt').textContent='Weekly goal: '+usd(wk.net)+' / '+usd(st.weeklyGoal);
-  $('wStats').textContent=w.trips+' trips · '+fmtDur(w.online);
-  var a=state.active;
-  $('dShiftState').innerHTML=a?'<span class="live"></span>Online – shift chalu':'Shift band hai';
-  $('dShiftSub').textContent=a?('Start: '+new Date(a.start).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · '+fmtDur(Date.now()-a.start)):'Online time track karne ke liye shift start karo';
-  $('dShiftBtn').textContent=a?'Stop':'Start';$('dShiftBtn').className=a?'btn-danger':'btn-accent';
-  drawChart($('chartHome'));
+  var a=state.active,today=ymd(),wk=thisWeek();
+  $('pillTxt').textContent=pillText();$('pillDot').className='pill-dot'+(a?' on':state.paused?' paused':'');$('hPill').classList.toggle('online',!!a);
+  $('dHours').textContent=fmtDur(onlineMs(today));
+  $('dShiftState').textContent=a?"You're online":"You're offline";
+  $('dShiftSub').textContent=homeSub();
+  $('hSheet').classList.toggle('online',!!a);
+  var gb=$('dShiftBtn');gb.classList.toggle('online',!!a);gb.classList.toggle('pulse',!a);gb.setAttribute('aria-label',a?'End shift':'Start shift (GO)');
+  var todays=state.shifts.filter(function(s){return s.date===today}).length+(a?1:0);
+  $('tOnline').textContent=fmtDur(onlineMs(today));$('tShifts').textContent=todays;$('tMiles').textContent=dayMiles(today).toFixed(1)+' mi';$('tPickups').textContent=pickupsOn([today]);
+  $('wOnline').textContent=fmtDur(wk.reduce(function(t,d){return t+onlineMs(d)},0));$('wPickups').textContent=pickupsOn(wk);
+  renderLists();updateNearUI();renderHomeMap();layoutHome();
 }
-var filter='all';
-$('filterSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;filter=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});renderTrack()});
-function renderTrack(){
-  drawChart($('chartTrack'));
-  var items=[];
-  if(filter!=='expense')state.earnings.forEach(function(r){items.push({k:'earning',r:r})});
-  if(filter!=='earning')state.expenses.forEach(function(r){items.push({k:'expense',r:r})});
-  items.sort(function(a,b){return a.r.date<b.r.date?1:a.r.date>b.r.date?-1:(b.r.ts||0)-(a.r.ts||0)});
-  if(!items.length){$('entryList').innerHTML='<div class="empty">Abhi koi entry nahi.<br>Upar se Kamai ya Kharcha add karo.</div>';return}
-  var html='',lastD=null;
-  items.slice(0,300).forEach(function(it){
-    var r=it.r;
-    if(r.date!==lastD){if(lastD!==null)html+='</ul>';var s=sumDay(r.date);html+='<div class="dayhdr"><span>'+esc(dayLabel(r.date))+'</span><span>Net '+usd(s.net)+'</span></div><ul class="list">';lastD=r.date}
-    if(it.k==='earning'){
-      var tot=num(r.amount)+num(r.tips);
-      html+='<li><div class="ico">'+(PICONS[r.platform]||'💼')+'</div><div class="t"><b>'+esc(PLABEL[r.platform]||r.platform)+' · '+(r.mode==='cash'?'Cash':'App')+'</b><span>'+num(r.trips)+' trip'+(num(r.trips)===1?'':'s')+(num(r.tips)?' · tips '+usd(r.tips):'')+(r.area&&hotspotById(r.area)?' · 📍'+esc(hotspotById(r.area).name):'')+(r.airport?' · ✈️ airport':'')+(r.note?' · '+esc(r.note):'')+'</span></div><div class="amt pos">+'+usd(tot)+'</div>';
-    }else{
-      var c=CATS[r.cat]||CATS.other;
-      html+='<li><div class="ico">'+c[0]+'</div><div class="t"><b>'+c[1]+'</b><span>'+(r.note?esc(r.note):'Kharcha')+'</span></div><div class="amt neg">-'+usd(r.amount)+'</div>';
-    }
-    html+='<div class="act"><button aria-label="Edit" data-edit="'+it.k+':'+r.id+'">✏️</button><button aria-label="Delete" data-del="'+it.k+':'+r.id+'">🗑️</button></div></li>';
-  });
-  html+='</ul>';$('entryList').innerHTML=html;
+function homeSub(){var a=state.active;if(a)return 'On shift since '+new Date(a.start).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})+(S().gps?' · '+(a.km||0).toFixed(1)+' mi':'');
+  if(state.paused)return '⏸ Paused – car Bluetooth disconnected';return 'Tap GO to start your shift';}
+function renderLists(){
+  var pk=state.pickups.slice().sort(function(a,b){return (b.date+b.time)<(a.date+a.time)?-1:(b.date+b.time)>(a.date+a.time)?1:(b.ts||0)-(a.ts||0)}).slice(0,10);
+  $('pickupList').innerHTML=pk.length?'<ul class="list">'+pk.map(function(r){var h=hotspotById(r.area),t=h?(TYPES[h.type]||TYPES.market):['📍',''];return '<li><div class="ico">'+t[0]+'</div><div class="t"><b>'+esc(h?h.name:'Unknown area')+'</b><span>'+esc(dayLabel(r.date))+(r.time?' · '+esc(usTime(r.time)):'')+(r.airport?' · ✈️ airport':'')+(r.long?' · 🛣️ long':'')+'</span></div><div class="act"><button aria-label="Delete pickup" data-pdel="'+r.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">No pickups logged yet.<br>Tap <b>Log pickup</b> when you pick up a rider – the Scanner learns from it.</div>';
+  var list=state.shifts.slice().sort(function(a,b){return b.start-a.start}).slice(0,10);
+  $('shiftList').innerHTML=list.length?'<ul class="list">'+list.map(function(s){var f=function(x){return new Date(x).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})};return '<li><div class="ico">⏱️</div><div class="t"><b>'+fmtDur(s.end-s.start)+'</b><span>'+esc(dayLabel(s.date))+' · '+f(s.start)+' – '+f(s.end)+(s.km?' · '+s.km+' mi':'')+'</span></div><div class="act"><button aria-label="Delete shift" data-sdel="'+s.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">No shifts yet.</div>';
 }
-$('entryList').addEventListener('click',function(e){
-  var b=e.target.closest('button');if(!b)return;
-  if(b.dataset.edit){var p=b.dataset.edit.split(':');openSheet(p[0],p[1])}
-  if(b.dataset.del){var q=b.dataset.del.split(':');if(confirm('Ye entry delete karein?')){var arr=q[0]==='earning'?state.earnings:state.expenses;var i=arr.findIndex(function(x){return x.id===q[1]});if(i>=0){arr.splice(i,1);save();render();toast('Delete ho gaya')}}}
-});
+$('pickupList').addEventListener('click',function(e){var b=e.target.closest('[data-pdel]');if(!b)return;if(confirm('Delete this pickup?')){state.pickups=state.pickups.filter(function(r){return r.id!==b.dataset.pdel});save();render();toast('Deleted')}});
+$('shiftList').addEventListener('click',function(e){var b=e.target.closest('[data-sdel]');if(!b)return;if(confirm('Delete this shift?')){state.shifts=state.shifts.filter(function(s){return s.id!==b.dataset.sdel});save();render()}});
 
-// ---------- sheet (add/edit) ----------
-var sheetKind='earning',editId=null,selPlatform='Uber',selMode='app',selCat='gas';
-function chips(el,list,sel,labelFn){el.innerHTML=list.map(function(v){return '<button type="button" class="chip'+(v===sel?' on':'')+'" data-v="'+v+'">'+labelFn(v)+'</button>'}).join('')}
-function openSheet(kind,id){
-  sheetKind=kind;editId=id||null;
-  var r=null;if(id){r=(kind==='earning'?state.earnings:state.expenses).find(function(x){return x.id===id})}
-  $('shTitle').textContent=(id?'Edit ':'')+(kind==='earning'?'Kamai':'Kharcha')+(id?'':' add karo');
-  $('fEarnFields').style.display=kind==='earning'?'':'none';$('fExpFields').style.display=kind==='expense'?'':'none';
-  $('fAmount').value=r?r.amount:'';$('fDate').value=r?r.date:ymd();$('fNote').value=r&&r.note?r.note:'';
-  $('fNote').placeholder=kind==='earning'?'e.g. JFK run':(CAT_HINT[selCat]||'');
-  selPlatform=r&&r.platform||lastPlatform();selMode=r&&r.mode||'app';selCat=r&&r.cat||'gas';
-  $('fTrips').value=r?(r.trips||''):'1';
-  $('fTime').value=r&&r.time?r.time:(r?pad(new Date(r.ts||Date.now()).getHours())+':'+pad(new Date(r.ts||Date.now()).getMinutes()):pad(new Date().getHours())+':'+pad(new Date().getMinutes()));
-  $('fArea').innerHTML='<option value="">— koi nahi —</option>'+state.hotspots.map(function(h){return '<option value="'+h.id+'">'+esc((TYPES[h.type]||TYPES.market)[0]+' '+h.name)+'</option>'}).join('');
-  $('fArea').value=r&&r.area&&hotspotById(r.area)?r.area:'';$('fAirport').checked=!!(r&&r.airport);$('fTips').value=r&&r.tips?r.tips:'';
-  chips($('fPlatform'),PLATFORMS,selPlatform,function(v){return PICONS[v]+' '+PLABEL[v]});
-  if(kind==='expense')$('fNote').placeholder=CAT_HINT[selCat]||'';
-  chips($('fCat'),Object.keys(CATS),selCat,function(v){return CATS[v][0]+' '+CATS[v][1]});
-  $('fMode').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.v===selMode)});
+// ---------- log pickup ----------
+// One tap: if GPS finds a saved area within 2 mi, the pickup is saved right away; the sheet lets you add airport / long-ride flags or undo.
+var pkRec=null,sheetOpenedAt=0;
+function areaOptions(){return '<option value="">— Choose area —</option>'+state.hotspots.map(function(h){return '<option value="'+h.id+'">'+esc((TYPES[h.type]||TYPES.market)[0]+' '+h.name)+'</option>'}).join('')}
+function sheetMode(saved){$('shTitle').textContent=saved?'Pickup logged ✔':'Log pickup';$('shSave').textContent=saved?'Done':'Save';$('shCancel').textContent=saved?'Undo':'Cancel'}
+function openPickup(){
+  pkRec=null;$('fArea').innerHTML=areaOptions();$('fArea').value='';$('fTime').value=hm(new Date());$('fAirport').checked=false;$('fLong').checked=false;
+  $('fLongLbl').textContent='🛣️ Long ride ('+S().longMi+'+ mi or '+S().longMin+'+ min)';
+  sheetMode(false);$('fAreaHint').textContent='📍 Finding the nearest area…';
+  var opened=Date.now();sheetOpenedAt=opened;
+  getFixOnce(function(fx){if(sheetOpenedAt!==opened||!$('sheet').classList.contains('open'))return;
+    if(!fx){$('fAreaHint').textContent=geo.denied?'Location is off – pick an area':'No GPS fix – pick an area';return}
+    var n=nearestSpot(fx);
+    if(n&&n.d<=2){if(!$('fArea').value){$('fArea').value=n.p.id;savePickup(true)}$('fAreaHint').textContent='📍 Nearest: '+n.p.name+' ('+n.d.toFixed(1)+' mi'+(BOROS[boroOf(n.p)]?', '+BOROS[boroOf(n.p)]:'')+')'}
+    else{var b=boroAt(fx.lat,fx.lon);$('fAreaHint').textContent=b?'📍 You\'re in '+BOROS[b]+' – no saved area within 2 mi':'No saved area nearby – pick one'}});
   $('sheet').classList.add('open');$('sheetBg').classList.add('open');
-  setTimeout(function(){$('fAmount').focus()},250);
 }
-function lastPlatform(){var e=state.earnings[state.earnings.length-1];return e&&PLABEL[e.platform]?e.platform:'Uber'}
-function closeSheet(){$('sheet').classList.remove('open');$('sheetBg').classList.remove('open');document.activeElement&&document.activeElement.blur()}
-document.addEventListener('click',function(e){var b=e.target.closest('[data-add]');if(b)openSheet(b.dataset.add)});
-$('sheetBg').addEventListener('click',closeSheet);$('shCancel').addEventListener('click',closeSheet);
-$('fPlatform').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;selPlatform=b.dataset.v;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})});
-$('fCat').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;selCat=b.dataset.v;$('fNote').placeholder=CAT_HINT[selCat]||'';this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})});
-$('fMode').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;selMode=b.dataset.v;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)})});
-$('shForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var amt=num($('fAmount').value);if(amt<=0){toast('Amount daalo');$('fAmount').focus();return}
-  var date=$('fDate').value||ymd();
-  var rec;
-  if(sheetKind==='earning')rec={amount:amt,date:date,platform:selPlatform,mode:selMode,trips:Math.max(0,Math.round(num($('fTrips').value))),tips:Math.max(0,num($('fTips').value)),note:$('fNote').value.trim(),time:$('fTime').value||'',area:$('fArea').value||'',airport:$('fAirport').checked};
-  else rec={amount:amt,date:date,cat:selCat,note:$('fNote').value.trim()};
-  var arr=sheetKind==='earning'?state.earnings:state.expenses;
-  if(editId){var o=arr.find(function(x){return x.id===editId});if(o)Object.assign(o,rec)}
-  else{rec.id=uid();rec.ts=Date.now();arr.push(rec)}
-  save();closeSheet();render();toast(editId?'Update ho gaya ✔':(sheetKind==='earning'?'Kamai save ✔':'Kharcha save ✔'));
-});
-
-// ---------- calculator ----------
-var calcInit=false;
-function unitLbl(){return S().fuelType==='ev'?['mi/kWh','$/kWh','Charging']:['MPG','$/gal','Gas']}
-function initCalc(){
-  var st=S(),u=unitLbl();
-  $('cMileageLbl').textContent=u[0];$('cFuelLbl').textContent=u[2]+' ('+u[1]+')';
-  if(!calcInit||!$('cMileage').dataset.touched)$('cMileage').value=st.mileage;
-  if(!calcInit||!$('cFuel').dataset.touched)$('cFuel').value=st.fuelPrice;
-  if(!calcInit||!$('cComm').dataset.touched)$('cComm').value=st.commission;
-  calcInit=true;calc();
+function readForm(){var t=$('fTime').value||hm(new Date());return {area:$('fArea').value,time:t,airport:$('fAirport').checked,long:$('fLong').checked}}
+function savePickup(auto){
+  var f=readForm();if(!f.area){if(!auto){toast('Choose a pickup area');$('fArea').focus()}return false}
+  if(pkRec){Object.assign(pkRec,f)}else{pkRec={id:uid(),ts:Date.now(),date:ymd()};Object.assign(pkRec,f);state.pickups.push(pkRec)}
+  save();sheetMode(true);return true;
 }
-['cMileage','cFuel','cComm'].forEach(function(id){$(id).addEventListener('input',function(){this.dataset.touched='1'})});
-['cFare','cPickup','cTrip','cMin','cTolls','cComm','cMileage','cFuel'].forEach(function(id){$(id).addEventListener('input',calc)});
-var lastCalc=null;
-function calc(){
-  var st=S(),fare=num($('cFare').value),pk=num($('cPickup').value),tr=num($('cTrip').value),min=num($('cMin').value),comm=num($('cComm').value),mil=num($('cMileage').value),fp=num($('cFuel').value),tolls=num($('cTolls').value);
-  if(fare<=0||(pk+tr)<=0){$('calcOut').style.display='none';lastCalc=null;return}
-  var km=pk+tr,commAmt=fare*comm/100,fuel=mil>0?km/mil*fp:0,net=fare-commAmt-fuel-tolls,perKm=net/km,perHr=min>0?net/(min/60):null;
-  $('calcOut').style.display='';
-  $('oKm').textContent=km.toFixed(1)+' mi';$('oDead').textContent=pk.toFixed(1)+' mi ('+Math.round(pk/km*100)+'%)';$('oComm').textContent=usd(commAmt,2);$('oFuel').textContent=usd(fuel,2);$('oTolls').textContent=usd(tolls,2);
-  $('oNet').textContent=usd(net,2);$('oNet').className=net<0?'neg':'pos';
-  $('oPerKm').textContent=usd(perKm,2)+'/mi';$('oPerHr').textContent=perHr==null?'— (time daalo)':usd(perHr,2)+'/hr';
-  var v,why=[];
-  var kmLvl=perKm>=st.goodMi?2:perKm>=st.okMi?1:0,hrLvl=perHr==null?kmLvl:(perHr>=st.goodHr?2:perHr>=st.okHr?1:0);
-  if(net<=0||kmLvl===0||hrLvl===0)v=0;else if(kmLvl===2&&hrLvl===2)v=2;else v=1;
-  if(net<=0)why.push('Is trip me loss hai');
-  else{why.push('$/mi '+(kmLvl===2?'badhiya':kmLvl===1?'theek':'kam')+' ('+perKm.toFixed(2)+')');if(perHr!=null)why.push('$/hr '+(hrLvl===2?'badhiya':hrLvl===1?'theek':'kam')+' ('+perHr.toFixed(0)+')')}
-  if(pk>tr&&tr>0)why.push('deadhead trip se lamba hai');else if(km>0&&pk/km>0.35)why.push('deadhead zyada ('+Math.round(pk/km*100)+'%)');
-  var el=$('oVerdict');el.className='verdict '+['v-bad','v-ok','v-good'][v];
-  $('oVT').textContent=['❌ Mat lo','🤔 Theek hai','✅ Accha hai'][v];$('oVS').textContent=why.join(' · ');
-  lastCalc={fare:fare,net:net,verdict:v};
-}
-$('cClear').addEventListener('click',function(){['cFare','cPickup','cTrip','cMin','cTolls'].forEach(function(id){$(id).value=''});['cMileage','cFuel','cComm'].forEach(function(id){delete $(id).dataset.touched});calcInit=false;initCalc()});
-$('cSave').addEventListener('click',function(){
-  var fare=num($('cFare').value);if(fare<=0){toast('Pehle fare daalo');return}
-  var comm=num($('cComm').value);
-  state.earnings.push({id:uid(),ts:Date.now(),date:ymd(),amount:Math.round((fare-fare*comm/100)*100)/100,platform:lastPlatform(),mode:'app',trips:1,tips:0,note:'Calculator se (fare '+usd(fare)+')',time:pad(new Date().getHours())+':'+pad(new Date().getMinutes())});
-  if(lastCalc){var tl=num($('cTolls').value),fuel=fare-fare*comm/100-lastCalc.net-tl;if(fuel>0)state.expenses.push({id:uid(),ts:Date.now(),date:ymd(),amount:Math.round(fuel*100)/100,cat:'gas',note:'Trip gas (estimate)'});if(tl>0)state.expenses.push({id:uid(),ts:Date.now(),date:ymd(),amount:tl,cat:'tolls',note:'Trip tolls'})}
-  save();toast('Earning (commission ke baad) + gas/tolls expense add ✔');
-});
+function closeSheet(){$('sheet').classList.remove('open');$('sheetBg').classList.remove('open');sheetOpenedAt=0;document.activeElement&&document.activeElement.blur();render()}
+$('hLog').addEventListener('click',openPickup);
+$('hWhere').addEventListener('click',function(){scanSub='go';showTab('scan')});
+$('sheetBg').addEventListener('click',closeSheet);
+$('shCancel').addEventListener('click',function(){if(pkRec){var id=pkRec.id;state.pickups=state.pickups.filter(function(r){return r.id!==id});pkRec=null;save();toast('Pickup removed')}closeSheet()});
+['fArea','fTime','fAirport','fLong'].forEach(function(id){$(id).addEventListener('change',function(){if(pkRec)savePickup(false)})});
+$('shForm').addEventListener('submit',function(e){e.preventDefault();var was=!!pkRec;if(savePickup(false)){if(!was)toast('Pickup logged ✔');closeSheet()}});
 
 // ---------- shift ----------
-var geoWatch=null;
-function startShift(){state.active={start:Date.now(),km:0,last:null};save();if(S().gps)startGeo();render();toast('Shift start ✔ Online ho gaye')}
-function stopShift(){
-  var a=state.active;if(!a)return;stopGeo();
-  var start=a.start,end=Date.now();
-  // split across midnight so online hours land on the right day
+function startShift(){state.active={start:Date.now(),km:0,last:null};state.paused=null;save();ensureGeo();render();toast('Shift started ✔ You\'re online')}
+function stopShiftAt(end,silent){
+  var a=state.active;if(!a)return;
+  var start=a.start;end=Math.max(start,end);
   while(ymd(new Date(start))!==ymd(new Date(end))){var mid=new Date(start);mid.setHours(24,0,0,0);state.shifts.push({id:uid(),date:ymd(new Date(start)),start:start,end:mid.getTime(),km:0});start=mid.getTime()}
   state.shifts.push({id:uid(),date:ymd(new Date(start)),start:start,end:end,km:Math.round((a.km||0)*10)/10});
-  state.active=null;save();render();toast('Shift band. Online: '+fmtDur(end-a.start));
+  state.active=null;save();ensureGeo();render();if(!silent)toast('Shift ended. Online: '+fmtDur(end-a.start));
 }
-function toggleShift(){state.active?(confirm('Shift band karein?')&&stopShift()):startShift()}
-$('dShiftBtn').addEventListener('click',toggleShift);$('sBtn').addEventListener('click',toggleShift);
+function stopShift(){state.paused=null;stopShiftAt(Date.now())}
+function toggleShift(){state.active?(confirm('End your shift?')&&stopShift()):startShift()}
+$('dShiftBtn').addEventListener('click',toggleShift);
 function hav(a,b){var R=3958.8,r=Math.PI/180,dLa=(b.lat-a.lat)*r,dLo=(b.lon-a.lon)*r,x=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)*Math.sin(dLo/2);return 2*R*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))}
-function startGeo(){
-  if(geoWatch!==null||!state.active)return;
-  if(!('geolocation' in navigator)){toast('GPS support nahi hai');return}
-  geoWatch=navigator.geolocation.watchPosition(function(p){
-    var a=state.active;if(!a)return;if(p.coords.accuracy>60)return;
-    var pt={lat:p.coords.latitude,lon:p.coords.longitude};
-    if(a.last){var d=hav(a.last,pt);if(d>0.0125&&d<1.25){a.km=(a.km||0)+d;a.last=pt;save()}else if(d>=1.25){a.last=pt}}else{a.last=pt;save()}
-  },function(err){toast(err.code===1?'Location permission nahi mili':'GPS signal nahi mil raha');stopGeo()},{enableHighAccuracy:true,maximumAge:5000,timeout:30000});
-}
-function stopGeo(){if(geoWatch!==null){navigator.geolocation.clearWatch(geoWatch);geoWatch=null}}
-$('sGps').addEventListener('change',function(){S().gps=this.checked;save();if(this.checked&&state.active)startGeo();if(!this.checked)stopGeo()});
-function renderShift(){
-  var st=S(),a=state.active;
-  $('sGps').checked=!!st.gps;
-  $('sBtn').textContent=a?'Shift stop karo':'Shift start karo';$('sBtn').className='btn-block '+(a?'btn-danger':'btn-accent');
-  $('sState').innerHTML=a?'<span class="live"></span>Online':'Offline';
-  tick();
-  if(document.activeElement!==$('gDaily'))$('gDaily').value=st.dailyGoal;
-  if(document.activeElement!==$('gWeekly'))$('gWeekly').value=st.weeklyGoal;
-  var t=sumDay(ymd()),w=sumRange(thisWeek());
-  $('gDayTxt').textContent=usd(t.net)+' / '+usd(st.dailyGoal);setBar($('gDayBar'),st.dailyGoal?t.net/st.dailyGoal*100:0);
-  $('gWeekTxt').textContent=usd(w.net)+' / '+usd(st.weeklyGoal);setBar($('gWeekBar'),st.weeklyGoal?w.net/st.weeklyGoal*100:0);
-  var left=st.dailyGoal-t.net,hint='';
-  if(left<=0)hint='Aaj ka goal poora ho gaya 🎉';
-  else{var hrs=t.online/3600000;if(hrs>0.25&&t.net>0){var rate=t.net/hrs;hint='Aapki speed '+usd(rate)+'/hr hai. Goal ke liye lagbhag '+(left/rate).toFixed(1)+' ghante aur.'}else hint='Goal ke liye '+usd(left)+' aur chahiye.'}
-  $('gHint').textContent=hint;
-  var list=state.shifts.slice().sort(function(a,b){return b.start-a.start}).slice(0,15);
-  $('shiftList').innerHTML=list.length?'<ul class="list">'+list.map(function(s){var f=function(x){return new Date(x).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})};return '<li><div class="ico">⏱️</div><div class="t"><b>'+fmtDur(s.end-s.start)+'</b><span>'+esc(dayLabel(s.date))+' · '+f(s.start)+' – '+f(s.end)+(s.km?' · '+s.km+' mi':'')+'</span></div><div class="act"><button aria-label="Delete" data-sdel="'+s.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">Abhi koi shift nahi.</div>';
-}
-$('shiftList').addEventListener('click',function(e){var b=e.target.closest('[data-sdel]');if(!b)return;if(confirm('Ye shift delete karein?')){state.shifts=state.shifts.filter(function(s){return s.id!==b.dataset.sdel});save();render()}});
+$('sGps').addEventListener('change',function(){S().gps=this.checked;save();ensureGeo();renderSettings()});
 function tick(){
-  var a=state.active,ms=a?Date.now()-a.start:0,s=Math.floor(ms/1000);
-  $('sTimer').textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60);
-  $('sKm').textContent=a&&S().gps?('GPS distance: '+(a.km||0).toFixed(1)+' mi'):(a?'':'Shift start karke online time record karo');
+  var a=state.active;
+  $('sKm').textContent=a&&S().gps?(geo.denied?'📍 No location permission – miles are not being tracked':'This shift: '+(a.km||0).toFixed(1)+' mi'):(S().gps?'Miles are tracked while you are online.':'GPS miles are off.');
 }
-setInterval(function(){if(!state.active)return;if(current==='shift')tick();else if(current==='home'){$('dShiftSub').textContent='Start: '+new Date(state.active.start).toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})+' · '+fmtDur(Date.now()-state.active.start);$("dHours").textContent=fmtDur(onlineMs(ymd()))}},250);
-function goalInput(id,key){$(id).addEventListener('change',function(){S()[key]=Math.max(0,num(this.value));save();render()})}
-goalInput('gDaily','dailyGoal');goalInput('gWeekly','weeklyGoal');
+setInterval(function(){if(!state.active)return;if(current==='home'){$('dShiftSub').textContent=homeSub();$('dHours').textContent=fmtDur(onlineMs(ymd()));$('pillTxt').textContent=pillText()}else if(current==='settings')tick()},1000);
 
 // ---------- settings ----------
-var SMAP={stVehicle:'vehicle',stFuelType:'fuelType',stMileage:'mileage',stFuel:'fuelPrice',stComm:'commission',stGoodMi:'goodMi',stOkMi:'okMi',stGoodHr:'goodHr',stOkHr:'okHr',stTheme:'theme',stCity:'city'};
-function renderSettings(){var st=S(),u=unitLbl();for(var id in SMAP){if(document.activeElement!==$(id))$(id).value=st[SMAP[id]]}$('stMileageLbl').textContent=u[0];$('stFuelLbl').textContent=u[2]+' ('+u[1]+')'}
+var SMAP={stTheme:'theme',stCity:'city',stLongMi:'longMi',stLongMin:'longMin'};
+function renderSettings(){var st=S();for(var id in SMAP){if(document.activeElement!==$(id))$(id).value=st[SMAP[id]]}$('sGps').checked=!!st.gps;tick();renderBt()}
 Object.keys(SMAP).forEach(function(id){$(id).addEventListener('change',function(){
   var k=SMAP[id],el=this;
-  if(el.tagName==='SELECT'||el.type==='text')S()[k]=el.value.trim()||(k==='city'?DEFAULTS.city:'');else S()[k]=Math.max(0,num(el.value));
-  if(k==='fuelType'){var d=FUEL_DEFAULTS[el.value];if(d&&confirm('Default '+(el.value==='ev'?d[0]+' mi/kWh aur $'+d[1]+'/kWh':d[0]+' MPG aur $'+d[1]+'/gal')+' set karein?')){S().mileage=d[0];S().fuelPrice=d[1]}}
-  if(k==='commission')S()[k]=Math.min(100,S()[k]);
-  save();calcInit=false;render();toast('Settings save ✔');
+  if(el.tagName==='SELECT'||el.type==='text')S()[k]=el.value.trim()||(k==='city'?DEFAULTS.city:'');else S()[k]=Math.max(1,num(el.value))||DEFAULTS[k];
+  save();render();toast('Settings saved ✔');
 })});
-function csvCell(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
-function buildCsv(){
-  var rows=[['type','date','amount_usd','platform_or_category','payment_mode','trips','tips_inr','note','time','area','airport_drop']];
-  state.earnings.forEach(function(r){var ha=hotspotById(r.area);rows.push(['earning',r.date,r.amount,PLABEL[r.platform]||r.platform,r.mode,r.trips,r.tips,r.note,r.time||'',ha?ha.name:'',r.airport?'yes':''])});
-  state.expenses.forEach(function(r){rows.push(['expense',r.date,r.amount,r.cat,'','','',r.note])});
-  state.hotspots.forEach(function(h){rows.push(['hotspot','','',h.type,'','','',h.name+(h.lat!=null?' ('+h.lat.toFixed(5)+','+h.lon.toFixed(5)+')':''),'','',''])});
-  state.shifts.forEach(function(s){rows.push(['shift',s.date,'','','','','','online '+fmtDur(s.end-s.start)+(s.km?' / '+s.km+' mi':'')+' ('+new Date(s.start).toLocaleTimeString('en-US')+' - '+new Date(s.end).toLocaleTimeString('en-US')+')'])});
-  var hdr=rows.shift();rows.sort(function(a,b){return a[1]<b[1]?-1:a[1]>b[1]?1:0});rows.unshift(hdr);
-  return '\ufeff'+rows.map(function(r){return r.map(csvCell).join(',')}).join('\r\n');
-}
-$('stExport').addEventListener('click',function(){
-  var csv=buildCsv(),name='smart-gear-'+ymd()+'.csv';
-  if(window.SmartGearAndroid&&SmartGearAndroid.saveCsv){try{toast(SmartGearAndroid.saveCsv(name,csv))}catch(e){toast('Export fail')}return}
-  try{var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
-    if(navigator.canShare&&/iPhone|iPad|iPod/.test(navigator.userAgent)){var file=new File([blob],name,{type:'text/csv'});if(navigator.canShare({files:[file]})){navigator.share({files:[file],title:name}).catch(function(){});return}}
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1000);toast('CSV download ✔');
-  }catch(e){toast('Export fail')}
-});
+$('stAreas').addEventListener('click',function(){scanSub='areas';showTab('scan')});
 $('stClear').addEventListener('click',function(){
-  if(!confirm('Saara data (kamai, kharcha, shifts, settings) delete ho jayega. Pakka?'))return;
-  if(!confirm('Last baar puch rahe hain – undo nahi hoga. Delete karein?'))return;
-  stopGeo();localStorage.removeItem(KEY);load();calcInit=false;render();toast('Saara data delete ho gaya');
+  if(!confirm('All data (shifts, pickups, areas, settings) will be deleted. Are you sure?'))return;
+  if(!confirm('Last chance – this cannot be undone. Delete everything?'))return;
+  geo.follow=false;stopWatch();try{var bb=btBridge();if(bb){bb.setAutoShift(false);bb.setCarDevice('','')}}catch(_){}localStorage.removeItem(KEY);load();render();toast('All data deleted');
 });
 
-// ---------- ride scanner (andaza / estimate) ----------
-var TYPES={airport:['✈️','Airport'],railway:['🚉','Train station / hub'],bus:['🚌','Bus terminal'],office:['🏢','Office / business district'],tourist:['🗽','Tourist spot'],nightlife:['🌃','Nightlife'],arena:['🏟️','Arena / events'],hotel:['🏨','Hotels'],upscale:['🏡','Upscale residential'],residential:['🏘️','Residential'],market:['🛍️','Shopping'],mall:['🏬','Mall'],college:['🎓','College'],hospital:['🏥','Hospital']};
+// ---------- ride scanner (estimate) ----------
+var TYPES={airport:['✈️','Airport'],railway:['🚉','Train station / hub'],bus:['🚌','Bus terminal'],office:['🏢','Office / business district'],tourist:['🗽','Tourist spot'],nightlife:['🌃','Nightlife'],arena:['🏟️','Arena / events'],hotel:['🏨','Hotels'],upscale:['🏡','Upscale residential'],residential:['🏘️','Residential'],market:['🛍️','Shopping'],mall:['🏬','Mall'],college:['🎓','College'],hospital:['🏥','Hospital'],casino:['🎰','Casino / resort'],restaurant:['🍽️','Restaurant district'],club:['🪩','Club / nightlife']};
+var LONG_FRIENDLY={casino:1,airport:1};
 var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 function hotspotById(id){if(!id)return null;for(var i=0;i<state.hotspots.length;i++)if(state.hotspots[i].id===id)return state.hotspots[i];return null}
 function inR(h,a,b){return a<=b?(h>=a&&h<b):(h>=a||h<b)}
@@ -724,20 +559,23 @@ function nightOut(h,d){ // Thu-Sat 10pm-3am (after midnight counts for Fri/Sat/S
 function heur(t,h,d){
   var we=isWe(d),wd=!we;
   switch(t){
-  case 'airport':if(inR(h,5,9))return [85,'Subah flights wave'];if(inR(h,14,20))return [88,'Evening arrivals wave'];if(inR(h,20,24))return [72,'Late arrivals'];if(inR(h,0,5))return [25,'Raat me flights kam'];return [55,'Midday flights'];
-  case 'railway':if(wd&&inR(h,7,10))return [85,'Morning commuter trains'];if(wd&&inR(h,16,20))return [85,'Evening commute'];if(inR(h,22,24)||inR(h,0,1))return [55,'Late trains'];if(we&&inR(h,10,22))return [62,'Weekend travellers'];return [40,'Normal traffic'];
-  case 'bus':if(inR(h,6,10))return [70,'Morning buses aati hain'];if(inR(h,16,21))return [70,'Evening buses'];return [35,'Normal traffic'];
-  case 'office':if(wd&&inR(h,7,10))return [85,'Weekday morning rush'];if(wd&&inR(h,16,20))return [92,'Evening rush – office chhutti'];if(wd&&inR(h,10,16))return [50,'Midday meetings / lunch'];if(we&&inR(h,10,18))return [30,'Weekend – office kam'];return [20,'Office time nahi'];
-  case 'tourist':if(inR(h,22,24))return [86,'Broadway shows khatam (~10–11pm)'];if(inR(h,11,22))return we?[85,'Weekend tourists']:[72,'Tourists all day'];if(inR(h,0,2))return [50,'Late night crowd'];return [25,'Subah shaant'];
-  case 'nightlife':if(nightOut(h,d))return [95,'Thu–Sat raat ka nightlife'];if(inR(h,22,24)||inR(h,0,2))return [60,'Weeknight bars'];if(inR(h,19,22))return [55,'Dinner crowd'];if(we&&inR(h,11,15))return [55,'Weekend brunch'];return [15,'Nightlife band'];
-  case 'arena':if(inR(h,21,24))return [85,'Event khatam hone ka time (schedule check karo)'];if(inR(h,17,20))return [60,'Event se pehle arrivals'];if(we&&inR(h,15,18))return [55,'Weekend day game/show'];return [20,'Koi event time nahi'];
+  case 'airport':if(inR(h,5,9))return [85,'Morning departures wave'];if(inR(h,14,20))return [88,'Evening arrivals wave'];if(inR(h,20,24))return [72,'Late arrivals'];if(inR(h,0,5))return [25,'Few flights overnight'];return [55,'Midday flights'];
+  case 'railway':if(wd&&inR(h,7,10))return [85,'Morning commuter trains'];if(wd&&inR(h,16,20))return [85,'Evening commute'];if(inR(h,22,24)||inR(h,0,1))return [55,'Late trains'];if(we&&inR(h,10,22))return [62,'Weekend travelers'];return [40,'Normal traffic'];
+  case 'bus':if(inR(h,6,10))return [70,'Morning bus arrivals'];if(inR(h,16,21))return [70,'Evening buses'];return [35,'Normal traffic'];
+  case 'office':if(wd&&inR(h,7,10))return [85,'Weekday morning rush'];if(wd&&inR(h,16,20))return [92,'Evening rush – offices letting out'];if(wd&&inR(h,10,16))return [50,'Midday meetings / lunch'];if(we&&inR(h,10,18))return [30,'Weekend – offices quiet'];return [20,'Outside office hours'];
+  case 'tourist':if(inR(h,22,24))return [86,'Broadway shows letting out (~10–11 PM)'];if(inR(h,11,22))return we?[85,'Weekend tourists']:[72,'Tourists all day'];if(inR(h,0,2))return [50,'Late night crowd'];return [25,'Quiet in the morning'];
+  case 'nightlife':if(nightOut(h,d))return [95,'Thu–Sat nightlife'];if(inR(h,22,24)||inR(h,0,2))return [60,'Weeknight bars'];if(inR(h,19,22))return [55,'Dinner crowd'];if(we&&inR(h,11,15))return [55,'Weekend brunch'];return [15,'Nightlife closed'];
+  case 'arena':if(inR(h,21,24))return [85,'Events letting out (check the schedule)'];if(inR(h,17,20))return [60,'Pre-event arrivals'];if(we&&inR(h,15,18))return [55,'Weekend day game/show'];return [20,'No event time'];
   case 'hotel':if(inR(h,5,10))return [82,'Checkout / airport runs'];if(inR(h,17,22))return [65,'Dinner / show outings'];return [40,'Normal'];
-  case 'upscale':if(wd&&inR(h,7,10))return [82,'Morning outbound – office/school'];if(inR(h,18,23))return [60,'Dinner outings'];if(we&&inR(h,10,14))return [55,'Weekend brunch / outing'];return [30,'Kam movement'];
-  case 'residential':if(wd&&inR(h,6,9))return [80,'Subah Manhattan jaane wale'];if(we&&(inR(h,21,24)||inR(h,0,3)))return [55,'Weekend night out'];if(inR(h,18,23))return [48,'Shaam outings'];return [30,'Kam movement'];
-  case 'market':if(we&&inR(h,11,19))return [85,'Weekend shopping'];if(inR(h,12,19))return [65,'Shopping hours'];if(inR(h,19,23))return [50,'Dinner crowd'];return [20,'Stores band'];
-  case 'mall':if(inR(h,17,22))return we?[85,'Weekend shaam']:[70,'Shaam shopping'];if(we&&inR(h,12,17))return [70,'Weekend dopahar'];return [25,'Shaant'];
-  case 'college':if(wd&&inR(h,8,10))return [70,'Classes shuru'];if(wd&&inR(h,13,18))return [72,'Classes khatam'];if(we)return [20,'Weekend'];return [25,'Class time nahi'];
-  case 'hospital':if(inR(h,8,13))return [62,'Appointments time'];if(inR(h,17,20))return [55,'Shift change / visitors'];return [40,'24x7 thoda demand'];
+  case 'upscale':if(wd&&inR(h,7,10))return [82,'Morning outbound – office/school'];if(inR(h,18,23))return [60,'Dinner outings'];if(we&&inR(h,10,14))return [55,'Weekend brunch / outing'];return [30,'Low activity'];
+  case 'residential':if(wd&&inR(h,6,9))return [80,'Morning commuters to Manhattan'];if(we&&(inR(h,21,24)||inR(h,0,3)))return [55,'Weekend night out'];if(inR(h,18,23))return [48,'Evening outings'];return [30,'Low activity'];
+  case 'market':if(we&&inR(h,11,19))return [85,'Weekend shopping'];if(inR(h,12,19))return [65,'Shopping hours'];if(inR(h,19,23))return [50,'Dinner crowd'];return [20,'Stores closed'];
+  case 'mall':if(inR(h,17,22))return we?[85,'Weekend evening']:[70,'Evening shopping'];if(we&&inR(h,12,17))return [70,'Weekend afternoon'];return [25,'Quiet'];
+  case 'college':if(wd&&inR(h,8,10))return [70,'Classes starting'];if(wd&&inR(h,13,18))return [72,'Classes letting out'];if(we)return [20,'Weekend'];return [25,'No classes'];
+  case 'casino':if((h>=20&&(d===5||d===6))||(h<5&&(d===6||d===0)))return [92,'Fri/Sat night – casino peak'];if(inR(h,20,24)||inR(h,0,5))return [76,'Late-night casino crowd (every day)'];if(inR(h,14,20))return [55,'Afternoon / early evening players'];return [35,'Quiet morning'];
+  case 'restaurant':if(inR(h,18,22))return (d>=4&&d<=6)?[90,'Thu–Sat dinner rush']:[75,'Dinner rush'];if(inR(h,12,14))return (d>=4&&d<=6)?[74,'Lunch rush']:[70,'Lunch rush'];if(inR(h,22,24))return [52,'Late dinners'];return [25,'Between meals'];
+  case 'club':if(inR(h,2,4)&&(d===5||d===6||d===0))return [97,'Closing time – big pickup wave (2–4 AM)'];if(inR(h,0,2)&&(d===5||d===6||d===0))return [86,'Peak club hours'];if(h>=22&&(d===4||d===5||d===6))return [78,'Clubs filling up (Thu–Sat)'];if(inR(h,22,24)||inR(h,0,4))return [48,'Weeknight clubs'];return [10,'Clubs closed'];
+  case 'hospital':if(inR(h,8,13))return [62,'Appointments time'];if(inR(h,17,20))return [55,'Shift change / visitors'];return [40,'Some demand 24/7'];
   }
   return [30,'Normal'];
 }
@@ -745,31 +583,32 @@ function heur(t,h,d){
 function airH(t,h,d){
   var wd=!isWe(d);
   switch(t){
-  case 'hotel':if(inR(h,4,9))return [92,'Subah flights – hotel checkout'];if(inR(h,10,13))return [72,'Checkout time'];if(inR(h,14,18))return [62,'Evening flights ke liye'];if(inR(h,20,23))return [45,'Red-eye flights'];return [30,'Kabhi kabhi'];
-  case 'upscale':if(d===1&&inR(h,4,9))return [90,'Monday morning business travel'];if(inR(h,4,9))return [82,'Subah flights'];if(d===5&&inR(h,12,19))return [80,'Friday getaway flights'];if(d===0&&inR(h,15,21))return [74,'Sunday travel'];if(inR(h,14,18))return [55,'Evening flights'];return [25,'Normal'];
-  case 'office':if(d===5&&inR(h,12,20))return [85,'Friday afternoon flights'];if(wd&&inR(h,15,20))return [72,'Weekday evening business flights'];if(wd&&inR(h,5,8))return [48,'Early business flights'];return [15,'Office time nahi'];
-  case 'railway':if(inR(h,6,10))return [55,'Train se aake airport connect'];if(inR(h,15,20))return [55,'Evening connections'];return [30,'Normal'];
-  case 'bus':return inR(h,5,10)?[40,'Subah connections']:[25,'Kam chance'];
-  case 'tourist':if(inR(h,8,13))return [55,'Tourists checkout karke'];if(isWe(d)&&inR(h,14,19))return [55,'Weekend trip khatam'];return [25,'Normal'];
-  case 'residential':if(d===0&&inR(h,15,21))return [62,'Sunday shaam travel'];if(d===1&&inR(h,4,9))return [66,'Monday morning flights'];if(inR(h,4,8))return [46,'Subah flights'];return [20,'Kam chance'];
-  case 'arena':case 'nightlife':case 'market':case 'mall':case 'college':case 'hospital':return [10,'Airport ride kam milti hai'];
+  case 'hotel':if(inR(h,4,10))return [92,'Morning flights – hotel checkout'];if(inR(h,10,13))return [72,'Checkout time'];if(inR(h,14,18))return [62,'For evening flights'];if(inR(h,20,23))return [45,'Red-eye flights'];return [30,'Occasionally'];
+  case 'upscale':if(d===1&&inR(h,4,9))return [90,'Monday morning business travel'];if(inR(h,4,9))return [82,'Morning flights'];if(d===5&&inR(h,12,19))return [80,'Friday getaway flights'];if(d===0&&inR(h,15,21))return [74,'Sunday travel'];if(inR(h,14,18))return [55,'Evening flights'];return [25,'Normal'];
+  case 'office':if(d===5&&inR(h,12,20))return [85,'Friday afternoon flights'];if(wd&&inR(h,15,20))return [72,'Weekday evening business flights'];if(wd&&inR(h,5,8))return [48,'Early business flights'];return [15,'Outside office hours'];
+  case 'railway':if(inR(h,6,10))return [55,'Train arrivals connecting to airports'];if(inR(h,15,20))return [55,'Evening connections'];return [30,'Normal'];
+  case 'bus':return inR(h,5,10)?[40,'Morning connections']:[25,'Low chance'];
+  case 'tourist':if(inR(h,8,13))return [55,'Tourists checking out'];if(isWe(d)&&inR(h,14,19))return [55,'Weekend trips ending'];return [25,'Normal'];
+  case 'residential':if(d===0&&inR(h,15,21))return [62,'Sunday evening travel'];if(d===1&&inR(h,4,9))return [66,'Monday morning flights'];if(inR(h,4,8))return [46,'Morning flights'];return [20,'Low chance'];
+  case 'casino':return inR(h,4,10)?[30,'Some early airport runs']:[18,'Occasional airport rides'];
+  case 'arena':case 'nightlife':case 'club':case 'restaurant':case 'market':case 'mall':case 'college':case 'hospital':return [10,'Airport rides are rare'];
   }
-  return [15,'Kam chance'];
+  return [15,'Low chance'];
 }
-// Driver's own history for area near hour h, same weekday/weekend type
+// Your logged pickups for this area near hour h (same weekday/weekend type unless airportOnly)
 function histFor(id,h,d,airportOnly,win){
-  var we=isWe(d),days={},n=0,earn=0,trips=0;win=win==null?1:win;
-  state.earnings.forEach(function(r){
+  var we=isWe(d),days={},n=0;win=win==null?1:win;
+  state.pickups.forEach(function(r){
     if(r.area!==id)return;if(airportOnly&&!r.airport)return;
     if(hDiff(entryHour(r),h)>win)return;if(!airportOnly&&isWe(entryDow(r))!==we)return;
-    n++;earn+=num(r.amount)+num(r.tips);trips+=Math.max(1,num(r.trips));days[r.date]=1;
+    n++;days[r.date]=1;
   });
-  var dn=Object.keys(days).length;return {n:n,earn:earn,trips:trips,days:dn,perHr:dn?earn/(dn*(win*2+1)):0};
+  return {n:n,days:Object.keys(days).length};
 }
 function bestSlot(id){
-  var b={};state.earnings.forEach(function(r){if(r.area!==id)return;var h=entryHour(r),blk=Math.floor(h/3)*3,dw=entryDow(r),k=DAYS[dw]+' '+blk;b[k]=b[k]||{earn:0,days:{},trips:0,dw:dw,blk:blk};b[k].earn+=num(r.amount)+num(r.tips);b[k].trips+=Math.max(1,num(r.trips));b[k].days[r.date]=1});
-  var best=null;Object.keys(b).forEach(function(k){var x=b[k],ph=x.earn/(Object.keys(x.days).length*3);if(!best||ph>best.ph)best={k:k,ph:ph,x:x}});
-  if(!best)return null;var h2=function(h){var hh=h%24;return (hh%12||12)+(hh<12?'am':'pm')};return DAYS[best.x.dw]+' '+h2(best.x.blk)+'–'+h2(best.x.blk+3)+' (~'+usd(best.ph)+'/hr)';
+  var b={};state.pickups.forEach(function(r){if(r.area!==id)return;var h=entryHour(r),blk=Math.floor(h/3)*3,dw=entryDow(r),k=dw+' '+blk;b[k]=b[k]||{n:0,dw:dw,blk:blk};b[k].n++});
+  var best=null;Object.keys(b).forEach(function(k){if(!best||b[k].n>best.n)best=b[k]});
+  if(!best)return null;var h2=function(h){var hh=h%24;return (hh%12||12)+(hh<12?' AM':' PM')};return DAYS[best.dw]+' '+h2(best.blk)+'–'+h2(best.blk+3)+' ('+best.n+' pickup'+(best.n>1?'s':'')+')';
 }
 var scanAt=null,scanSub='go';
 function scanDate(){return scanAt?new Date(scanAt):new Date()}
@@ -777,10 +616,10 @@ function mapsLink(h){var c=S().city||DEFAULTS.city;if(h&&h.lat!=null&&h.lon!=nul
 function searchLink(label){var c=S().city||DEFAULTS.city;return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(label+' in '+c)}
 function scoreColor(sc){return sc>=70?'var(--accent)':sc>=45?'var(--warn)':'var(--muted)'}
 function rankGo(dt){
-  var h=dt.getHours(),d=dt.getDay(),gh=S().goodHr||300;
+  var h=dt.getHours(),d=dt.getDay();
   return state.hotspots.map(function(p){
     var b=heur(p.type,h,d),sc=b[0],why=[b[1]],m=histFor(p.id,h,d,false,1);
-    if(m.n>0){var conf=Math.min(1,m.n/5),hs=Math.min(100,m.perHr/gh*75);sc=sc*(1-0.6*conf)+hs*0.6*conf;why.push('Aapki history: '+m.trips+' trip'+(m.trips>1?'s':'')+' is time pe, ~'+usd(m.perHr)+'/hr')}
+    if(m.n>0){var conf=Math.min(1,m.n/5),hs=Math.min(100,55+m.n*9);sc=sc*(1-0.5*conf)+hs*0.5*conf;why.push('Your history: '+m.n+' pickup'+(m.n>1?'s':'')+' around this time')}
     return {p:p,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
   }).sort(function(a,b){return b.score-a.score});
 }
@@ -788,66 +627,289 @@ function rankAir(dt){
   var h=dt.getHours(),d=dt.getDay();
   return state.hotspots.filter(function(p){return p.type!=='airport'}).map(function(p){
     var b=airH(p.type,h,d),sc=b[0],why=[b[1]],near=histFor(p.id,h,d,true,2),all=histFor(p.id,h,d,true,12);
-    if(all.n>0){sc+=Math.min(30,near.n*10)+Math.min(10,all.n*3);why.push('Aapke '+all.n+' airport drop'+(all.n>1?'s':'')+' yahan se'+(near.n?' ('+near.n+' is time ke aas-paas)':''))}
+    if(all.n>0){sc+=Math.min(30,near.n*10)+Math.min(10,all.n*3);why.push('Your '+all.n+' airport drop-off'+(all.n>1?'s':'')+' from here'+(near.n?' ('+near.n+' around this time)':''))}
     return {p:p,raw:sc,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
   }).sort(function(a,b){return b.raw-a.raw});
 }
 function rankHtml(list){
   return list.map(function(x,i){var t=TYPES[x.p.type]||TYPES.market;
     return '<div class="rank"><div class="no">'+(i+1)+'</div><div class="b"><b>'+t[0]+' '+esc(x.p.name)+'</b><div class="why">'+esc(t[1])+' · '+esc(x.why)+'</div><div class="sbar"><i style="width:'+x.score+'%;background:'+scoreColor(x.score)+'"></i></div>'+
-    '<a class="maps" target="_blank" rel="noopener" href="'+esc(x.link||mapsLink(x.p))+'">🧭 '+(x.generic?'Maps pe dhundo':'Directions')+'</a></div><div class="sc" style="color:'+scoreColor(x.score)+'">'+x.score+'</div></div>'}).join('');
+    '<a class="maps" target="_blank" rel="noopener" href="'+esc(x.link||mapsLink(x.p))+'">🧭 '+(x.generic?'Search in Maps':'Directions')+'</a></div><div class="sc" style="color:'+scoreColor(x.score)+'">'+x.score+'</div></div>'}).join('');
 }
 function genericList(fn,exclude){
   var dt=scanDate(),h=dt.getHours(),d=dt.getDay();
   return Object.keys(TYPES).filter(function(k){return k!==exclude}).map(function(k){var b=fn(k,h,d);return {p:{name:TYPES[k][1],type:k},score:b[0],why:b[1],link:searchLink(TYPES[k][1]),generic:true}}).sort(function(a,b){return b.score-a.score}).slice(0,6);
 }
-var EMPTY='<div class="empty" style="padding:14px 4px 6px">Abhi koi hotspot saved nahi hai.<br><b>📍 Areas</b> me area add karo ya <b>NYC default areas</b> wapas lao. Tab ye list aapki history se seekhegi.<br><br><span class="small">Tab tak, is time ke liye general suggestions:</span></div>';
+var EMPTY='<div class="empty" style="padding:14px 4px 6px">No hotspots saved yet.<br>Add an area in <b>📍 My areas</b> or restore the <b>NYC default areas</b>. Log pickups and this list will learn from them.<br><br><span class="small">Meanwhile, general suggestions for this time:</span></div>';
 function renderScan(){
   var dt=scanDate();
-  $('scWhen').textContent=dt.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'})+', '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  $('scWhen').textContent=usDate(dt,true)+', '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
   $('scNow').classList.toggle('on',!scanAt);
-  ['go','air','areas'].forEach(function(k){$('sc-'+k).style.display=k===scanSub?'':'none'});
+  ['go','air','long','areas'].forEach(function(k){$('sc-'+k).style.display=k===scanSub?'':'none'});
   $('scSeg').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.s===scanSub)});
-  if(scanSub==='go')$('goList').innerHTML=state.hotspots.length?rankHtml(rankGo(dt)):EMPTY+rankHtml(genericList(heur));
-  if(scanSub==='air'){var ra=rankAir(dt);$('airList').innerHTML=ra.length?rankHtml(ra):(state.hotspots.length?'<div class="empty">Sirf airport saved hai. Hotel, IT park, upscale residential jaise areas add karo.</div>':EMPTY)+rankHtml(genericList(airH,'airport'))}
+  boroChips('scBoro');
+  var F=function(l){return l.filter(function(x){return inBoro(x.p)})},BE='<div class="empty">No saved areas in this borough.</div>';
+  if(scanSub==='go')$('goList').innerHTML=state.hotspots.length?(rankHtml(F(rankGo(dt)))||BE):EMPTY+rankHtml(genericList(heur));
+  if(scanSub==='long'){$('longDef').textContent=S().longMi+'+ mi or '+S().longMin+'+ min';$('longList').innerHTML=state.hotspots.length?(rankHtml(F(rankLong(dt)))||BE):EMPTY+rankHtml(genericList(function(t,h,d){return longH({type:t,id:''},h,d)}))}
+  if(scanSub==='air'){var ra=F(rankAir(dt));$('airList').innerHTML=ra.length?rankHtml(ra):scanBoro!=='all'&&state.hotspots.length?BE:(state.hotspots.length?'<div class="empty">Only airports are saved. Add areas like hotels, office districts or upscale residential.</div>':EMPTY)+rankHtml(genericList(airH,'airport'))}
   if(scanSub==='areas'){
     if(!$('hType').options.length)$('hType').innerHTML=Object.keys(TYPES).map(function(k){return '<option value="'+k+'">'+TYPES[k][0]+' '+TYPES[k][1]+'</option>'}).join('');
-    $('areaList').innerHTML=state.hotspots.length?'<ul class="list">'+state.hotspots.map(function(p){var t=TYPES[p.type]||TYPES.market,cnt=0,air=0;state.earnings.forEach(function(r){if(r.area===p.id){cnt+=Math.max(1,num(r.trips));if(r.airport)air++}});var bs=bestSlot(p.id);
-      return '<li><div class="ico">'+t[0]+'</div><div class="t"><b>'+esc(p.name)+(p.lat!=null?'<span class="tag">📍 GPS</span>':'')+'</b><span>'+esc(t[1])+' · '+cnt+' trips'+(air?' · ✈️ '+air:'')+(bs?' · best: '+esc(bs):'')+'</span></div><div class="act"><button aria-label="Edit" data-hedit="'+p.id+'">✏️</button><button aria-label="Delete" data-hdel="'+p.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">Koi area nahi. Upar se add karo.</div>';
+    $('areaList').innerHTML=state.hotspots.length?'<ul class="list">'+state.hotspots.map(function(p){var t=TYPES[p.type]||TYPES.market,cnt=0,air=0;state.pickups.forEach(function(r){if(r.area===p.id){cnt++;if(r.airport)air++}});var bs=bestSlot(p.id);
+      return '<li><div class="ico">'+t[0]+'</div><div class="t"><b>'+esc(p.name)+(p.lat!=null?'<span class="tag">📍 GPS</span>':'')+'</b><span>'+(BOROS[boroOf(p)]?esc(BOROS[boroOf(p)])+' · ':'')+esc(t[1])+' · '+cnt+' pickup'+(cnt===1?'':'s')+(LONG_FRIENDLY[p.type]?' · 🛣️ long-ride friendly':'')+(air?' · ✈️ '+air:'')+(bs?' · best: '+esc(bs):'')+'</span></div><div class="act"><button aria-label="Edit" data-hedit="'+p.id+'">✏️</button><button aria-label="Delete" data-hdel="'+p.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">No areas. Add one above.</div>';
   }
 }
 $('scSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;scanSub=b.dataset.s;renderScan()});
+['scBoro','mapBoro'].forEach(function(id){$(id).addEventListener('click',function(e){var b=e.target.closest('[data-b]');if(!b)return;scanBoro=b.dataset.b;render()})});
+$('mapLayer').addEventListener('click',function(e){var b=e.target.closest('[data-l]');if(!b)return;mapLayer=b.dataset.l;render()});
+$('mapType').addEventListener('click',function(e){var b=e.target.closest('[data-t]');if(!b)return;mapType=b.dataset.t;render()});
+$('mapLocate').addEventListener('click',function(){locateMe();if(geo.fix&&maps.busyMap)maps.busyMap.map.setView([geo.fix.lat,geo.fix.lon],14)});
 $('scNow').addEventListener('click',function(){scanAt=null;$('scTime').value='';renderScan()});
 $('scTime').addEventListener('change',function(){var v=this.value;if(v){var p=v.split(/[-T:]/);scanAt=new Date(+p[0],+p[1]-1,+p[2],+p[3],+p[4]).getTime()}else scanAt=null;renderScan()});
 var pendingGps=null;
 $('hGps').addEventListener('click',function(){
-  if(!('geolocation' in navigator)){toast('GPS support nahi hai');return}
-  $('hGpsTxt').textContent='Location dhundh rahe hain…';
-  navigator.geolocation.getCurrentPosition(function(p){pendingGps={lat:p.coords.latitude,lon:p.coords.longitude};$('hGpsTxt').textContent='📍 Location mil gayi (±'+Math.round(p.coords.accuracy)+' m)'},
-    function(err){pendingGps=null;$('hGpsTxt').textContent=err.code===1?'Location permission nahi mili – bina GPS ke bhi save kar sakte ho':'GPS nahi mila – bina GPS ke save kar sakte ho'},{enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+  if(!('geolocation' in navigator)){toast('GPS is not supported');return}
+  $('hGpsTxt').textContent='Finding your location…';
+  navigator.geolocation.getCurrentPosition(function(p){pendingGps={lat:p.coords.latitude,lon:p.coords.longitude};$('hGpsTxt').textContent='📍 Location found (±'+Math.round(p.coords.accuracy)+' m)'},
+    function(err){pendingGps=null;$('hGpsTxt').textContent=err.code===1?'Location permission denied – you can still save without GPS':'No GPS fix – you can still save without GPS'},{enableHighAccuracy:true,timeout:15000,maximumAge:0});
 });
 var editHot=null;
-function resetHotForm(){editHot=null;$('hName').value='';pendingGps=null;$('hGpsTxt').textContent='Optional: location se Maps directions exact milega.';$('hSave').textContent='Area save karo';$('hCancelEdit').style.display='none'}
+function resetHotForm(){editHot=null;$('hName').value='';$('hBoro').value='';pendingGps=null;$('hGpsTxt').textContent='Optional: a saved location gives exact Maps directions.';$('hSave').textContent='Save area';$('hCancelEdit').style.display='none'}
 $('hSave').addEventListener('click',function(){
-  var n=$('hName').value.trim();if(!n){toast('Area ka naam daalo');$('hName').focus();return}
+  var n=$('hName').value.trim();if(!n){toast('Enter an area name');$('hName').focus();return}
   var ex=editHot&&hotspotById(editHot);
-  if(ex){ex.name=n;ex.type=$('hType').value;if(pendingGps){ex.lat=pendingGps.lat;ex.lon=pendingGps.lon}}
-  else{var h={id:uid(),name:n,type:$('hType').value};if(pendingGps){h.lat=pendingGps.lat;h.lon=pendingGps.lon}state.hotspots.push(h)}
-  save();resetHotForm();renderScan();toast(ex?'Area update ✔':'Area save ✔');
+  var bo=$('hBoro').value;
+  if(ex){ex.name=n;ex.type=$('hType').value;if(pendingGps){ex.lat=pendingGps.lat;ex.lon=pendingGps.lon}if(bo)ex.boro=bo;else delete ex.boro}
+  else{var h={id:uid(),name:n,type:$('hType').value};if(pendingGps){h.lat=pendingGps.lat;h.lon=pendingGps.lon}if(bo)h.boro=bo;state.hotspots.push(h)}
+  save();resetHotForm();renderScan();toast(ex?'Area updated ✔':'Area saved ✔');
 });
 $('hCancelEdit').addEventListener('click',function(){resetHotForm()});
-$('hDefaults').addEventListener('click',function(){var have={};state.hotspots.forEach(function(h){have[h.id]=1});var add=nycDefaults().filter(function(h){return !have[h.id]});state.hotspots=state.hotspots.concat(add);save();renderScan();toast(add.length?add.length+' NYC areas add ✔':'Saare NYC areas pehle se hain')});
-$('areaList').addEventListener('click',function(e){var eb=e.target.closest('[data-hedit]');if(eb){var h=hotspotById(eb.dataset.hedit);if(!h)return;editHot=h.id;$('hName').value=h.name;$('hType').value=h.type;$('hGpsTxt').textContent=h.lat!=null?'📍 Saved GPS: '+h.lat.toFixed(4)+', '+h.lon.toFixed(4)+' (naya GPS lene ke liye button dabao)':'GPS saved nahi';$('hSave').textContent='Update karo';$('hCancelEdit').style.display='';window.scrollTo(0,0);$('hName').focus();return}
-  var b=e.target.closest('[data-hdel]');if(!b)return;if(confirm('Ye area delete karein? (Purani trips rahengi)')){state.hotspots=state.hotspots.filter(function(h){return h.id!==b.dataset.hdel});save();renderScan()}});
+$('hDefaults').addEventListener('click',function(){var have={};state.hotspots.forEach(function(h){have[h.id]=1});var add=nycDefaults().filter(function(h){return !have[h.id]});state.hotspots=state.hotspots.concat(add);save();renderScan();toast(add.length?add.length+' NYC areas added ✔':'All NYC areas are already there')});
+$('areaList').addEventListener('click',function(e){var eb=e.target.closest('[data-hedit]');if(eb){var h=hotspotById(eb.dataset.hedit);if(!h)return;editHot=h.id;$('hName').value=h.name;$('hType').value=h.type;$('hBoro').value=h.boro||'';$('hGpsTxt').textContent=h.lat!=null?'📍 Saved GPS: '+h.lat.toFixed(4)+', '+h.lon.toFixed(4)+' (tap the button to capture a new GPS fix)':'No GPS saved';$('hSave').textContent='Update area';$('hCancelEdit').style.display='';window.scrollTo(0,0);$('hName').focus();return}
+  var b=e.target.closest('[data-hdel]');if(!b)return;if(confirm('Delete this area? (Past trips are kept)')){state.hotspots=state.hotspots.filter(function(h){return h.id!==b.dataset.hdel});save();renderScan()}});
+
+// ---------- long rides (estimate) ----------
+// Chance of a LONG trip (suburbs / other boroughs / NJ) from this area -> [score, reason]
+function longH(p,h,d){
+  var t=p.type,wd=!isWe(d),late=(h>=1&&h<4)&&(d===5||d===6||d===0);
+  if(p.id==='nyc-hy'&&inR(h,4,8))return [78,'Hudson Yards hotels – early airport runs'];
+  switch(t){
+  case 'airport':if(d===0&&inR(h,16,24))return [95,'Sunday evening returns – to suburbs/boroughs'];if(inR(h,14,24))return [90,'Arrivals → suburbs / other boroughs'];if(inR(h,5,9))return [78,'Morning arrivals – long rides'];if(inR(h,0,2))return [70,'Late arrivals'];return [60,'Airport pickups are often long'];
+  case 'railway':case 'bus':if(inR(h,23,24)||inR(h,0,3))return [88,'Late night – fewer trains/buses, NJ/LI/Westchester rides'];if(wd&&inR(h,16,20))return [80,'Evening commuters – NJ/Long Island/Westchester'];if(inR(h,20,23))return [65,'Fewer trains later in the evening'];return [40,'Normal'];
+  case 'office':if(wd&&inR(h,19,23))return [75,'Late office – suburban commuters'];if(wd&&inR(h,16,19))return [55,'Evening commute'];return [20,'Mostly short trips'];
+  case 'nightlife':if(late)return [92,'Thu–Sat 1–4am – rides home to outer boroughs/NJ'];if((h>=22&&(d===4||d===5||d===6))||(h<1&&(d===5||d===6||d===0)))return [60,'Parties in progress – long rides later'];return [20,'Mostly short trips'];
+  case 'arena':if(inR(h,21,24))return [85,'After events – suburbs/NJ rides (check the schedule)'];if(isWe(d)&&inR(h,15,19))return [60,'After weekend day games/shows'];return [20,'No event time'];
+  case 'hotel':if(inR(h,4,9))return [88,'Early morning airport runs'];if(inR(h,10,13))return [55,'Checkout – airport/NJ'];return [30,'Normal'];
+  case 'upscale':if(d===5&&inR(h,12,19))return [85,'Friday getaway – Hamptons / upstate'];if(d===0&&inR(h,16,22))return [55,'Sunday travel'];if(d===1&&inR(h,5,9))return [60,'Monday airport runs'];return [25,'Mostly short trips'];
+  case 'casino':if(inR(h,22,24)||inR(h,0,5))return [92,'Casino exits – long rides home (Long Island / NJ / upstate)'];if(d===5||d===6)return [80,'Weekend casino trips run long'];return [72,'Casino rides are often long'];
+  case 'club':if(inR(h,2,5)&&(d===5||d===6||d===0))return [86,'Closing time – rides home to outer boroughs / NJ'];if(h>=22&&(d===4||d===5||d===6))return [55,'Club nights – long rides later'];return [18,'Mostly short trips'];
+  case 'restaurant':if(inR(h,21,24))return [35,'Late diners heading home'];return [20,'Mostly short trips'];
+  case 'tourist':if(inR(h,22,24))return [45,'After shows – NJ/boroughs'];return [25,'Mostly short trips'];
+  }
+  return [15,'Mostly short trips'];
+}
+function longHist(id,h,d,win){var we=isWe(d),near=0,all=0;state.pickups.forEach(function(r){if(r.area!==id||!r.long)return;all++;if(hDiff(entryHour(r),h)<=win&&isWe(entryDow(r))===we)near++});return {near:near,all:all}}
+function rankLong(dt){
+  var h=dt.getHours(),d=dt.getDay();
+  return state.hotspots.map(function(p){
+    var b=longH(p,h,d),sc=b[0],why=[b[1]],m=longHist(p.id,h,d,2);
+    if(m.all>0){sc+=Math.min(30,m.near*10)+Math.min(10,m.all*3);why.push('Your '+m.all+' long ride'+(m.all>1?'s':'')+' from here'+(m.near?' ('+m.near+' around this time)':''))}
+    return {p:p,raw:sc,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
+  }).sort(function(a,b){return b.raw-a.raw});
+}
+
+// ---------- boroughs ----------
+var BOROS={manhattan:'Manhattan',brooklyn:'Brooklyn',queens:'Queens',bronx:'The Bronx',staten:'Staten Island',nj:'New Jersey',wch:'Yonkers / Westchester'};
+var BORO_CHIPS=[['all','All NYC'],['manhattan','Manhattan'],['brooklyn','Brooklyn'],['queens','Queens'],['bronx','The Bronx'],['staten','Staten Island']];
+function boroChips(id){$(id).innerHTML=BORO_CHIPS.map(function(b){return '<button type="button" class="chip'+(b[0]===scanBoro?' on':'')+'" data-b="'+b[0]+'">'+b[1]+'</button>'}).join('')}
+var BORO_LBL={manhattan:[40.7831,-73.9712],brooklyn:[40.6350,-73.9496],queens:[40.7150,-73.8000],bronx:[40.8448,-73.8648],staten:[40.5795,-74.1502]};
+function pip(lat,lon,ring){var inside=false;for(var i=0,j=ring.length-1;i<ring.length;j=i++){var xi=ring[i][0],yi=ring[i][1],xj=ring[j][0],yj=ring[j][1];if(((yi>lat)!==(yj>lat))&&(lon<(xj-xi)*(lat-yi)/(yj-yi)+xi))inside=!inside}return inside}
+function boroAt(lat,lon){var g=window.NYC_BOROUGHS;if(!g)return '';for(var i=0;i<g.features.length;i++){var f=g.features[i],cs=f.geometry.coordinates;for(var k=0;k<cs.length;k++)if(pip(lat,lon,cs[k][0]))return f.properties.key}return ''}
+var _boroMemo={};
+function boroOf(p){if(p.boro)return p.boro;if(p.lat==null)return '';var k=p.lat+','+p.lon;if(!(k in _boroMemo))_boroMemo[k]=boroAt(p.lat,p.lon);return _boroMemo[k]}
+var scanBoro='all';
+function inBoro(p){return scanBoro==='all'||boroOf(p)===scanBoro}
+// ---------- colors ----------
+function busyHex(sc){return sc>=70?'#22c55e':sc>=45?'#f59e0b':'#71717a'}
+function busyWord(sc){return sc>=70?'Busy':sc>=45?'Medium':'Quiet'}
+// ---------- geolocation (shared: shift miles, map dot, nearest area) ----------
+var geo={watch:null,fix:null,denied:false,toasted:false,follow:false,waiters:[]};
+function geoWanted(){return !!((state.active&&S().gps)||geo.follow)}
+function ensureGeo(){if(geoWanted())startWatch();else stopWatch()}
+function startWatch(){if(geo.watch!==null)return;if(!('geolocation' in navigator)){geoFail({code:2});return}
+  geo.watch=navigator.geolocation.watchPosition(onFix,geoFail,{enableHighAccuracy:true,maximumAge:5000,timeout:30000})}
+function stopWatch(){if(geo.watch!==null){try{navigator.geolocation.clearWatch(geo.watch)}catch(e){}geo.watch=null}}
+function onFix(p){
+  var pt={lat:p.coords.latitude,lon:p.coords.longitude,acc:p.coords.accuracy||0,ts:Date.now()};geo.fix=pt;geo.denied=false;
+  var a=state.active;
+  if(a&&S().gps&&pt.acc<=60){var q={lat:pt.lat,lon:pt.lon};if(a.last){var d=hav(a.last,q);if(d>0.0125&&d<1.25){a.km=(a.km||0)+d;a.last=q;save()}else if(d>=1.25){a.last=q}}else{a.last=q;save()}}
+  updateMe();updateNearUI();if(current==='settings')tick();
+  geo.waiters.slice().forEach(function(f){f(pt)});
+}
+function geoFail(err){
+  if(err&&err.code===1){geo.denied=true;geo.follow=false;if(!geo.toasted){toast('Location permission denied – allow it in your phone Settings');geo.toasted=true}}
+  else if(!geo.toasted&&!geo.fix){toast('No GPS signal');geo.toasted=true}
+  if(err&&err.code===1)stopWatch();updateNearUI();
+}
+function getFixOnce(cb){
+  if(geo.fix&&Date.now()-geo.fix.ts<120000){var f0=geo.fix;setTimeout(function(){cb(f0)},0);return}
+  if(!('geolocation' in navigator)||geo.denied){setTimeout(function(){cb(null)},0);return}
+  var done=false;function fin(v){if(done)return;done=true;var i=geo.waiters.indexOf(w);if(i>=0)geo.waiters.splice(i,1);clearTimeout(t);cb(v)}
+  var w=function(fx){fin(fx)};geo.waiters.push(w);var t=setTimeout(function(){fin(geo.fix)},12000);
+  navigator.geolocation.getCurrentPosition(function(p){onFix(p)},function(e){if(e.code===1){geo.denied=true;fin(null)}updateNearUI()},{enableHighAccuracy:true,timeout:10000,maximumAge:60000});
+}
+function nearestSpot(fix,list){var best=null;(list||state.hotspots).forEach(function(p){if(p.lat==null)return;var d=hav(fix,p);if(!best||d<best.d)best={p:p,d:d}});return best}
+function nearestBusy(){
+  var ranked=rankGo(new Date());if(!ranked.length)return null;
+  if(!geo.fix)return {x:ranked[0],d:null};
+  var busy=ranked.filter(function(x){return x.score>=70&&x.p.lat!=null});if(!busy.length)busy=ranked.slice(0,5);
+  var best=null;busy.forEach(function(x){var d=hav(geo.fix,x.p);if(!best||d<best.d)best={x:x,d:d}});return best;
+}
+function updateNearUI(){
+  var n=nearestBusy(),els=[['hNearName','hNearSub','hNearDot','hNear'],['sNearName','sNearSub','sNearDot','sNear']];
+  els.forEach(function(e){if(!$(e[0]))return;
+    if(!n){$(e[0]).textContent='No saved areas';$(e[1]).textContent='Add some in Scanner → Areas';$(e[2]).style.background='#71717a';$(e[3]).removeAttribute('href');return}
+    $(e[0]).textContent=(n.d!=null?'Nearest busy: ':'Busiest now: ')+n.x.p.name;
+    $(e[1]).textContent=(n.d!=null?n.d.toFixed(1)+' mi · ':'')+'score '+n.x.score+' · '+(geo.denied?'location off · ':n.d==null?'📍 turn on location · ':'')+'estimate';
+    $(e[2]).style.background=busyHex(n.x.score);$(e[3]).href=mapsLink(n.x.p);
+  });
+}
+// ---------- Leaflet maps ----------
+var OSM_URL='https://tile.openstreetmap.org/{z}/{x}/{y}.png',OSM_ATTR='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+var NYC_BOUNDS=[[40.49,-74.27],[40.92,-73.69]];
+var maps={};
+function hasLeaflet(){return typeof window.L!=='undefined'&&L.map}
+function makeMap(id,opts){
+  if(maps[id])return maps[id];if(!hasLeaflet())return null;
+  var m=L.map(id,{zoomControl:!!opts.zoom,attributionControl:false,preferCanvas:false,zoomSnap:0.25});
+  L.control.attribution({position:opts.attrPos||'bottomright',prefix:'<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>'}).addTo(m);
+  var o={map:m,tilesOk:false,tileErr:0,spots:L.layerGroup().addTo(m),boros:L.layerGroup().addTo(m),me:null,layer:'go'};
+  var t=L.tileLayer(OSM_URL,{maxZoom:19,minZoom:9,attribution:OSM_ATTR});
+  t.on('tileload',function(){if(!o.tilesOk){o.tilesOk=true;onTiles()}});t.on('tileerror',function(){o.tileErr++;onTiles()});
+  t.addTo(m);m.fitBounds(NYC_BOUNDS,{padding:[4,4]});
+  m.on('dragstart',function(){geo.followMap=false});
+  m.on('zoomend',function(){boroVis(o)});
+  maps[id]=o;return o;
+}
+function tilesBroken(){var bad=!navigator.onLine||!hasLeaflet();if(!bad&&maps.busyMap){var o=maps.busyMap;if(!o.tilesOk&&o.tileErr>0)bad=true}return bad}
+function onTiles(){if(current==='map')renderMapFallback()}
+function rankFor(layer,dt){return layer==='air'?rankAir(dt):layer==='long'?rankLong(dt):rankGo(dt)}
+var TYPE_GROUPS={all:null,casino:['casino'],restaurant:['restaurant'],club:['club','nightlife'],transit:['airport','railway','bus'],events:['arena','tourist','hotel']};
+var TYPE_CHIPS=[['all','All types'],['casino','🎰 Casinos'],['restaurant','🍽️ Restaurants'],['club','🪩 Clubs & nightlife'],['transit','✈️ Airports & transit'],['events','🏟️ Events & hotels']];
+function inType(p,g){var a=TYPE_GROUPS[g||'all'];return !a||a.indexOf(p.type)>=0}
+function drawSpots(o,ranked,filterBoro,filterType){
+  o.spots.clearLayers();o.boros.clearLayers();
+  var bs={};ranked.forEach(function(x){var b=boroOf(x.p);if(!b)return;(bs[b]=bs[b]||[]).push(x.score)});
+  var g=window.NYC_BOROUGHS;
+  if(g)g.features.forEach(function(f){var k=f.properties.key,arr=(bs[k]||[]).sort(function(a,b){return b-a}).slice(0,3),sc=arr.length?Math.round(arr.reduce(function(a,b){return a+b},0)/arr.length):0,dim=filterBoro!=='all'&&filterBoro!==k;
+    L.geoJSON(f,{interactive:false,style:{color:busyHex(sc),weight:dim?1:1.6,opacity:dim?.25:.7,fillColor:busyHex(sc),fillOpacity:dim?.03:.1,className:'sg-boro'}}).addTo(o.boros);
+    var ll=BORO_LBL[k];if(ll)L.marker(ll,{interactive:false,keyboard:false,icon:L.divIcon({className:'boro-lbl',html:'<span>'+esc(f.properties.name)+(arr.length?' · '+sc:'')+'</span>',iconSize:[0,0]})}).addTo(o.boros);
+  });
+  ranked.forEach(function(x){var p=x.p;if(p.lat==null||!inBoroF(p,filterBoro)||!inType(p,filterType))return;var t=TYPES[p.type]||TYPES.market,c=busyHex(x.score);
+    var cm=L.circleMarker([p.lat,p.lon],{radius:6+x.score/9,color:'#000',weight:1.5,fillColor:c,fillOpacity:.35+x.score/250,className:'sg-spot'});
+    cm.bindPopup('<b>'+t[0]+' '+esc(p.name)+'</b><br><span style="color:#a1a1aa">'+esc(BOROS[boroOf(p)]||'')+' · '+esc(t[1])+'</span><br><b style="color:'+c+'">'+x.score+' · '+busyWord(x.score)+'</b> – '+esc(x.why)+(LONG_FRIENDLY[p.type]?'<br>🛣️ Long-ride friendly':'')+'<br><a class="maps" target="_blank" rel="noopener" href="'+esc(mapsLink(p))+'">🧭 Directions</a><div style="color:#a1a1aa;font-size:11px;margin-top:4px">Estimate</div>',{maxWidth:260});
+    cm.addTo(o.spots);
+  });
+  boroVis(o);
+}
+function boroVis(o){var show=o.map.getZoom()<12;if(show&&!o.map.hasLayer(o.boros))o.boros.addTo(o.map);if(!show&&o.map.hasLayer(o.boros))o.map.removeLayer(o.boros)}
+function inBoroF(p,b){return b==='all'||boroOf(p)===b}
+function updateMe(){
+  Object.keys(maps).forEach(function(id){var o=maps[id];if(!geo.fix){if(o.me){o.me.remove();o.me=null}return}
+    var ll=[geo.fix.lat,geo.fix.lon];
+    if(!o.me)o.me=L.marker(ll,{interactive:false,keyboard:false,zIndexOffset:1000,icon:L.divIcon({className:'me-dot',html:'<i></i>',iconSize:[0,0]})}).addTo(o.map);else o.me.setLatLng(ll);
+    if(geo.follow&&geo.followMap!==false&&((id==='homeMap'&&current==='home')||(id==='busyMap'&&current==='scan')))o.map.setView(ll,Math.max(o.map.getZoom(),14),{animate:true});
+  });
+}
+function locateMe(){
+  geo.follow=true;geo.followMap=true;geo.toasted=false;geo.denied=false;
+  if(geo.fix)updateMe();startWatch();
+}
+// Busy Map sub-tab
+var mapLayer='go',mapType='all';
+function renderBusyMap(dt){
+  var ranked=rankFor(mapLayer,dt);
+  $('mapLayer').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.l===mapLayer)});
+  boroChips('mapBoro');$('mapType').innerHTML=TYPE_CHIPS.map(function(t){return '<button type="button" class="chip'+(t[0]===mapType?' on':'')+'" data-t="'+t[0]+'">'+t[1]+'</button>'}).join('');
+  var o=makeMap('busyMap',{zoom:true});
+  if(o){o.map.invalidateSize();drawSpots(o,ranked,scanBoro,mapType);updateMe();
+    if(scanBoro!=='all'&&window.NYC_BOROUGHS){var f=NYC_BOROUGHS.features.filter(function(f){return f.properties.key===scanBoro})[0];if(f&&o.lastFit!==scanBoro){o.map.fitBounds(L.geoJSON(f).getBounds(),{padding:[10,10]});o.lastFit=scanBoro}}
+    else if(o.lastFit&&o.lastFit!=='all'){o.map.fitBounds(NYC_BOUNDS);o.lastFit='all'}}
+  window.__mapRanked=ranked;renderMapFallback();
+}
+function renderMapFallback(){
+  var bad=tilesBroken(),ranked=(window.__mapRanked||[]).filter(function(x){return inBoro(x.p)&&inType(x.p,mapType)});
+  $('mapFallback').style.display=bad?'':'none';
+  $('mapNote').innerHTML=bad?'⚠️ Map tiles didn\'t load (offline?). Showing the list below. The map needs an internet connection.':'Map tiles need an internet connection. Tiles: '+OSM_ATTR+'.';
+  if(bad)$('mapGrid').innerHTML=ranked.map(function(x){var c=busyHex(x.score),t=TYPES[x.p.type]||TYPES.market;return '<a class="mcell" target="_blank" rel="noopener" href="'+esc(mapsLink(x.p))+'" style="border-left:5px solid '+c+'"><span class="sc" style="color:'+c+'">'+x.score+'</span><b>'+t[0]+' '+esc(x.p.name)+'</b><span>'+esc(BOROS[boroOf(x.p)]||'')+' · '+busyWord(x.score)+'</span></a>'}).join('')||'<div class="empty">No areas</div>';
+}
+// ---------- home ----------
+var hs={open:false,y:0,max:0,drag:null};
+function layoutHome(){
+  if(current!=='home')return;var sh=$('hSheet'),peek=$('hPeek').offsetHeight;hs.max=Math.max(0,sh.offsetHeight-peek);
+  setSheet(hs.open,false);var b=peek+16;$('dShiftBtn').style.bottom=b+'px';$('hLocate').style.bottom=(b+18)+'px';
+  var o=maps.homeMap;if(o)o.map.invalidateSize();
+}
+function setSheet(open,anim){hs.open=open;hs.y=open?0:hs.max;var sh=$('hSheet');sh.classList.toggle('dragging',anim===false);sh.style.transform='translate3d(0,'+hs.y+'px,0)';$('tab-home').classList.toggle('sheet-open',open);if(anim===false){void sh.offsetHeight;sh.classList.remove('dragging')}}
+(function(){var pk=$('hPeek');
+  pk.addEventListener('pointerdown',function(e){if(e.target.closest('button,a'))return;hs.drag={y0:e.clientY,base:hs.y,t:Date.now(),moved:false};$('hSheet').classList.add('dragging');try{pk.setPointerCapture(e.pointerId)}catch(_){}});
+  pk.addEventListener('pointermove',function(e){if(!hs.drag)return;var dy=e.clientY-hs.drag.y0;if(Math.abs(dy)>5)hs.drag.moved=true;hs.y=Math.max(0,Math.min(hs.max,hs.drag.base+dy));$('hSheet').style.transform='translate3d(0,'+hs.y+'px,0)'});
+  function end(e){if(!hs.drag)return;var d=hs.drag;hs.drag=null;$('hSheet').classList.remove('dragging');
+    if(!d.moved){setSheet(!hs.open);return}
+    var v=(hs.y-d.base)/Math.max(1,Date.now()-d.t);setSheet(v<-0.4?true:v>0.4?false:hs.y<hs.max/2)}
+  pk.addEventListener('pointerup',end);pk.addEventListener('pointercancel',end);
+})();
+$('hPill').addEventListener('click',function(){setSheet(!hs.open)});
+$('hProfile').addEventListener('click',function(){showTab('settings')});
+$('hSearch').addEventListener('click',function(){showTab('scan')});
+$('hLocate').addEventListener('click',function(){locateMe();if(geo.fix&&maps.homeMap)maps.homeMap.map.setView([geo.fix.lat,geo.fix.lon],14)});
+window.addEventListener('resize',function(){layoutHome()});
+function renderHomeMap(){var o=makeMap('homeMap',{zoom:false,attrPos:'topright'});if(!o)return;o.map.invalidateSize();drawSpots(o,rankGo(new Date()),'all','all');
+  var peek=$('hPeek').offsetHeight||220;
+  if(geo.fix&&!o.centered){o.map.setView([geo.fix.lat,geo.fix.lon],12.5,{animate:false});o.map.panBy([0,Math.round(peek/2)-20],{animate:false});o.centered=true}
+  else if(!geo.fix&&!o.fitted){o.map.fitBounds(NYC_BOUNDS,{paddingTopLeft:[0,70],paddingBottomRight:[0,peek]});o.fitted=true}
+  updateMe()}
+// ---------- network ----------
+function updateNet(){var on=navigator.onLine;var b=$('netBadge');b.className='net '+(on?'on':'off');b.textContent=on?'Online':'Offline';
+  var h=$('homeNet');h.style.display=on?'none':'';h.textContent='📴 Offline – the app still works; map tiles need internet';if(current==='map')renderMapFallback()}
+window.addEventListener('online',updateNet);window.addEventListener('offline',updateNet);
+// ---------- Bluetooth car auto-shift (Android app only) ----------
+function btBridge(){return (window.SmartGearAndroid&&typeof SmartGearAndroid.btSupported==='function')?SmartGearAndroid:null}
+function renderBt(){
+  var b=btBridge(),ok=false;try{ok=!!(b&&b.btSupported())}catch(e){}
+  $('btAndroid').style.display=ok?'':'none';$('btNoApp').style.display=ok?'none':'';
+  if(!ok)return;var car=S().btCar;
+  $('btCarTxt').textContent=car&&car.address?car.name+' ('+car.address+')':'No device selected';$('btAuto').checked=!!S().btAuto;
+}
+function btPick(){
+  var b=btBridge();if(!b)return;var r='[]';try{r=b.listBondedDevices()}catch(e){r='[]'}
+  if(r==='NO_PERMISSION'){toast('Please allow Bluetooth permission');try{b.requestBtPermission()}catch(e){}return}
+  var list=[];try{list=JSON.parse(r)||[]}catch(e){}
+  $('btList').innerHTML=list.length?list.map(function(d){return '<button type="button" class="chip" data-bt="'+esc(d.address)+'" data-name="'+esc(d.name||d.address)+'">🔷 '+esc(d.name||d.address)+'</button>'}).join(''):'<div class="small muted">No paired devices found. Pair your car\'s Bluetooth in phone Settings first.</div>';
+}
+$('btPick').addEventListener('click',btPick);
+$('btList').addEventListener('click',function(e){var c=e.target.closest('[data-bt]');if(!c)return;var b=btBridge();S().btCar={address:c.dataset.bt,name:c.dataset.name};if(!S().btAuto)S().btAuto=true;save();try{b.setCarDevice(c.dataset.bt,c.dataset.name);b.setAutoShift(true)}catch(_){}$('btList').innerHTML='';renderBt();toast('Car device saved ✔ '+c.dataset.name)});
+$('btAuto').addEventListener('change',function(){S().btAuto=this.checked;save();var b=btBridge();try{b&&b.setAutoShift(this.checked)}catch(_){}toast(this.checked?'Auto-shift ON':'Auto-shift OFF')});
+function handleBt(ev){
+  if(!S().btAuto)return;var ts=Math.min(Date.now(),num(ev.ts)||Date.now());
+  if(ev.type==='connected'){if(!state.active){state.active={start:ts,km:0,last:null,auto:true};state.paused=null;save();ensureGeo();toast('🚗 Car connected – shift started automatically')}}
+  else if(ev.type==='disconnected'){if(state.active){stopShiftAt(Math.max(state.active.start,ts),true);state.paused={since:ts};save();toast('⏸ Car disconnected – shift paused')}}
+}
+window.SmartGearBT={
+  onPermission:function(ok){toast(ok?'Bluetooth permission granted':'Bluetooth permission denied – allow it in Settings');if(ok)btPick()},
+  poll:function(){var b=btBridge();if(!b)return 0;var ev=[];try{ev=JSON.parse(b.takePendingBtEvents()||'[]')||[]}catch(e){ev=[]}
+    ev.sort(function(a,c){return num(a.ts)-num(c.ts)}).forEach(handleBt);if(ev.length)render();return ev.length}
+};
 
 // ---------- boot ----------
 load();
-window.addEventListener('resize',function(){if(current==='home')drawChart($('chartHome'));if(current==='track')drawChart($('chartTrack'))});
 document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
-var h=(location.hash||'').slice(1);showTab(['home','track','calc','scan','shift','settings'].indexOf(h)>=0?h:'home');
-if(state.active&&S().gps)startGeo();
+var h=(location.hash||'').slice(1);showTab(h==='shift'?'home':h);
+ensureGeo();updateNet();
+try{if(navigator.permissions&&navigator.permissions.query)navigator.permissions.query({name:'geolocation'}).then(function(r){if(r.state==='granted'&&!geo.watch){getFixOnce(function(){render()})}}).catch(function(){})}catch(_){}
+if(btBridge())SmartGearBT.poll();
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&btBridge())SmartGearBT.poll()});
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
-window.SmartGear={state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
+window.SmartGear={geo:geo,maps:maps,layoutHome:layoutHome,state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
 })();
 </script>
 </body>
