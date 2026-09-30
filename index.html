@@ -212,6 +212,37 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
 .t5 .d{width:12px;height:12px;border-radius:50%;flex:none}.t5 .d.b-lo{box-shadow:0 0 0 1.5px #52525b}.t5 .d.b-mid{box-shadow:0 0 0 1.5px #b45309}.t5 .d.b-hi{box-shadow:0 0 0 1.5px #b91c1c}
 .t5 .tx{flex:1;min-width:0}.t5 .tx b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.t5 .tx span{display:block;font-size:12px;color:var(--muted)}
 .t5 .navgo{margin-top:0;padding:0 10px;min-height:36px}
+/* ---- search ---- */
+.search-sheet{height:86vh;display:flex;flex-direction:column;padding-bottom:calc(10px + var(--safe-b))}
+.q-head{display:flex;align-items:center;justify-content:space-between}.q-head h2{margin:0 0 10px}
+.q-close{min-height:0;width:38px;height:38px;padding:0;border-radius:50%;border:0;background:var(--card2);font-size:15px}
+.q-wrap{display:flex;align-items:center;gap:8px;background:var(--card2);border:1.5px solid var(--accent);border-radius:14px;padding:0 10px 0 12px;color:var(--muted)}
+.q-wrap input{border:0;background:transparent;min-height:50px;padding:0;font-size:17px;flex:1}
+.q-wrap input:focus{border:0}.q-wrap button{min-height:0;width:30px;height:30px;padding:0;border:0;background:transparent;color:var(--muted)}
+#qNote{margin:8px 2px;min-height:17px}
+.q-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.q-sec{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:10px 4px 4px}
+.q-row{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:11px 4px;min-height:0;font-weight:400}
+.q-row:active{background:var(--card2)}
+.q-ic{font-size:20px;width:26px;text-align:center;flex:none;line-height:1.3}
+.q-tx{flex:1;min-width:0}.q-tx b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.q-tx>span{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.q-meta{display:flex!important;gap:10px;margin-top:3px;color:var(--text)!important;font-weight:600}
+.q-lvl{display:inline-flex;align-items:center;gap:5px}.q-lvl i{width:9px;height:9px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.q-apt{color:#52525b}
+.q-attr{font-size:11px;color:var(--muted);margin:8px 2px 0;text-align:center}
+.sg-pick{background:none;border:0}.sg-pick i{display:block;width:26px;height:26px;margin:-26px 0 0 -13px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--accent);border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+/* ---- airports: info-only markers + queue card ---- */
+#qInput::-webkit-search-cancel-button,#qInput::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+.sg-apt,.sg-lot{background:none;border:0}
+.sg-apt span{position:absolute;left:-15px;top:-15px;width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid #52525b;display:grid;place-items:center;font-size:15px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.sg-lot span{position:absolute;left:-10px;top:-10px;width:20px;height:20px;border-radius:5px;background:#1f2937;color:#fff;font-size:12px;font-weight:900;display:grid;place-items:center;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.apt{border-top:1px solid var(--line);padding:12px 2px}.apt:first-of-type{border-top:0}
+.apt-h{display:flex;align-items:center;justify-content:space-between;gap:10px}.apt-h b{font-size:16px}
+.apt-lvl{font-size:12px;font-weight:800;border-radius:99px;padding:3px 10px;border:1.5px solid;white-space:nowrap}
+.apt ul{margin:6px 0 0;padding:0 0 0 18px}.apt li{margin:3px 0;font-size:13.5px}
+.apt details{margin-top:6px;font-size:13px}.apt summary{cursor:pointer;font-weight:700;color:var(--accent)}
+.apt .src{font-size:12px;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 12px}.apt .src a{color:var(--accent)}
+.apt .tag{margin-left:4px}
 .me-dot,.me-mk{background:none;border:0}
 .me-arr{position:absolute;left:-20px;top:-20px;width:40px;height:40px;will-change:transform;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
 .me-arr svg{display:block;width:40px;height:40px}
@@ -254,7 +285,7 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
   <div class="home-top">
     <button class="fab-round" id="hProfile" aria-label="Settings"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
     <button class="status-pill" id="hPill" aria-label="Shift status"><span class="pill-dot" id="pillDot"></span><b id="pillTxt">Offline</b></button>
-    <button class="fab-round" id="hSearch" aria-label="Ride Scanner"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+    <button class="fab-round" id="hSearch" aria-label="Search"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
   </div>
   <div class="demand-bar" id="hDemandBar">
     <button type="button" class="demand-chip" id="hDemandBtn" aria-pressed="false"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 2.5 20 7v10l-8 4.5L4 17V7z"/></svg>Demand</button>
@@ -277,7 +308,7 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
       </div>
       <a class="hs-near" id="hNear" role="button" aria-label="Navigate to best spot"><span class="nd" id="hNearDot"></span><span class="nt"><b id="hNearName">Finding busy areas…</b><span id="hNearSub">Estimate</span></span><span class="ng"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5 3.8 10.6c-.8.3-.7 1.5.1 1.7l6.6 1.2 1.2 6.6c.2.8 1.4.9 1.7.1z"/></svg></span></a>
       <div class="fab-row hs-actions">
-        <button class="btn-accent" id="hLog"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><path d="M12 7v5M9.5 9.5h5"/></svg> Log pickup</button>
+        <button class="btn-accent" id="hFind"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg> Search</button>
         <button class="btn-outline" id="hWhere"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 5 6.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5.5 2 1.5 3 3 3-1-3 0-6.5 0-8.5z"/></svg> Where to go</button>
       </div>
     </div>
@@ -293,19 +324,14 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
           <div class="stat"><div class="v" id="tOnline">0h 0m</div><div class="k">Online time</div></div>
           <div class="stat"><div class="v" id="tShifts">0</div><div class="k">Shifts</div></div>
           <div class="stat"><div class="v" id="tMiles">0.0 mi</div><div class="k">GPS miles</div></div>
-          <div class="stat"><div class="v" id="tPickups">0</div><div class="k">Pickups logged</div></div>
         </div>
       </div>
       <div class="card">
         <h3>This week (Mon–Sun)</h3>
         <div class="grid2">
           <div class="stat"><div class="v" id="wOnline">0h 0m</div><div class="k">Online time</div></div>
-          <div class="stat"><div class="v" id="wPickups">0</div><div class="k">Pickups logged</div></div>
+          <div class="stat"><div class="v" id="wShifts">0</div><div class="k">Shifts</div></div>
         </div>
-      </div>
-      <div class="card" style="padding:6px 12px">
-        <h3 style="margin:10px 4px">Recent pickups</h3>
-        <div id="pickupList"></div>
       </div>
       <div class="card" style="padding:6px 12px">
         <h3 style="margin:10px 4px">Recent shifts</h3>
@@ -318,7 +344,7 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
 <!-- RIDE SCANNER -->
 <section class="tab" id="tab-scan">
   <h2>Ride Scanner</h2>
-  <div class="card note small"><b>⚠️ Estimate.</b> This is not real Uber/Lyft demand data. Scores are based on general time-of-day / day-of-week patterns and the pickups you log.</div>
+  <div class="card note small"><b>⚠️ Estimate.</b> This is not real Uber/Lyft demand data. Scores are based on general time-of-day / day-of-week patterns (plus any pickups saved by older versions).</div>
   <div class="card">
     <div class="row between"><span class="small muted">For what time?</span><b class="small" id="scWhen"></b></div>
     <div class="row" style="margin-top:8px"><button class="chip on" id="scNow" type="button">Now</button><input id="scTime" type="datetime-local" aria-label="Custom time" style="flex:1;min-width:0;font-size:15px;padding:10px"></div>
@@ -332,6 +358,7 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
     <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">🛣️ Long ride hotspots</h3><p class="small muted" style="margin:4px 2px 0"><b>Estimate.</b> Long ride = <span id="longDef">15+ mi or 40+ min</span>. Chances of trips to the suburbs, NJ, Long Island, Westchester and other boroughs.</p><div id="longList"></div></div>
   </div>
   <div id="sc-air" style="display:none">
+    <div class="card" style="padding:6px 14px" id="aptCard"><h3 style="margin:10px 2px 0">✈️ Airport queues</h3><p class="small muted" style="margin:4px 2px 0">Where rideshare / FHV drivers wait at JFK, LGA and EWR. Smart Gear shows these as info only and never sends you to an airport lot.</p><div id="aptQueues"></div></div>
     <div class="card" style="padding:6px 14px"><h3 style="margin:10px 2px 0">Airport ride hotspots</h3><p class="small muted" style="margin:4px 2px 0">Areas with the best chance of a ride to JFK / LGA / EWR (the airports themselves are not listed).</p><div id="airList"></div></div>
   </div>
   <div id="sc-areas" style="display:none">
@@ -410,22 +437,13 @@ path.sg-hex-mid{filter:drop-shadow(0 0 3px rgba(245,158,11,.45))}
 </nav>
 
 <div class="sheet-bg" id="sheetBg"></div>
-<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
+<div class="sheet search-sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shTitle">
   <div class="grab"></div>
-  <h2 id="shTitle">Log pickup</h2>
-  <form id="shForm" autocomplete="off">
-    <div class="grid2">
-      <div><label for="fArea">Pickup area</label><select id="fArea"></select></div>
-      <div><label for="fTime">Time</label><input id="fTime" type="time"></div>
-    </div>
-    <div class="small muted" id="fAreaHint" style="margin:6px 2px 0;min-height:16px"></div>
-    <div class="switch"><label for="fAirport" style="margin:0;font-size:15px;color:var(--text)">✈️ Airport drop-off</label><input type="checkbox" id="fAirport"></div>
-    <div class="switch"><label for="fLong" style="margin:0;font-size:15px;color:var(--text)" id="fLongLbl">🛣️ Long ride</label><input type="checkbox" id="fLong"></div>
-    <div class="grid2" style="margin-top:12px">
-      <button type="button" id="shCancel">Cancel</button>
-      <button type="submit" class="btn-accent" id="shSave">Save</button>
-    </div>
-  </form>
+  <div class="q-head"><h2 id="shTitle">Search</h2><button type="button" class="q-close" id="qClose" aria-label="Close search">✕</button></div>
+  <form class="q-wrap" id="qForm" role="search" autocomplete="off"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg><input id="qInput" type="search" placeholder="Search places or addresses in NYC" aria-label="Search places or addresses in NYC" enterkeyhint="search" autocomplete="off"><button type="button" id="qClear" aria-label="Clear" style="display:none">✕</button></form>
+  <div class="small muted" id="qNote">Type a place, address or area. Saved busy areas show up instantly.</div>
+  <div id="qList" class="q-list"></div>
+  <p class="q-attr">Address search: Nominatim · © OpenStreetMap contributors. Busy levels and drive times are estimates.</p>
 </div>
 <!-- IN-APP NAVIGATION (basic, OSRM demo server, no live traffic) -->
 <div class="nav-view" id="navView" aria-hidden="true">
@@ -562,51 +580,96 @@ function renderHome(){
   $('hSheet').classList.toggle('online',!!a);
   var gb=$('dShiftBtn');gb.classList.toggle('online',!!a);gb.classList.toggle('pulse',!a);gb.setAttribute('aria-label',a?'End shift':'Start shift (GO)');
   var todays=state.shifts.filter(function(s){return s.date===today}).length+(a?1:0);
-  $('tOnline').textContent=fmtDur(onlineMs(today));$('tShifts').textContent=todays;$('tMiles').textContent=dayMiles(today).toFixed(1)+' mi';$('tPickups').textContent=pickupsOn([today]);
-  $('wOnline').textContent=fmtDur(wk.reduce(function(t,d){return t+onlineMs(d)},0));$('wPickups').textContent=pickupsOn(wk);
+  $('tOnline').textContent=fmtDur(onlineMs(today));$('tShifts').textContent=todays;$('tMiles').textContent=dayMiles(today).toFixed(1)+' mi';
+  $('wOnline').textContent=fmtDur(wk.reduce(function(t,d){return t+onlineMs(d)},0));$('wShifts').textContent=state.shifts.filter(function(s){return wk.indexOf(s.date)>=0}).length+(a?1:0);
   renderLists();renderTop5();renderDemandUI();updateNearUI();renderHomeMap();layoutHome();
 }
 function homeSub(){var a=state.active;if(a)return 'On shift since '+new Date(a.start).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})+(S().gps?' · '+(a.km||0).toFixed(1)+' mi':'');
   if(state.paused)return '⏸ Paused – car Bluetooth disconnected';return 'Tap GO to start your shift';}
 function renderLists(){
-  var pk=state.pickups.slice().sort(function(a,b){return (b.date+b.time)<(a.date+a.time)?-1:(b.date+b.time)>(a.date+a.time)?1:(b.ts||0)-(a.ts||0)}).slice(0,10);
-  $('pickupList').innerHTML=pk.length?'<ul class="list">'+pk.map(function(r){var h=hotspotById(r.area),t=h?(TYPES[h.type]||TYPES.market):['📍',''];return '<li><div class="ico">'+t[0]+'</div><div class="t"><b>'+esc(h?h.name:'Unknown area')+'</b><span>'+esc(dayLabel(r.date))+(r.time?' · '+esc(usTime(r.time)):'')+(r.airport?' · ✈️ airport':'')+(r.long?' · 🛣️ long':'')+'</span></div><div class="act"><button aria-label="Delete pickup" data-pdel="'+r.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">No pickups logged yet.<br>Tap <b>Log pickup</b> when you pick up a rider – the Scanner learns from it.</div>';
   var list=state.shifts.slice().sort(function(a,b){return b.start-a.start}).slice(0,10);
   $('shiftList').innerHTML=list.length?'<ul class="list">'+list.map(function(s){var f=function(x){return new Date(x).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})};return '<li><div class="ico">⏱️</div><div class="t"><b>'+fmtDur(s.end-s.start)+'</b><span>'+esc(dayLabel(s.date))+' · '+f(s.start)+' – '+f(s.end)+(s.km?' · '+s.km+' mi':'')+'</span></div><div class="act"><button aria-label="Delete shift" data-sdel="'+s.id+'">🗑️</button></div></li>'}).join('')+'</ul>':'<div class="empty">No shifts yet.</div>';
 }
-$('pickupList').addEventListener('click',function(e){var b=e.target.closest('[data-pdel]');if(!b)return;if(confirm('Delete this pickup?')){state.pickups=state.pickups.filter(function(r){return r.id!==b.dataset.pdel});save();render();toast('Deleted')}});
 $('shiftList').addEventListener('click',function(e){var b=e.target.closest('[data-sdel]');if(!b)return;if(confirm('Delete this shift?')){state.shifts=state.shifts.filter(function(s){return s.id!==b.dataset.sdel});save();render()}});
 
-// ---------- log pickup ----------
-// One tap: if GPS finds a saved area within 2 mi, the pickup is saved right away; the sheet lets you add airport / long-ride flags or undo.
-var pkRec=null,sheetOpenedAt=0;
-function areaOptions(){return '<option value="">— Choose area —</option>'+state.hotspots.map(function(h){return '<option value="'+h.id+'">'+esc((TYPES[h.type]||TYPES.market)[0]+' '+h.name)+'</option>'}).join('')}
-function sheetMode(saved){$('shTitle').textContent=saved?'Pickup logged ✔':'Log pickup';$('shSave').textContent=saved?'Done':'Save';$('shCancel').textContent=saved?'Undo':'Cancel'}
-function openPickup(){
-  pkRec=null;$('fArea').innerHTML=areaOptions();$('fArea').value='';$('fTime').value=hm(new Date());$('fAirport').checked=false;$('fLong').checked=false;
-  $('fLongLbl').textContent='🛣️ Long ride ('+S().longMi+'+ mi or '+S().longMin+'+ min)';
-  sheetMode(false);$('fAreaHint').textContent='📍 Finding the nearest area…';
-  var opened=Date.now();sheetOpenedAt=opened;
-  getFixOnce(function(fx){if(sheetOpenedAt!==opened||!$('sheet').classList.contains('open'))return;
-    if(!fx){$('fAreaHint').textContent=geo.denied?'Location is off – pick an area':'No GPS fix – pick an area';return}
-    var n=nearestSpot(fx);
-    if(n&&n.d<=2){if(!$('fArea').value){$('fArea').value=n.p.id;savePickup(true)}$('fAreaHint').textContent='📍 Nearest: '+n.p.name+' ('+n.d.toFixed(1)+' mi'+(BOROS[boroOf(n.p)]?', '+BOROS[boroOf(n.p)]:'')+')'}
-    else{var b=boroAt(fx.lat,fx.lon);$('fAreaHint').textContent=b?'📍 You\'re in '+BOROS[b]+' – no saved area within 2 mi':'No saved area nearby – pick one'}});
-  $('sheet').classList.add('open');$('sheetBg').classList.add('open');
+// ---------- search (places / addresses in NYC) ----------
+// Instant local matches from saved areas + Nominatim (OpenStreetMap) geocoding with an NYC viewbox bias.
+// Nominatim usage policy: debounce 400 ms, at most 1 request per second, cache results, min 3 characters, attribution shown.
+var NOMINATIM='https://nominatim.openstreetmap.org/search',NYC_VIEWBOX='-74.26,40.92,-73.70,40.49';
+var srch={seq:0,timer:null,lastReq:0,cache:{},places:{},remote:[],q:'',ctl:null};
+function openSearch(){$('sheet').classList.add('open');$('sheetBg').classList.add('open');$('qInput').value=srch.q||'';runSearch(true);setTimeout(function(){try{$('qInput').focus()}catch(e){}},60)}
+function closeSheet(){$('sheet').classList.remove('open');$('sheetBg').classList.remove('open');document.activeElement&&document.activeElement.blur()}
+function normQ(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim()}
+function localMatches(q){
+  var n=normQ(q);if(!n)return [];var out=[];
+  state.hotspots.forEach(function(p){var t=TYPES[p.type]||TYPES.market,nm=normQ(p.name),hay=nm+' '+normQ(t[1])+' '+normQ(BOROS[boroOf(p)]||''),sc=-1;
+    if(nm.indexOf(n)===0)sc=3;else if((' '+nm).indexOf(' '+n)>=0)sc=2;else if(hay.indexOf(n)>=0)sc=1;
+    if(sc>=0)out.push({sc:sc,p:p})});
+  return out.sort(function(a,b){return b.sc-a.sc||a.p.name.localeCompare(b.p.name)}).slice(0,8).map(function(x){return {kind:'local',id:x.p.id,name:x.p.name,lat:x.p.lat,lon:x.p.lon,type:x.p.type,sub:(TYPES[x.p.type]||TYPES.market)[1]}});
 }
-function readForm(){var t=$('fTime').value||hm(new Date());return {area:$('fArea').value,time:t,airport:$('fAirport').checked,long:$('fLong').checked}}
-function savePickup(auto){
-  var f=readForm();if(!f.area){if(!auto){toast('Choose a pickup area');$('fArea').focus()}return false}
-  if(pkRec){Object.assign(pkRec,f)}else{pkRec={id:uid(),ts:Date.now(),date:ymd()};Object.assign(pkRec,f);state.pickups.push(pkRec)}
-  save();sheetMode(true);return true;
+function isAirportPlace(pl){if(pl.type==='airport')return true;if(pl.lat==null)return false;return state.hotspots.some(function(h){return h.type==='airport'&&h.lat!=null&&hav(h,pl)<1.2})}
+// Estimated busy score for any point: nearby busy areas (non-airport) with distance falloff
+function placeScore(pl,dt){
+  if(pl.kind==='local'){var x=rankGo(dt).filter(function(r){return r.p.id===pl.id})[0];if(x)return x.score}
+  if(pl.lat==null)return null;var best=0;rankGo(dt).forEach(function(x){if(x.p.lat==null)return;var d=hav(pl,x.p),v=x.score*Math.exp(-(d/0.6)*(d/0.6));if(v>best)best=v});return Math.round(best);
 }
-function closeSheet(){$('sheet').classList.remove('open');$('sheetBg').classList.remove('open');sheetOpenedAt=0;document.activeElement&&document.activeElement.blur();render()}
-$('hLog').addEventListener('click',openPickup);
+function placeRow(pl,dt){
+  var apt=isAirportPlace(pl),sc=apt?null:placeScore(pl,dt),dr=pl.lat!=null?driveEst(pl,dt):null,b=pl.lat!=null?(BOROS[boroOf(pl)]||BOROS[boroAt(pl.lat,pl.lon)]||''):'';
+  var lvl=apt?'<span class="q-lvl q-apt">✈️ Airport – info only</span>':sc==null?'':'<span class="q-lvl"><i class="'+busyCls(sc)+'" style="background:'+busyHex(sc)+'"></i>'+busyWord(sc)+' (est.)</span>';
+  var ic=pl.kind==='local'?(TYPES[pl.type]||TYPES.market)[0]:'📍';
+  return '<button type="button" class="q-row" data-qid="'+esc(pl.id)+'"><span class="q-ic">'+ic+'</span><span class="q-tx"><b>'+esc(pl.name)+'</b><span>'+esc([b,pl.sub].filter(Boolean).join(' · '))+'</span><span class="q-meta">'+lvl+(dr?'<span>🚗 '+dr.min+' min · '+dr.mi.toFixed(1)+' mi</span>':'')+'</span></span></button>';
+}
+function renderSearch(){
+  var q=srch.q,dt=new Date(),loc=localMatches(q),seen={},rows=[];
+  loc.forEach(function(pl){srch.places[pl.id]=pl;seen[pl.name.toLowerCase()]=1;rows.push(pl)});
+  srch.remote.forEach(function(pl){if(seen[pl.name.toLowerCase()])return;srch.places[pl.id]=pl;rows.push(pl)});
+  $('qClear').style.display=q?'':'none';
+  if(!q){$('qList').innerHTML='';return}
+  $('qList').innerHTML=rows.length?(loc.length?'<div class="q-sec">Saved areas</div>'+loc.map(function(p){return placeRow(p,dt)}).join(''):'')+
+    (rows.length>loc.length?'<div class="q-sec">Places &amp; addresses</div>'+rows.slice(loc.length).map(function(p){return placeRow(p,dt)}).join(''):''):'<div class="empty">No matches yet.</div>';
+}
+function runSearch(immediate){
+  var q=$('qInput').value.trim();srch.q=q;srch.remote=[];clearTimeout(srch.timer);
+  if(srch.ctl){try{srch.ctl.abort()}catch(e){}srch.ctl=null}
+  if(!q){$('qNote').textContent='Type a place, address or area. Saved busy areas show up instantly.';renderSearch();return}
+  if(!navigator.onLine){$('qNote').textContent='📴 Offline – showing saved areas only';renderSearch();return}
+  if(q.length<3){$('qNote').textContent='Keep typing to search addresses…';renderSearch();return}
+  var key=normQ(q);if(srch.cache[key]){srch.remote=srch.cache[key];$('qNote').textContent='';renderSearch();return}
+  $('qNote').textContent='Searching…';renderSearch();
+  srch.timer=setTimeout(function(){fetchPlaces(q,key)},immediate?0:400);
+}
+function fetchPlaces(q,key){
+  var wait=Math.max(0,1100-(Date.now()-srch.lastReq));if(wait){srch.timer=setTimeout(function(){fetchPlaces(q,key)},wait);return}
+  if(srch.q!==q)return;srch.lastReq=Date.now();var my=++srch.seq,ctl=window.AbortController?new AbortController():null;srch.ctl=ctl;
+  var url=NOMINATIM+'?format=jsonv2&addressdetails=1&limit=6&countrycodes=us&accept-language=en&viewbox='+NYC_VIEWBOX+'&bounded=0&q='+encodeURIComponent(q);
+  fetch(url,ctl?{signal:ctl.signal,headers:{Accept:'application/json'}}:{headers:{Accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(js){
+    if(my!==srch.seq)return;srch.ctl=null;
+    var list=(js||[]).map(function(r){var a=r.address||{},nm=r.name||a.road||String(r.display_name||'').split(',')[0],street=[a.house_number,a.road].filter(Boolean).join(' ');
+      return {kind:'geo',id:'q-'+(r.osm_type||'x').charAt(0)+r.osm_id,name:nm,lat:+r.lat,lon:+r.lon,type:r.type,sub:street&&street!==nm?street:(a.neighbourhood||a.suburb||a.city||'')}}).filter(function(p){return !isNaN(p.lat)&&!isNaN(p.lon)});
+    srch.cache[key]=list;if(srch.q!==q)return;srch.remote=list;$('qNote').textContent=list.length?'':'No address matches – try adding a street or borough';renderSearch();
+  }).catch(function(e){if(my!==srch.seq||(e&&e.name==='AbortError'))return;srch.ctl=null;$('qNote').textContent='Address search unavailable right now – showing saved areas';renderSearch()});
+}
+function pickPlace(id){
+  var pl=srch.places[id];if(!pl)return;closeSheet();
+  if(current!=='home')showTab('home');
+  var o=maps.homeMap||renderHomeMap()||maps.homeMap;if(!o||pl.lat==null){if(!pl.lat){toast('This area has no GPS location')}return}
+  geo.followMap=false;if(o.pick)o.pick.remove();
+  var dt=new Date(),apt=isAirportPlace(pl),sc=apt?null:placeScore(pl,dt),dr=driveEst(pl,dt),b=BOROS[boroOf(pl)]||BOROS[boroAt(pl.lat,pl.lon)]||'';
+  var html='<b>'+esc(pl.name)+'</b><br><span style="color:#6b7280">'+esc([b,pl.sub].filter(Boolean).join(' · '))+'</span>'+
+    (apt?'<div class="pp-eta">✈️ Airport – info only. Smart Gear doesn\'t send you to airport lots. See <b>Scanner → Airport</b> for waiting lots and rules.</div>':'<div class="pp-eta"><div>'+(sc==null?'':'Busy level: <b style="color:'+busyLine(sc)+'">'+busyWord(sc)+'</b> (est.)')+'</div><div>🚗 '+(dr?'<b>'+dr.min+' min drive</b> · '+dr.mi.toFixed(1)+' mi':'Turn on location for drive time')+'</div></div>')+
+    (apt?'<div style="margin-top:6px;font-size:12.5px"><a href="#scan" data-aptinfo="1">Airport queues</a> · <a href="'+PANYNJ_TAXI+'" target="_blank" rel="noopener">Check the official source</a></div>':'<button type="button" class="navgo" data-nav="'+esc(pl.id)+'"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5 3.8 10.6c-.8.3-.7 1.5.1 1.7l6.6 1.2 1.2 6.6c.2.8 1.4.9 1.7.1z"/></svg>Navigate</button>');
+  o.pick=L.marker([pl.lat,pl.lon],{zIndexOffset:1500,keyboard:false,icon:L.divIcon({className:'sg-pick',html:'<i></i>',iconSize:[0,0]})}).addTo(o.map).bindPopup(html,{maxWidth:260,autoPanPaddingTopLeft:[10,140],autoPanPaddingBottomRight:[10,260]});
+  o.map.setView([pl.lat,pl.lon],Math.max(o.map.getZoom(),15),{animate:false});setTimeout(function(){o.pick&&o.pick.openPopup()},60);
+}
+$('hFind').addEventListener('click',openSearch);
+$('hSearch').addEventListener('click',openSearch);
 $('hWhere').addEventListener('click',function(){scanSub='go';showTab('scan')});
 $('sheetBg').addEventListener('click',closeSheet);
-$('shCancel').addEventListener('click',function(){if(pkRec){var id=pkRec.id;state.pickups=state.pickups.filter(function(r){return r.id!==id});pkRec=null;save();toast('Pickup removed')}closeSheet()});
-['fArea','fTime','fAirport','fLong'].forEach(function(id){$(id).addEventListener('change',function(){if(pkRec)savePickup(false)})});
-$('shForm').addEventListener('submit',function(e){e.preventDefault();var was=!!pkRec;if(savePickup(false)){if(!was)toast('Pickup logged ✔');closeSheet()}});
+$('qClose').addEventListener('click',closeSheet);
+$('qInput').addEventListener('input',function(){runSearch(false)});
+$('qForm').addEventListener('submit',function(e){e.preventDefault();clearTimeout(srch.timer);runSearch(true)});
+$('qClear').addEventListener('click',function(){$('qInput').value='';runSearch(false);$('qInput').focus()});
+$('qList').addEventListener('click',function(e){var b=e.target.closest('[data-qid]');if(b)pickPlace(b.dataset.qid)});
 
 // ---------- shift ----------
 function startShift(){state.active={start:Date.now(),km:0,last:null};state.paused=null;save();ensureGeo();render();toast('Shift started ✔ You\'re online')}
@@ -716,9 +779,12 @@ function scanDate(){return scanAt?new Date(scanAt):new Date()}
 function mapsLink(h){var c=S().city||DEFAULTS.city;if(h&&h.lat!=null&&h.lon!=null)return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination='+h.lat.toFixed(6)+','+h.lon.toFixed(6);return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination='+encodeURIComponent(h.name+(c?', '+c:''))}
 function searchLink(label){var c=S().city||DEFAULTS.city;return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(label+' in '+c)}
 function scoreColor(sc){return busyHex(sc)}
+// Recommendations (Where to go, best spot, Top 5, Demand, Long rides) never send drivers to airports / airport lots:
+// airports have their own FHV queues (see Airport queues) and are shown as info-only markers.
+function recoAreas(){return state.hotspots.filter(function(p){return p.type!=='airport'})}
 function rankGo(dt){
   var h=dt.getHours(),d=dt.getDay();
-  return state.hotspots.map(function(p){
+  return recoAreas().map(function(p){
     var b=heur(p.type,h,d),sc=b[0],why=[b[1]],m=histFor(p.id,h,d,false,1);
     if(m.n>0){var conf=Math.min(1,m.n/5),hs=Math.min(100,55+m.n*9);sc=sc*(1-0.5*conf)+hs*0.5*conf;why.push('Your history: '+m.n+' pickup'+(m.n>1?'s':'')+' around this time')}
     return {p:p,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
@@ -732,6 +798,65 @@ function rankAir(dt){
     return {p:p,raw:sc,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
   }).sort(function(a,b){return b.raw-a.raw});
 }
+// ---------- airport queues (FHV / rideshare waiting lots) ----------
+// Lot names, rules and links come from public driver pages (Uber, Lyft, PANYNJ / JFK airport), checked 09/30/2026.
+// Lot coordinates: OpenStreetMap / Nominatim (approx = street-level, not the exact gate). No public live queue feed exists for rideshare lots.
+var APT_CHECKED='09/30/2026';
+var PANYNJ_TAXI='https://www.panynj.gov/airports/en/operator-resources/taxi-driver-information.html';
+var AIRPORT_INFO={
+ 'nyc-jfk':{code:'JFK',name:'JFK Airport',official:['JFK: Terminal 5 & 7 ride-app pickup relocation','https://www.jfkairport.com/alerts-advisories/t5-t7-ride-app-relocations'],
+  lots:[{n:'Cell Phone Lot (130th Place)',lat:40.65567,lon:-73.8088},
+        {n:'Limousine (Limo) Lot – Cargo Plaza, off 148th St',lat:40.66307,lon:-73.79524,approx:true},
+        {n:'FHV Hold Lot 3 – Howard Beach AirTrain station (for Terminal 5 & 7 pickups)',lat:40.66043,lon:-73.83027,approx:true}],
+  rules:['Wait only in a designated FHV staging lot – the Cell Phone Lot or the Limo Lot. Both feed the same virtual first-in, first-out (FIFO) queue.',
+         'Free parking in both lots for up to 3 hours.',
+         'The number of FHVs allowed in the queue is limited and varies by time of day and demand. If a lot is full, you must leave the airport.',
+         'Terminal 5 & 7 FHV pickups moved to the Howard Beach Ride App & Car Services Lot (May 2025); wait in FHV Hold Lot 3 there.',
+         'Terminal 4 pickups: Arrivals curb, Zone B (since 12/30/2025).',
+         'No waiting or idling at terminals – you can get a citation.'],
+  links:[['Uber: JFK driver info','https://www.uber.com/global/en/r/airports/jfk/driver-information/'],['Lyft: JFK driver info','https://help.lyft.com/hc/en-us/all/articles/2267397511-john-f-kennedy-international-airport-info-for-drivers']]},
+ 'nyc-lga':{code:'LGA',name:'LaGuardia (LGA)',official:['LGA: ride-share pickup info','https://www.laguardiaairport.com/transportation/ride-share-services'],
+  lots:[{n:'FHV Hold Lot – 46-10 Berrian Blvd (UberX / XL and most products)',lat:40.7751,lon:-73.89358},
+        {n:'Cell Phone Lot – 94th St between Astoria Blvd & 23rd Ave (Uber Black / Black SUV)',lat:40.76894,lon:-73.87584}],
+  rules:['Both FHV waiting areas are open 6 AM – 1 AM daily (per Uber).',
+         'Virtual FIFO queue: your spot in the lot doesn\'t matter. You can lose your place if you go offline, leave the zone, decline several requests in a row, or cancel several rides.',
+         'Terminal B pickups: Level 2 of the Terminal B garage; UberX may use ExpressMatch at Curb H.',
+         'Lyft Help lists a surface lot on 23rd Ave between 90th & 92nd St – if your app shows a different lot, follow the app.',
+         'No parking or idling at terminals.'],
+  links:[['Uber: LGA driver info','https://www.uber.com/global/en/r/airports/lga/driver-information/'],['Lyft: LGA driver info','https://help.lyft.com/hc/en-us/all/articles/4197667600-LaGuardia-Airport-(LGA)-info-for-drivers']]},
+ 'nyc-ewr':{code:'EWR',name:'Newark (EWR)',official:null,
+  lots:[{n:'Rideshare Hold Lot – end of Earhart Drive',lat:40.68833,lon:-74.18807,approx:true}],
+  rules:['Wait in the Rideshare Hold Lot (up to 4 hours) to join the virtual FIFO queue.',
+         'NJ-based drivers get the next trip to NJ; NYC-based drivers get the next trip to NYC (state / local law).',
+         'Terminal C pickups moved to the Terminal C Parking Garage, Level 3 (enter from HOV Rd), on 06/10/2026.',
+         'Re-match: after an airport drop-off you may get a pickup without going back to the lot.',
+         'No loitering at terminal curbs – idling can still get a fine.'],
+  links:[['Uber: EWR driver info','https://www.uber.com/global/en/r/airports/ewr/driver-information/'],['Lyft: EWR driver info','https://help.lyft.com/hc/en-ca/all/articles/6764134610-newark-liberty-international-airport-info-for-drivers']]}
+};
+// Estimated airport pickup demand from typical arrival patterns (time/day only – NOT live data)
+function aptDemand(dt){var h=dt.getHours(),d=dt.getDay();
+  if(d===0&&inR(h,15,23))return {lvl:'High',sc:88,why:'Sunday afternoon/evening returns'};
+  if(inR(h,14,21))return {lvl:'High',sc:82,why:'Afternoon & evening arrival banks'};
+  if(inR(h,21,24))return {lvl:'Moderate',sc:64,why:'Late-evening arrivals'};
+  if(inR(h,6,9))return {lvl:'Moderate',sc:58,why:'Red-eye & early-morning arrivals'};
+  if(inR(h,9,14))return {lvl:'Moderate',sc:55,why:'Midday arrivals'};
+  return {lvl:'Low',sc:22,why:'Few arrivals overnight'}}
+function aptLvlStyle(sc){return 'color:'+busyLine(sc)+';border-color:'+busyLine(sc)+';background:'+busyHex(sc)+'22'}
+function lotLink(l){return 'https://www.google.com/maps/search/?api=1&query='+l.lat.toFixed(5)+','+l.lon.toFixed(5)}
+function aptQueueNote(){return 'Live queue length / wait for rideshare lots is <b>not published</b> – your Uber or Lyft driver app shows your place in line once you\'re in the lot. PANYNJ\'s live dashboard covers <b>yellow-taxi</b> lots only.'}
+function aptCardHtml(id,dt){var a=AIRPORT_INFO[id];if(!a)return '';var e=aptDemand(dt);
+  return '<div class="apt" data-apt="'+a.code+'"><div class="apt-h"><b>✈️ '+esc(a.name)+'</b><span class="apt-lvl" style="'+aptLvlStyle(e.sc)+'">'+e.lvl+' demand (est.)</span></div>'+
+   '<div class="small muted" style="margin-top:3px">'+esc(e.why)+' · estimate from time/day, not live data</div>'+
+   '<div style="margin-top:8px;font-size:13px;font-weight:700">Rideshare / FHV waiting lots</div><ul>'+a.lots.map(function(l){return '<li>'+esc(l.n)+(l.approx?' <span class="tag">approx. location</span>':'')+' · <a href="'+lotLink(l)+'" target="_blank" rel="noopener">Map</a></li>'}).join('')+'</ul>'+
+   '<div class="small" style="margin-top:6px">⏳ Queue wait: <b>not publicly available</b> – check your driver app.</div>'+
+   '<details><summary>Rules</summary><ul>'+a.rules.map(function(r){return '<li>'+esc(r)+'</li>'}).join('')+'</ul></details>'+
+   '<div class="src"><a href="'+PANYNJ_TAXI+'" target="_blank" rel="noopener">Check the official source (PANYNJ)</a>'+(a.official?'<a href="'+a.official[1]+'" target="_blank" rel="noopener">'+esc(a.official[0])+'</a>':'')+a.links.map(function(k){return '<a href="'+k[1]+'" target="_blank" rel="noopener">'+esc(k[0])+'</a>'}).join('')+'</div></div>'}
+function renderAptQueues(){var dt=scanDate();$('aptQueues').innerHTML=Object.keys(AIRPORT_INFO).map(function(id){return aptCardHtml(id,dt)}).join('')+'<p class="small muted" style="margin:8px 2px 4px">'+aptQueueNote()+' Rules and lots checked '+APT_CHECKED+' – they change often, so always follow airport signs and your app.</p>'}
+function aptPopup(p,dt){var a=AIRPORT_INFO[p.id],e=aptDemand(dt);
+  return '<b>✈️ '+esc(p.name)+'</b><br><span style="color:#6b7280">Info only – Smart Gear doesn\'t send you to airport lots</span>'+
+   '<div class="pp-eta"><div>Airport demand: <b style="color:'+busyLine(e.sc)+'">'+e.lvl+'</b> (estimate) – '+esc(e.why)+'</div><div>⏳ Queue wait: not publicly available</div></div>'+
+   (a?'<div style="font-size:12.5px;margin-top:6px"><b>Waiting lots:</b> '+a.lots.map(function(l){return esc(l.n.split(' – ')[0])}).join(' · ')+'</div>':'')+
+   '<div style="margin-top:6px;font-size:12.5px"><a href="'+PANYNJ_TAXI+'" target="_blank" rel="noopener">Check the official source</a> · <a href="#scan" data-aptinfo="1">Airport queues</a></div>'}
 function rankHtml(list){
   return list.map(function(x,i){var t=TYPES[x.p.type]||TYPES.market;
     return '<div class="rank"><div class="no">'+(i+1)+'</div><div class="b"><b>'+t[0]+' '+esc(x.p.name)+'</b><div class="why">'+esc(t[1])+' · '+esc(x.why)+'</div>'+(x.generic?'':'<div class="eta">'+esc(etaText(x,scanDate()))+'</div>')+'<div class="sbar"><i class="'+busyCls(x.score)+'" style="width:'+x.score+'%;background:'+scoreColor(x.score)+'"></i></div>'+
@@ -741,7 +866,7 @@ function genericList(fn,exclude){
   var dt=scanDate(),h=dt.getHours(),d=dt.getDay();
   return Object.keys(TYPES).filter(function(k){return k!==exclude}).map(function(k){var b=fn(k,h,d);return {p:{name:TYPES[k][1],type:k},score:b[0],why:b[1],link:searchLink(TYPES[k][1]),generic:true}}).sort(function(a,b){return b.score-a.score}).slice(0,6);
 }
-var EMPTY='<div class="empty" style="padding:14px 4px 6px">No hotspots saved yet.<br>Add an area in <b>📍 My areas</b> or restore the <b>NYC default areas</b>. Log pickups and this list will learn from them.<br><br><span class="small">Meanwhile, general suggestions for this time:</span></div>';
+var EMPTY='<div class="empty" style="padding:14px 4px 6px">No hotspots saved yet.<br>Add an area in <b>📍 My areas</b> or restore the <b>NYC default areas</b>.<br><br><span class="small">Meanwhile, general suggestions for this time:</span></div>';
 function renderScan(){
   var dt=scanDate();
   $('scWhen').textContent=usDate(dt,true)+', '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
@@ -752,7 +877,7 @@ function renderScan(){
   var F=function(l){return l.filter(function(x){return inBoro(x.p)})},BE='<div class="empty">No saved areas in this borough.</div>';
   if(scanSub==='go')$('goList').innerHTML=state.hotspots.length?(rankHtml(F(rankGo(dt)))||BE):EMPTY+rankHtml(genericList(heur));
   if(scanSub==='long'){$('longDef').textContent=S().longMi+'+ mi or '+S().longMin+'+ min';$('longList').innerHTML=state.hotspots.length?(rankHtml(F(rankLong(dt)))||BE):EMPTY+rankHtml(genericList(function(t,h,d){return longH({type:t,id:''},h,d)}))}
-  if(scanSub==='air'){var ra=F(rankAir(dt));$('airList').innerHTML=ra.length?rankHtml(ra):scanBoro!=='all'&&state.hotspots.length?BE:(state.hotspots.length?'<div class="empty">Only airports are saved. Add areas like hotels, office districts or upscale residential.</div>':EMPTY)+rankHtml(genericList(airH,'airport'))}
+  if(scanSub==='air'){renderAptQueues();var ra=F(rankAir(dt));$('airList').innerHTML=ra.length?rankHtml(ra):scanBoro!=='all'&&state.hotspots.length?BE:(state.hotspots.length?'<div class="empty">Only airports are saved. Add areas like hotels, office districts or upscale residential.</div>':EMPTY)+rankHtml(genericList(airH,'airport'))}
   if(scanSub==='areas'){
     if(!$('hType').options.length)$('hType').innerHTML=Object.keys(TYPES).map(function(k){return '<option value="'+k+'">'+TYPES[k][0]+' '+TYPES[k][1]+'</option>'}).join('');
     $('areaList').innerHTML=state.hotspots.length?'<ul class="list">'+state.hotspots.map(function(p){var t=TYPES[p.type]||TYPES.market,cnt=0,air=0;state.pickups.forEach(function(r){if(r.area===p.id){cnt++;if(r.airport)air++}});var bs=bestSlot(p.id);
@@ -811,7 +936,7 @@ function longH(p,h,d){
 function longHist(id,h,d,win){var we=isWe(d),near=0,all=0;state.pickups.forEach(function(r){if(r.area!==id||!r.long)return;all++;if(hDiff(entryHour(r),h)<=win&&isWe(entryDow(r))===we)near++});return {near:near,all:all}}
 function rankLong(dt){
   var h=dt.getHours(),d=dt.getDay();
-  return state.hotspots.map(function(p){
+  return recoAreas().map(function(p){
     var b=longH(p,h,d),sc=b[0],why=[b[1]],m=longHist(p.id,h,d,2);
     if(m.all>0){sc+=Math.min(30,m.near*10)+Math.min(10,m.all*3);why.push('Your '+m.all+' long ride'+(m.all>1?'s':'')+' from here'+(m.near?' ('+m.near+' around this time)':''))}
     return {p:p,raw:sc,score:Math.round(Math.max(0,Math.min(100,sc))),why:why.join(' · ')};
@@ -940,6 +1065,10 @@ function drawSpots(o,ranked,filterBoro,filterType,dt){
       '<button type="button" class="navgo" data-nav="'+esc(p.id)+'"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5 3.8 10.6c-.8.3-.7 1.5.1 1.7l6.6 1.2 1.2 6.6c.2.8 1.4.9 1.7.1z"/></svg>Navigate</button>'+'<div style="color:#6b7280;font-size:11px;margin-top:4px">Estimates only – not real Uber/Lyft data</div>'},{maxWidth:270});
     cm.addTo(o.spots);o.vis.push({x:x,cm:cm,r:6+x.score/9});
   });
+  state.hotspots.forEach(function(p){if(p.type!=='airport'||p.lat==null||!inBoroF(p,filterBoro)||!inType(p,filterType))return;
+    L.marker([p.lat,p.lon],{keyboard:false,zIndexOffset:200,title:p.name+' (info only)',icon:L.divIcon({className:'sg-apt',html:'<span>✈️</span>',iconSize:[0,0]})}).bindPopup(function(){return aptPopup(p,o.dt)},{maxWidth:270}).addTo(o.spots);
+    var a=AIRPORT_INFO[p.id];if(a&&o.id==='busyMap')a.lots.forEach(function(l){L.marker([l.lat,l.lon],{keyboard:false,title:l.n,icon:L.divIcon({className:'sg-lot',html:'<span>P</span>',iconSize:[0,0]})}).bindPopup('<b>🅿️ '+esc(l.n)+'</b><br><span style="color:#6b7280">'+esc(a.name)+' rideshare / FHV waiting lot'+(l.approx?' (approx. location)':'')+'</span><div class="pp-eta">⏳ Queue wait: not publicly available – your driver app shows your place in line.</div><a href="'+PANYNJ_TAXI+'" target="_blank" rel="noopener">Check the official source</a>',{maxWidth:260}).addTo(o.spots)});
+  });
   o.hexRanked=ranked;boroVis(o);drawEtas(o);drawHexes(o);
 }
 // Time badges on the map: only the top spots that fit at the current zoom; dots only when zoomed out
@@ -1035,7 +1164,7 @@ function setSheet(open,anim){hs.open=open;hs.y=open?0:hs.max;var sh=$('hSheet');
 })();
 $('hPill').addEventListener('click',function(){setSheet(!hs.open)});
 $('hProfile').addEventListener('click',function(){showTab('settings')});
-$('hSearch').addEventListener('click',function(){showTab('scan')});
+
 $('hLocate').addEventListener('click',function(){locateMe();if(geo.fix&&maps.homeMap)maps.homeMap.map.setView([geo.fix.lat,geo.fix.lon],14)});
 window.addEventListener('resize',function(){layoutHome()});
 function renderHomeMap(){var o=makeMap('homeMap',{zoom:false,attrPos:'topright'});if(!o)return;o.map.invalidateSize();var ddt=demandDt();drawSpots(o,rankGo(ddt),'all','all',ddt);
@@ -1166,7 +1295,7 @@ function instr(st,destName){
 function speak(txt){try{if(!S().navVoice||!window.speechSynthesis||!window.SpeechSynthesisUtterance)return;var u=new SpeechSynthesisUtterance(txt);u.lang='en-US';u.rate=1;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function navShowErr(title,msg){var p=nav.dest;$('navErrTitle').textContent=title;$('navErrMsg').textContent=msg;$('navGmaps').href=p?mapsLink(p):'#';$('navErr').style.display='';$('navStreet').textContent=title}
 function startNav(id){
-  var p=hotspotById(id);if(!p)return;
+  var p=hotspotById(id)||(srch.places[id]&&srch.places[id].lat!=null?srch.places[id]:null);if(!p)return;
   nav.active=true;nav.dest=p;nav.route=null;nav.step=0;nav.spoken={};nav.arrived=false;nav.follow=true;nav.prev=null;nav.lastFetch=0;nav.shownStep=-1;nav.along=null;nav.snapped=false;meAnim.a1=null;meAnim.a0=null;$('navLanes').style.display='none';
   $('navView').classList.add('open');$('navView').setAttribute('aria-hidden','false');$('navErr').style.display='none';$('navThen').style.display='none';
   $('navBanner').classList.remove('arrived');$('navArrow').innerHTML='';$('navDist').textContent='—';$('navStreet').textContent='Finding route…';
@@ -1268,7 +1397,7 @@ $('navErrClose').addEventListener('click',endNav);
 $('navVoice').addEventListener('click',function(){S().navVoice=!S().navVoice;save();navSyncToggles();if(!S().navVoice)try{speechSynthesis.cancel()}catch(e){}});
 $('navHead').addEventListener('click',function(){S().navHeadUp=!S().navHeadUp;save();navSyncToggles();navApplyHeading()});
 $('navRecenter').addEventListener('click',function(){nav.follow=true;this.style.display='none';var at=meAnim.pos||geo.fix;if(at&&maps.navMap){nav.zoomAt=Date.now();maps.navMap.map.setView(navCam(at,navZoom()),navZoom(),{animate:true})}});
-document.addEventListener('click',function(e){var b=e.target.closest('[data-nav]');if(!b||!b.dataset.nav)return;e.preventDefault();try{Object.keys(maps).forEach(function(k){maps[k].map.closePopup()})}catch(_){}startNav(b.dataset.nav)});
+document.addEventListener('click',function(e){var ai=e.target.closest('[data-aptinfo]');if(ai){e.preventDefault();try{Object.keys(maps).forEach(function(k){maps[k].map.closePopup()})}catch(_){}scanSub='air';showTab('scan');return}var b=e.target.closest('[data-nav]');if(!b||!b.dataset.nav)return;e.preventDefault();try{Object.keys(maps).forEach(function(k){maps[k].map.closePopup()})}catch(_){}startNav(b.dataset.nav)});
 
 // ---------- boot ----------
 load();
@@ -1279,7 +1408,7 @@ try{if(navigator.permissions&&navigator.permissions.query)navigator.permissions.
 if(btBridge())SmartGearBT.poll();
 document.addEventListener('visibilitychange',function(){if(!document.hidden&&btBridge())SmartGearBT.poll()});
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
-window.SmartGear={navx:{anim:meAnim,delta:angDelta,zoomForSpeed:zoomForSpeed,glyph:maneuverKind},demand:demand,nav:nav,startNav:function(id){startNav(id)},endNav:function(){endNav()},est:{wait:waitEst,mph:mphAt,drive:driveEst,best:bestSpot,cap:etaCap,color:busyHex,word:busyWord},geo:geo,maps:maps,layoutHome:layoutHome,state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
+window.SmartGear={navx:{anim:meAnim,delta:angDelta,zoomForSpeed:zoomForSpeed,glyph:maneuverKind},demand:demand,nav:nav,startNav:function(id){startNav(id)},endNav:function(){endNav()},est:{wait:waitEst,mph:mphAt,drive:driveEst,best:bestSpot,cap:etaCap,color:busyHex,word:busyWord},geo:geo,maps:maps,layoutHome:layoutHome,recoCheck:function(){var ok=true,A=function(p){return p&&p.type==='airport'};for(var h=0;h<168;h++){var dt=new Date(2026,9,4,0,0);dt.setHours(h);if(rankGo(dt).some(function(x){return A(x.p)})||rankLong(dt).some(function(x){return A(x.p)})){ok=false;break}var b=bestSpot(dt);if(b&&A(b.x.p)){ok=false;break}}return ok&&!/JFK|LaGuardia|Newark/.test(document.getElementById('top5List').textContent)},aptDemand:aptDemand,state:function(){return state},reset:function(){localStorage.removeItem(KEY);load();render()}};
 })();
 </script>
 </body>

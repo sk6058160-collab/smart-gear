@@ -1,5 +1,5 @@
 /* Smart Gear service worker: cache-first app shell, works fully offline */
-const CACHE = 'smartgear-v12';
+const CACHE = 'smartgear-v13';
 const ASSETS = ['./', './index.html', './manifest.json', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png', './vendor/leaflet/leaflet.js', './vendor/leaflet/leaflet.css', './vendor/nyc-boroughs.js'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
